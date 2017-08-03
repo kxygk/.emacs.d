@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Emacs configuration</title>
+<!-- 2017-08-02 Wed 14:30 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="George Kontsevich" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://geokon-gh.github.io/static/worg.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Emacs configuration</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Intro</a></li>
+<li><a href="#sec-2">General Settings</a>
+<ul>
+<li><a href="#sec-2-1">Package managment</a></li>
+<li><a href="#sec-2-2">Indentation - Change the default indentation from 2 spaces to 4</a></li>
+<li><a href="#sec-2-3">Line wrap</a></li>
+<li><a href="#sec-2-4">Theme</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">Orgmode</a>
+<ul>
+<li><a href="#sec-3-1">Some adjustments to org-mode</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">C++</a>
+<ul>
+<li><a href="#sec-4-1">RTags</a></li>
+<li><a href="#sec-4-2">Company</a></li>
+<li><a href="#sec-4-3">CMake-IDE</a></li>
+<li><a href="#sec-4-4">Using the environment</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Intro</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Starting from knowing nothing I documented writing my first Emacs configuration file. It should serve as a gentle guide to writing your own and understanding other people's configurations. I've found that the most important aspect in writing and reading configurations is understanding how emacs helps you figure out what you don't understand. Knowing elisp won't be necessary!
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">General Settings</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">Package managment</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+To extend Emacs we will want to be able to add extenal packages. Emacs comes with a package manager called <code>package</code>. To get a more detailed description type <code>C-h P package RET</code>. Using the <code>require</code> function we can load this feature.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">require</span> '<span style="color: #1f5bff;">package</span>)
+(package-initialize)
+</pre>
+</div>
+<p>
+To see more specifically what the <code>require</code> function does type <code>C-h f require RET</code><br  />
+</p>
+
+<p>
+The second line runs some function that's inside of <code>package</code> which will initialize the package feature - you can also look it up using <code>C-h f</code>. You'll find that virtually every function will have some associted documentation
+</p>
+
+<p>
+Note the use of a leading quote before the word <code>package</code>; This tells emacs that the word <code>package</code> is a symbol. If you ommit the quote then emacs will try to evaluate <code>package</code> as a function and give you an error.
+</p>
+
+<p>
+Next we tell the package manager where to look for packages. The standard here is <a href="https://melpa.org"><code>MELPA</code></a>, and we just need to add it to the list <code>package-archives</code><br  />
+To look up a variable, use <code>C-h v [variable] RET</code>
+So type <code>C-h v package-archives RET</code> to see what it's for
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'package-archives
+             '(<span style="color: #ff1f8b;">"melpa"</span> . <span style="color: #ff1f8b;">"https://melpa.org/packages/"</span>))
+</pre>
+</div>
+<p>
+This <code>C-h [something] [something]</code> pattern repeats for a lot of features. To see the complete list just enter <code>C-h C-h</code>. These key-bindings will be your way of exploring configurations you find online.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">Indentation - Change the default indentation from 2 spaces to 4</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Indentation is generally govered by two variables<br  />
+<code>default-tab-width</code> - this is the variable for any text document when you normally type in a TAB<br  />
+<code>c-basic-offset</code> - when working with source code the indentation is done automatically and based on this offset value  (a lot of modes derive from <code>c-mode</code>, hence the name) <br  />
+More info: <a href="https://kb.iu.edu/d/abde">https://kb.iu.edu/d/abde</a> <br  />
+Our first attempt at changing this value:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(set 'c-basic-offset 4)
+</pre>
+</div>
+<p>
+Note again the leading quote that prevents <code>c-basic-offset</code> from being evaluated as a function. Since we are almost always directly assigning to a symbol, emacs gives us the function <code>setq</code> as a quick short hand that will automatically quote the first argument
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">setq</span> c-basic-offset 4)
+</pre>
+</div>
+<p>
+This shorthand is used so extensively that'll you'll rarely see the <code>set</code> method.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3">Line wrap</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Next we need to enable line-wrap in org mode. By default, as you keep typing the page scrolls to the right. So a whole paragraph will appear as one line making it difficult to navigate
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'org-mode-hook (<span style="color: #00af00;">lambda</span> () (<span style="color: #00af00;">setq</span> truncate-lines nil)))
+</pre>
+</div>
+<p>
+again, don't hesitate to look up all the variables and function
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4">Theme</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+This is the only decent light theme I could find. It colors a bit more stuff than the default - like code blocks in org-mode
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">require</span> '<span style="color: #1f5bff;">moe-theme</span>)
+(moe-light)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Orgmode</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">Some adjustments to org-mode</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+see <a href="http://howardism.org/Technical/Emacs/literate-programming-tutorial.html">here</a> for reference <br  />
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">setq</span> org-confirm-babel-evaluate nil <span style="color: #b2b2b2; font-style: italic;">;; </span><span style="color: #b2b2b2; font-style: italic;">don't prompt for confirmation about executing a block</span>
+      org-src-tab-acts-natively t
+      org-use-sub-superscripts '{}
+      org-src-fontify-natively t)
+(<span style="color: #00af00;">require</span> '<span style="color: #1f5bff;">htmlize</span>)
+</pre>
+</div>
+<p>
+1 - Turns off some annoying "are you sure?" prompts on tangle export <br  />
+2 - Makes tabs work in the source code blocks the same as it would in a buffer with that source code <br  />
+3 - Makes it so underscores aren't interpreted as subscripts unless used with braces <br  />
+(I often need underscores for file/variable names) <br  />
+4 - Make source code colored based on the language <br  />
+5 - <code>htmlize</code> will colorize code in the HTML export of orgmode
+For more info on any of these variables, again, use <code>C-h v [variable] RET</code>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">C++</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Here we'll setup a development environment as feature rich as an IDE <br  />
+I based it on <a href="http://syamajala.github.io/c-ide.html">this guide</a> - but I've really pared it down. I still seem to get all the same autocomplete/navigation and error squigglies, so I don't really know what I'm missing here <br  />
+</p>
+</div>
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">RTags</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+The backbone of most modern C++ dev environments leverage <code>libclang</code> to parse the C++ codebase. In Emacs we do the same using a independent system called <code>rtags</code> which runs as a deamon parsing your codebase in the background. Emacs has a <code>rtags</code> package for launching and communicating with the deamon which will then feed up all the information available to the compiler front-end. So to get started you need to go to the <a href="https://github.com/Andersbakken/rtags">rtags github</a> and install rtags. The rtags documentation is extensive, but for our purposes we just need to have rtags in the path. The rest will be handles by Emacs. Once you're done installing, if you want to sanity check you can run <code>rdm</code> from the command line and see some process boot up (you can kill it - Emacs will be launching <code>rdm</code> itself by the end of this configuration)
+</p>
+
+<p>
+Once you have it installed somewhere in your path we need to do the following: <br  />
+1 - enable rtags <br  />
+2 - enable standard key binding <br  />
+2 - enable diagnostics (needed for code completion!) <br  />
+3 - enable code completion <br  />
+4 - launch the rtags deamon
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">require</span> '<span style="color: #1f5bff;">rtags</span>)
+(rtags-enable-standard-keybindings)
+(<span style="color: #00af00;">setq</span> rtags-autostart-diagnostics t)
+(rtags-diagnostics)
+(<span style="color: #00af00;">setq</span> rtags-completions-enabled t)
+(rtags-start-process-unless-running)
+</pre>
+</div>
+<blockquote>
+<p>
+There are c++ code base parsers like <code>ctags</code> <code>ggtags</code> etc. which are much easier to set up but they  will not ultimately give you the same level of robustness and information b/c only <code>rtags</code> leverages a compiler front
+</p>
+</blockquote>
+<blockquote>
+<p>
+Even if you're not building with <code>clang</code> (say you're targetting embedded), <code>rtags</code> should be able to index your project
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2">Company</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Next we turn on <code>company</code>. The package that will do autocompletion for us (it standards for COMPlete ANYthing)
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">require</span> '<span style="color: #1f5bff;">company</span>)
+(<span style="color: #00af00;">push</span> 'company-rtags company-backends)
+(global-company-mode)
+(define-key c-mode-base-map (kbd <span style="color: #ff1f8b;">"&lt;C-tab&gt;"</span>) (<span style="color: #00af00;">function</span> company-complete))
+</pre>
+</div>
+<p>
+looking at the documentation we see that <code>push</code> will take the 1st argument and add it to the beginning of the list provided in the 2nd argument. <code>company-backends</code> is "a list of active backends (completion engines)". <code>company-rtags</code> is a backend provided by the <code>rtags</code> guys. See the documentation for more info :)
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3">CMake-IDE</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+The last part is adding <code>cmake-ide</code>
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(cmake-ide-setup)
+</pre>
+</div>
+<p>
+This is the glue that will point <code>rtags</code>  to the right location and make everything work. When you are in a buffer for a c++ file it will look for it's corresponding CMakeLists.txt and run cmake and hook <code>rtags</code> up.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4">Using the environment</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+Now that everything is set up there are a couple of small caveats before you can use it all: <br  />
+1 - You need to give <code>cmake-ide</code> a build directory by setting <code>cmake-ide-build-dir</code>
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">setq</span> cmake-ide-build-dir '<span style="color: #ff1f8b;">"/some/build/directory/"</span>)
+</pre>
+</div>
+<p>
+2 - You need to run cmake <a href="https://github.com/atilaneves/cmake-ide/issues/75#issuecomment-268973147">at least once</a> manually in that directory with all the flags you want
+</p>
+<pre class="example">
+cd /path/to/build/directory
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -D[your flags/options.. like build release/debug] /path/to/source/directory
+</pre>
+<p>
+The first flag makes <code>cmake</code> export a <code>.json</code> file describing the build. <code>rtags</code> uses this file to understand which source files to feed into <code>libclang</code> (so this is happening independent of your actual build toochain whether it be <code>gcc</code> or something else)
+</p>
+
+<p>
+These last two steps are a bit clunky but only have to be done once. After that rtags will run in the background reindexing the project when appropriate. You can now jump to definitions with <code>C-c r .</code>, things will autcomplete with <code>C-TAB</code>, errors will get underlined (when your cursor rests over the error it'll print in the minibuffer), and things will compile when you run <code>M-x cmake-ide-compile</code>. <code>rtags</code> in particular has a ton of different features - so look at their github for more info
+</p>
+
+<blockquote>
+<p>
+Note that things sometimes get a little wonky when rtags is not done indexing in the background. So sometimes you just need to give it a little time to reindex! This is especially true after the first time you build the project. So give it a minute to settle down before you frantically try to debug things
+</p>
+</blockquote>
+<blockquote>
+<p>
+<b>Wishlist/TODOs</b>
+</p>
+<ul class="org-ul">
+<li>Make the last clunky part into an elisp function that prompts for a build directory
+</li>
+<li>Find a way to inspect the Rtags backend's state so that you can have something in the mode-line that tells you if it's still busy
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>
+This webpage is generated from an org-document (at <code>./index.org</code>) that also generates all the files described. 
+</p>
+
+<p>
+Once opened in Emacs:<br  />
+</p>
+<ul class="org-ul">
+<li><code>C-c C-e h h</code> generates the webpage  <br  />
+</li>
+<li><code>C-c C-v C-t</code> exports the code blocks into the appropriate files<br  />
+</li>
+</ul>
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: George Kontsevich</p>
+<p class="date">Created: 2017-08-02 Wed 14:30</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
