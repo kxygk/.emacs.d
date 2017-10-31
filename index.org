@@ -1,4 +1,4 @@
-#+TITLE: Emacs configuration
+#+TITLE: Emacs configuration for C++/CMake/git
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://geokon-gh.github.io/static/worg.css" />
 #+options: num:nil
 # This will export a README.org file for Github, so that people that land in my repo know where to find the relevant webpage
@@ -7,19 +7,23 @@
 #+END_SRC
 
 * Intro
-Starting from knowing nothing I documented writing my first Emacs configuration file. It should serve as a gentle guide to writing your own and understanding other people's configurations. I've found that the most important aspect in writing and reading configurations is understanding how emacs helps you figure out what you don't understand. Knowing elisp won't be necessary!
+I hope this emacs configuration file will help explain a little elisp and how to write your own. 
+
+The most important take-away is understanding how emacs can help read and learn from other people's configurations. Once you know how to navigate the documentation you can pick apart any config file and expand your own
+
+Note that I wrote this knowing no lisp at all - so if there are mistakes or you would like to make some suggestions I'd really appreciate you telling me by adding an issue on the [[https://geokon-gh.github.io/.emacs.d/][github repo]]
 * General Settings
 ** Package managment
-To extend Emacs we will want to be able to add external packages. Emacs comes with a built in package manager called ~package~ which we will use to get external package. Lets load it in using the ~require~ function and then initialize it.
+To begin extending Emacs we will want to be able to add external packages. Emacs comes with a built in package manager called ~package~ which we will use to get external package. We load it by using ~require~  and then we initialize it.
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (require 'package)
   (package-initialize)
 #+END_SRC
-To see more specifically what the ~require~ function does type ~C-h f require RET~. You'll find that virtually every function will have some associted documentation
+To see more specifically what the ~require~ function does type ~C-h f require RET~. You'll find that virtually every function will have some associted documentation.
 
 Note the use of a leading quote before the word ~package~; This tells emacs that the word ~package~ is a symbol. If you ommit the quote then emacs will try to evaluate ~package~ as a function and give you an error.
 
-Next we tell the package manager where to look for packages. The standard here is [[https://melpa.org][~MELPA~]], and we just need to add it to the list ~package-archives~\\
+Next we need to tell the package manager where to look for new packages. There is a limited GNU-blessed repository called ~ELPA~, but we will also want to add another larger repository called [[https://melpa.org][~MELPA~]]. To do that we we just need to add it to the list called ~package-archives~\\
 To look up a variable, use ~C-h v [variable] RET~
 So type ~C-h v package-archives RET~ to see what it's for
 #+BEGIN_SRC emacs-lisp :tangle init.el
@@ -28,9 +32,9 @@ So type ~C-h v package-archives RET~ to see what it's for
 #+END_SRC
 This ~C-h [something] [something]~ pattern repeats for a lot of features. To see the complete list just enter ~C-h C-h~. These key-bindings will be your way of exploring configurations you find online.
 
-The newer fancy way of managing package is using ~use-package~. I've included it as a git submodule in my ~.emacs.d~ directory which you can see in [[https://github.com/geokon-gh/.emacs.d][the repository]] (be sure to clone recursively if you decide to use my version). Or you can get yourself manually from: https://github.com/jwiegley/use-package
+The newer fancy way of managing package is using ~use-package~. I've included it as a git submodule in my ~.emacs.d~ directory which you can see in [[https://github.com/geokon-gh/.emacs.d][the repository]] (be sure to clone recursively if you decide to use my version). You can get it yourself manually from: https://github.com/jwiegley/use-package
 
-Once we have it in our directory we just need to add it to the ~load-path~ and load it in using the ~require~ function
+Once we have it in our directory we just need to add it to the ~load-path~ and load it in using ~require~ like last time
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (setq
    load-path
@@ -42,6 +46,7 @@ Once we have it in our directory we just need to add it to the ~load-path~ and l
   (require 'use-package)
 
 #+END_SRC
+~setq~ is the function that sets a variable to a value. The ~q~ indicates that we don't need to add a quote to the first arguement. There is also the more cumbersome ~(set 'arg1 'arg2)~. The rest of the code is there to append the new path to ~use-package~ correctly to the existing ~load-path~.
 # TODO: figure out why a lot of people have
 # (setq package-enable-at-startup nil)
 # at the top of their init file and then a
@@ -54,23 +59,17 @@ Indentation is generally govered by two variables\\
 ~default-tab-width~ - this is the variable for any text document when you normally type in a TAB\\
 ~c-basic-offset~ - when working with source code the indentation is done automatically and based on this offset value  (a lot of modes derive from ~c-mode~, hence the name) \\ 
 More info: https://kb.iu.edu/d/abde \\ 
-Our first attempt at changing this value:
-#+BEGIN_SRC emacs-lisp
-  (set 'c-basic-offset 4)
-#+END_SRC
-Note again the leading quote that prevents ~c-basic-offset~ from being evaluated as a function. Since we are almost always directly assigning to a symbol, emacs gives us the function ~setq~ as a quick short hand that will automatically quote the first argument
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (setq c-basic-offset 4)
 #+END_SRC
-This shorthand is used so extensively that'll you'll rarely see the ~set~ method.
 ** Line wrap
 Next we need to enable line-wrap in org mode. By default, as you keep typing the page scrolls to the right. So a whole paragraph will appear as one line making it difficult to navigate
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 #+END_SRC
-again, don't hesitate to look up all the variables and function
+again, don't hesitate to look up all the variables and function. Hooks are in general places where you can add function to be called at designated times. Here it's a function that sets a variable each time org-mode is enabled.
 ** Theme
-This is the only decent light theme I could find. It colors a bit more stuff than the default - like code blocks in org-mode
+This is the only decent light theme I could find. The advantage over the default theme is that it will color a more things in more modes. The most important to me me is that it will color code blocks in org-mode
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (use-package moe-theme
     :ensure t
@@ -80,7 +79,7 @@ This is the only decent light theme I could find. It colors a bit more stuff tha
 ** Git
 For using git we want to have a couple of tools
 *** Magit
-This is the tool for inspecting and updating out git repository. It's a little complicated to use, so look up documentation for it. It is a must for development in emacs if you use ~git~
+This is the tool for inspecting and updating out git repository. It's a little complicated to use, so look up documentation for it. It is a must for development in emacs if you use ~git~ - so make the investment and learn to use it.
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (use-package magit
     :ensure t)
@@ -93,7 +92,7 @@ This will manage our workspaces. Each workspace will be tied to a git repository
     :config
     (projectile-mode))
 #+END_SRC
-
+I sometimes use this - and other times I just run separate emacs sessions for different projects.
 
 * Orgmode
 ** Some adjustments to org-mode
@@ -106,19 +105,19 @@ see [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][h
   (use-package htmlize
     :ensure t)
 #+END_SRC
-1 - Turns off some annoying "are you sure?" prompts on tangle export \\
+1 - Turns off the annoying "are you sure?" prompts on tangle export \\
 2 - Makes tabs work in the source code blocks the same as it would in a buffer with that source code \\
 3 - Makes it so underscores aren't interpreted as subscripts unless used with braces \\
 (I often need underscores for file/variable names) \\
-4 - Make source code colored based on the language \\
-5 - ~htmlize~ will colorize code in the HTML export of orgmode
+4 - Make source code gets colored based on the language \\
+5 - ~htmlize~ will colorize orgmode code-blocks code in the exported HTML
 For more info on any of these variables, again, use ~C-h v [variable] RET~
 
 * C++ 
 Here we'll setup a development environment as feature rich as an IDE \\
-I based it on [[http://syamajala.github.io/c-ide.html][this guide]] - but I've really pared it down. I still seem to get all the same autocomplete/navigation and error squigglies, so I don't really know what I'm missing here \\
+I based it on [[http://syamajala.github.io/c-ide.html][this guide]] - but I've really pared it down. I still seem to get all the same autocomplete/navigation and error squigglies that the author gets just by using this subset of packages, so I don't really know what I'm missing here
 ** RTags
-The backbone of most modern C++ dev environments leverage ~libclang~ to parse the C++ codebase. In Emacs we do the same using a independent system called ~rtags~ which runs as a deamon parsing your codebase in the background. Emacs has a ~rtags~ package for launching and communicating with the deamon which will then feed up all the information available to the compiler front-end. So to get started you need to go to the [[https://github.com/Andersbakken/rtags][rtags github]] and install rtags. The rtags documentation is extensive, but for our purposes we just need to have rtags in the path. The rest will be handles by Emacs. Once you're done installing, if you want to sanity check you can run ~rdm~ from the command line and see some process boot up (you can kill it - Emacs will be launching ~rdm~ itself by the end of this configuration)
+The backbone of most modern C++ dev environments leverage ~libclang~ to parse the C++ codebase. In Emacs we do the same using a independent system called ~rtags~ which runs as a deamon parsing your codebase in the background. Emacs has a ~rtags~ package for launching and communicating with the deamon which will then feed all the information available to the compiler front-end. So to get started you need to go to the [[https://github.com/Andersbakken/rtags][rtags github]] and install rtags. The rtags documentation is extensive, but for our purposes we just need to have rtags in the system path. The rest will be handles by Emacs. Once you're done installing, if you want to sanity check you can run ~rdm~ from the command line and see some process boot up (you can kill it - Emacs will be launching ~rdm~ itself by the end of this configuration)
 
 Once you have it installed somewhere in your path we need to do the following: \\
 1 - enable rtags \\
@@ -139,7 +138,7 @@ Once you have it installed somewhere in your path we need to do the following: \
 There are c++ code base parsers like ~ctags~ ~ggtags~ etc. which are much easier to set up but they  will not ultimately give you the same level of robustness and information b/c only ~rtags~ leverages a compiler front
 #+END_QUOTE
 #+BEGIN_QUOTE
-Even if you're not building with ~clang~ (say you're targetting embedded), ~rtags~ should be able to index your project
+Even if you're not building with ~clang~ (say you're targetting embedded and are using something like gcc), ~rtags~ should be able to index your project. So don't feel like it ties you to ~clang~
 #+END_QUOTE
 ** Company
 Next we turn on ~company~. The package that will do autocompletion for us (it standards for COMPlete ANYthing)
@@ -173,7 +172,7 @@ The first flag makes ~cmake~ export a ~.json~ file describing the build. ~rtags~
 These last two steps are a bit clunky but only have to be done once. After that rtags will run in the background reindexing the project when appropriate. You can now jump to definitions with ~C-c r .~, things will autcomplete with ~C-TAB~, errors will get underlined (when your cursor rests over the error it'll print in the minibuffer), and things will compile when you run ~M-x cmake-ide-compile~. ~rtags~ in particular has a ton of different features - so look at their github for more info
 
 #+BEGIN_QUOTE
-Note that things sometimes get a little wonky when rtags is not done indexing in the background. So sometimes you just need to give it a little time to reindex! This is especially true after the first time you build the project. So give it a minute to settle down before you frantically try to debug things
+Note that things sometimes get a little wonky when rtags is not finished indexing in the background. So sometimes you just need to give it a little time to reindex! This is especially true after the first time you build the project. So give it a minute to settle down before you frantically try to debug things
 #+END_QUOTE
 #+BEGIN_QUOTE
 *Wishlist/TODOs*
