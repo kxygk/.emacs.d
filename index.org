@@ -10,19 +10,12 @@
 Starting from knowing nothing I documented writing my first Emacs configuration file. It should serve as a gentle guide to writing your own and understanding other people's configurations. I've found that the most important aspect in writing and reading configurations is understanding how emacs helps you figure out what you don't understand. Knowing elisp won't be necessary!
 * General Settings
 ** Package managment
-To extend Emacs we will want to be able to add extenal packages. Emacs comes with a package manager called ~package~. To get a more detailed description type ~C-h P package RET~. Using the ~require~ function we can load this feature.
+To extend Emacs we will want to be able to add external packages. Emacs comes with a built in package manager called ~package~ which we will use to get external package. Lets load it in using the ~require~ function and then initialize it.
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (require 'package)
   (package-initialize)
 #+END_SRC
-# TODO: figure out why a lot of people have
-# (setq package-enable-at-startup nil)
-# at the top of their init file and then a 
-# (package-initialize) 
-# at the end..
-To see more specifically what the ~require~ function does type ~C-h f require RET~\\
-
-The second line runs some function that's inside of ~package~ which will initialize the package feature - you can also look it up using ~C-h f~. You'll find that virtually every function will have some associted documentation
+To see more specifically what the ~require~ function does type ~C-h f require RET~. You'll find that virtually every function will have some associted documentation
 
 Note the use of a leading quote before the word ~package~; This tells emacs that the word ~package~ is a symbol. If you ommit the quote then emacs will try to evaluate ~package~ as a function and give you an error.
 
@@ -34,6 +27,28 @@ So type ~C-h v package-archives RET~ to see what it's for
                '("melpa" . "https://melpa.org/packages/"))
 #+END_SRC
 This ~C-h [something] [something]~ pattern repeats for a lot of features. To see the complete list just enter ~C-h C-h~. These key-bindings will be your way of exploring configurations you find online.
+
+The newer fancy way of managing package is using ~use-package~. I've included it as a git submodule in my ~.emacs.d~ directory which you can see in [[https://github.com/geokon-gh/.emacs.d][the repository]] (be sure to clone recursively if you decide to use my version). Or you can get yourself manually from: https://github.com/jwiegley/use-package
+
+Once we have it in our directory we just need to add it to the ~load-path~ and load it in using the ~require~ function
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (setq
+   load-path
+   (cons
+    (concat
+     (file-name-directory load-file-name)
+    "use-package")
+    load-path))
+  (require 'use-package)
+
+#+END_SRC
+# TODO: figure out why a lot of people have
+# (setq package-enable-at-startup nil)
+# at the top of their init file and then a
+# (package-initialize)
+# at the end..
+
+
 ** Indentation - Change the default indentation from 2 spaces to 4
 Indentation is generally govered by two variables\\ 
 ~default-tab-width~ - this is the variable for any text document when you normally type in a TAB\\
@@ -57,8 +72,10 @@ again, don't hesitate to look up all the variables and function
 ** Theme
 This is the only decent light theme I could find. It colors a bit more stuff than the default - like code blocks in org-mode
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (require 'moe-theme)
-  (moe-light)
+  (use-package moe-theme
+    :ensure t
+    :config
+    (moe-light))
 #+END_SRC
 * Orgmode
 ** Some adjustments to org-mode
@@ -68,7 +85,8 @@ see [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][h
         org-src-tab-acts-natively t
         org-use-sub-superscripts '{}
         org-src-fontify-natively t)
-  (require 'htmlize)
+  (use-package htmlize
+    :ensure t)
 #+END_SRC
 1 - Turns off some annoying "are you sure?" prompts on tangle export \\
 2 - Makes tabs work in the source code blocks the same as it would in a buffer with that source code \\
@@ -91,12 +109,13 @@ Once you have it installed somewhere in your path we need to do the following: \
 3 - enable code completion \\
 4 - launch the rtags deamon
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (require 'rtags)
-  (rtags-enable-standard-keybindings)
-  (setq rtags-autostart-diagnostics t)
-  (rtags-diagnostics)
-  (setq rtags-completions-enabled t)
-  (rtags-start-process-unless-running)
+  (use-package rtags
+    :config
+    (rtags-enable-standard-keybindings)
+    (setq rtags-autostart-diagnostics t)
+    (rtags-diagnostics)
+    (setq rtags-completions-enabled t)
+    (rtags-start-process-unless-running))
 #+END_SRC
 #+BEGIN_QUOTE
 There are c++ code base parsers like ~ctags~ ~ggtags~ etc. which are much easier to set up but they  will not ultimately give you the same level of robustness and information b/c only ~rtags~ leverages a compiler front
@@ -107,10 +126,11 @@ Even if you're not building with ~clang~ (say you're targetting embedded), ~rtag
 ** Company
 Next we turn on ~company~. The package that will do autocompletion for us (it standards for COMPlete ANYthing)
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (require 'company)
-  (push 'company-rtags company-backends)
-  (global-company-mode)
-  (define-key c-mode-base-map (kbd "<C-tab>") (function company-complete))
+  (use-package company
+    :config
+    (push 'company-rtags company-backends)
+    (global-company-mode)
+    (define-key c-mode-base-map (kbd "<C-tab>") (function company-complete)))
 #+END_SRC
 looking at the documentation we see that ~push~ will take the 1st argument and add it to the beginning of the list provided in the 2nd argument. ~company-backends~ is "a list of active backends (completion engines)". ~company-rtags~ is a backend provided by the ~rtags~ guys. See the documentation for more info :)
 ** CMake-IDE
