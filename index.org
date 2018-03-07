@@ -71,11 +71,13 @@ again, don't hesitate to look up all the variables and function. Hooks are in ge
 ** Theme
 This is the only decent light theme I could find. The advantage over the default theme is that it will color a more things in more modes. The most important to me me is that it will color code blocks in org-mode
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (use-package moe-theme
-    :ensure t
-    :config
-    (moe-light))
+   (use-package moe-theme
+     :ensure t
+     :config
+     (moe-light)
+     (set-face-attribute 'default nil :background "#ffffff" :foreground "#5f5f5f"))
 #+END_SRC
+The last line makes the background white (instead of yellow)
 ** Git
 For using git we want to have a couple of tools
 *** Magit

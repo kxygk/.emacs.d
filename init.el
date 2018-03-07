@@ -21,7 +21,8 @@
 (use-package moe-theme
   :ensure t
   :config
-  (moe-light))
+  (moe-light)
+  (set-face-attribute 'default nil :background "#ffffff" :foreground "#5f5f5f"))
 
 (use-package magit
   :ensure t)
