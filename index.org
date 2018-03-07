@@ -114,7 +114,16 @@ see [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][h
 4 - Make source code gets colored based on the language \\
 5 - ~htmlize~ will colorize orgmode code-blocks code in the exported HTML
 For more info on any of these variables, again, use ~C-h v [variable] RET~
+** Plotting
+For one of my ongoing "project" I want my ELisp code to be able to output plots. For that we need to add ~gnuplot~ and then [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-gnuplot.html#org66dbe2c][enable execution]] of ~gnuplot~ blocks in ~orgmode~
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package gnuplot
+    :ensure t)
 
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((gnuplot . t)))
+#+END_SRC
 * C++ 
 Here we'll setup a development environment as feature rich as an IDE \\
 I based it on [[http://syamajala.github.io/c-ide.html][this guide]] - but I've really pared it down. I still seem to get all the same autocomplete/navigation and error squigglies that the author gets just by using this subset of packages, so I don't really know what I'm missing here

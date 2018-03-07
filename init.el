@@ -39,6 +39,13 @@
 (use-package htmlize
   :ensure t)
 
+(use-package gnuplot
+  :ensure t)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((gnuplot . t)))
+
 (use-package rtags
   :config
   (rtags-enable-standard-keybindings)
