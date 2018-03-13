@@ -115,14 +115,16 @@ see [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][h
 5 - ~htmlize~ will colorize orgmode code-blocks code in the exported HTML
 For more info on any of these variables, again, use ~C-h v [variable] RET~
 ** Plotting
-For one of my ongoing "project" I want my ELisp code to be able to output plots. For that we need to add ~gnuplot~ and then [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-gnuplot.html#org66dbe2c][enable execution]] of ~gnuplot~ blocks in ~orgmode~
+For one of my ongoing "project" I want my ELisp code to be able to output plots. For that we need to add ~gnuplot~ and then [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-gnuplot.html#org66dbe2c][enable execution]] of ~gnuplot~ blocks in ~orgmode~. The last line lets me make plots interactively in the ~gnuplot~ buffer
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (use-package gnuplot
-    :ensure t)
+      :ensure t)
 
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((gnuplot . t)))
+
+  (gnuplot-inline-display-mode)
 #+END_SRC
 * C++ 
 Here we'll setup a development environment as feature rich as an IDE \\
@@ -164,7 +166,9 @@ looking at the documentation we see that ~push~ will take the 1st argument and a
 ** CMake-IDE
 The last part is adding ~cmake-ide~
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (cmake-ide-setup)
+  (use-package cmake-ide
+    :config
+    (cmake-ide-setup))
 #+END_SRC
 This is the glue that will point ~rtags~  to the right location and make everything work. When you are in a buffer for a c++ file it will look for it's corresponding CMakeLists.txt and run cmake and hook ~rtags~ up.
 ** Using the environment

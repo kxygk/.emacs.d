@@ -384,16 +384,18 @@ For more info on any of these variables, again, use <code>C-h v [variable] RET</
 <h3 id="sec-3-2">Plotting</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
-For one of my ongoing "project" I want my ELisp code to be able to output plots. For that we need to add <code>gnuplot</code> and then <a href="https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-gnuplot.html#org66dbe2c">enable execution</a> of <code>gnuplot</code> blocks in <code>orgmode</code>
+For one of my ongoing "project" I want my ELisp code to be able to output plots. For that we need to add <code>gnuplot</code> and then <a href="https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-gnuplot.html#org66dbe2c">enable execution</a> of <code>gnuplot</code> blocks in <code>orgmode</code>. The last line lets me make plots interactively in the <code>gnuplot</code> buffer
 </p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">gnuplot</span>
-  <span style="color: #b218b2;">:ensure</span> t)
+    <span style="color: #b218b2;">:ensure</span> t)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((gnuplot . t)))
+
+(gnuplot-inline-display-mode)
 </pre>
 </div>
 </div>

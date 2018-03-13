@@ -40,11 +40,13 @@
   :ensure t)
 
 (use-package gnuplot
-  :ensure t)
+    :ensure t)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((gnuplot . t)))
+
+(gnuplot-inline-display-mode)
 
 (use-package rtags
   :config
@@ -60,4 +62,6 @@
   (global-company-mode)
   (define-key c-mode-base-map (kbd "<C-tab>") (function company-complete)))
 
-(cmake-ide-setup)
+(use-package cmake-ide
+  :config
+  (cmake-ide-setup))
