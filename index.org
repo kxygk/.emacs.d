@@ -201,3 +201,9 @@ Once opened in Emacs:\\
 - ~C-c C-e h h~ generates the webpage  \\
 - ~C-c C-v C-t~ exports the code blocks into the appropriate files\\
 #+END_QUOTE
+* Clojure
+(WIP)
+Starting to play around with ~Clojure~. The canonical ~Clojure~ development environment is ~CIDER~
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package cider)
+#+END_SRC

@@ -65,3 +65,5 @@
 (use-package cmake-ide
   :config
   (cmake-ide-setup))
+
+(use-package cider)
