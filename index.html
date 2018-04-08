@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Emacs configuration for C++/CMake/git</title>
-<!-- 2018-04-01 Sun 20:11 -->
+<!-- 2018-04-08 Sun 19:59 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="George Kontsevich" />
@@ -172,6 +172,8 @@ for the JavaScript code in this tag.
 <li><a href="#sec-4-4">Using the environment</a></li>
 </ul>
 </li>
+<li><a href="#sec-5">Clojure</a></li>
+<li><a href="#sec-6">OpenCL</a></li>
 </ul>
 </div>
 </div>
@@ -364,7 +366,8 @@ see <a href="http://howardism.org/Technical/Emacs/literate-programming-tutorial.
 <pre class="src src-emacs-lisp">(<span style="color: #00af00;">setq</span> org-confirm-babel-evaluate nil <span style="color: #b2b2b2; font-style: italic;">;; </span><span style="color: #b2b2b2; font-style: italic;">don't prompt for confirmation about executing a block</span>
       org-src-tab-acts-natively t
       org-use-sub-superscripts '{}
-      org-src-fontify-natively t)
+      org-src-fontify-natively t
+      org-cycle-emulate-tab 'white)
 (<span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">htmlize</span>
   <span style="color: #b218b2;">:ensure</span> t)
 </pre>
@@ -375,7 +378,8 @@ see <a href="http://howardism.org/Technical/Emacs/literate-programming-tutorial.
 3 - Makes it so underscores aren't interpreted as subscripts unless used with braces <br  />
 (I often need underscores for file/variable names) <br  />
 4 - Make source code gets colored based on the language <br  />
-5 - <code>htmlize</code> will colorize orgmode code-blocks code in the exported HTML
+5 - Make collapsing and expanding sections with the TAB button work everywhere (except where it makes sense to insert an actual <i>tab</i>)
+6 - <code>htmlize</code> will colorize orgmode code-blocks code in the exported HTML
 For more info on any of these variables, again, use <code>C-h v [variable] RET</code>
 </p>
 </div>
