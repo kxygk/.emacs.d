@@ -96,6 +96,12 @@ This will manage our workspaces. Each workspace will be tied to a git repository
 #+END_SRC
 I sometimes use this - and other times I just run separate emacs sessions for different projects.
 
+** images
+When you open a GIF, make it loop forever (instead of playing through once and stopping
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (setq image-animate-loop t)
+#+END_SRC
+Hit ~RET~ to have it start playing
 * Orgmode
 ** Some adjustments to org-mode
 see [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][here]] for reference \\

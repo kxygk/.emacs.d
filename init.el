@@ -32,6 +32,8 @@
   :config
   (projectile-mode))
 
+(setq image-animate-loop t)
+
 (setq org-confirm-babel-evaluate nil ;; don't prompt for confirmation about executing a block
       org-src-tab-acts-natively t
       org-use-sub-superscripts '{}
