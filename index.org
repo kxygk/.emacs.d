@@ -62,6 +62,15 @@ More info: https://kb.iu.edu/d/abde \\
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (setq c-basic-offset 4)
 #+END_SRC
+
+in ELisp it's also a bit hard to see the indentation level, so I like to add this guide (but might remove eventually)
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package indent-guide
+    :ensure t
+    :config
+    (indent-guide-global-mode))
+#+END_SRC
+
 ** Line wrap
 Next we need to enable line-wrap in org mode. By default, as you keep typing the page scrolls to the right. So a whole paragraph will appear as one line making it difficult to navigate
 #+BEGIN_SRC emacs-lisp :tangle init.el

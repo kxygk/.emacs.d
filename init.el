@@ -16,6 +16,11 @@
 
 (setq c-basic-offset 4)
 
+(use-package indent-guide
+  :ensure t
+  :config
+  (indent-guide-global-mode))
+
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
 (use-package moe-theme
