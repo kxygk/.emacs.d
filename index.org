@@ -102,6 +102,16 @@ When you open a GIF, make it loop forever (instead of playing through once and s
   (setq image-animate-loop t)
 #+END_SRC
 Hit ~RET~ to have it start playing
+** system-monitor
+A tiny in-bar system monitor is convenient (and doesn't need to be part of my desktop).
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package symon
+    :ensure t
+    :config
+    (add-to-list 'symon-monitors 'symon-linux-battery-monitor)
+    (symon-mode))
+#+END_SRC
+
 * Orgmode
 ** Some adjustments to org-mode
 see [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][here]] for reference \\

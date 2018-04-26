@@ -34,6 +34,12 @@
 
 (setq image-animate-loop t)
 
+(use-package symon
+  :ensure t
+  :config
+  (add-to-list 'symon-monitors 'symon-linux-battery-monitor)
+  (symon-mode))
+
 (setq org-confirm-babel-evaluate nil ;; don't prompt for confirmation about executing a block
       org-src-tab-acts-natively t
       org-use-sub-superscripts '{}
