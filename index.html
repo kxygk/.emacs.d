@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Emacs configuration for C++/CMake/git</title>
-<!-- 2018-04-26 Thu 23:48 -->
+<!-- 2018-07-30 Mon 19:06 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="George Kontsevich" />
@@ -169,12 +169,12 @@ for the JavaScript code in this tag.
 <li><a href="#sec-4">C++</a>
 <ul>
 <li><a href="#sec-4-1">RTags</a></li>
-<li><a href="#sec-4-2">Company</a></li>
-<li><a href="#sec-4-3">CMake-IDE</a></li>
-<li><a href="#sec-4-4">Using the environment</a></li>
+<li><a href="#sec-4-2">CMake-IDE</a></li>
+<li><a href="#sec-4-3">Using the environment</a></li>
 </ul>
 </li>
 <li><a href="#sec-5">Clojure</a></li>
+<li><a href="#sec-6">Company</a></li>
 </ul>
 </div>
 </div>
@@ -500,28 +500,8 @@ Even if you're not building with <code>clang</code> (say you're targetting embed
 </div>
 </div>
 <div id="outline-container-sec-4-2" class="outline-3">
-<h3 id="sec-4-2">Company</h3>
+<h3 id="sec-4-2">CMake-IDE</h3>
 <div class="outline-text-3" id="text-4-2">
-<p>
-Next we turn on <code>company</code>. The package that will do autocompletion for us (it standards for COMPlete ANYthing)
-</p>
-<div class="org-src-container">
-
-<pre class="src src-emacs-lisp">(<span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">company</span>
-  <span style="color: #b218b2;">:config</span>
-  (<span style="color: #00af00;">push</span> 'company-rtags company-backends)
-  (global-company-mode)
-  (define-key c-mode-base-map (kbd <span style="color: #ff1f8b;">"&lt;C-tab&gt;"</span>) (<span style="color: #00af00;">function</span> company-complete)))
-</pre>
-</div>
-<p>
-looking at the documentation we see that <code>push</code> will take the 1st argument and add it to the beginning of the list provided in the 2nd argument. <code>company-backends</code> is "a list of active backends (completion engines)". <code>company-rtags</code> is a backend provided by the <code>rtags</code> guys. See the documentation for more info :)
-</p>
-</div>
-</div>
-<div id="outline-container-sec-4-3" class="outline-3">
-<h3 id="sec-4-3">CMake-IDE</h3>
-<div class="outline-text-3" id="text-4-3">
 <p>
 The last part is adding <code>cmake-ide</code>
 </p>
@@ -537,9 +517,9 @@ This is the glue that will point <code>rtags</code>  to the right location and m
 </p>
 </div>
 </div>
-<div id="outline-container-sec-4-4" class="outline-3">
-<h3 id="sec-4-4">Using the environment</h3>
-<div class="outline-text-3" id="text-4-4">
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3">Using the environment</h3>
+<div class="outline-text-3" id="text-4-3">
 <p>
 Now that everything is set up there are a couple of small caveats before you can use it all: <br  />
 1 - You need to give <code>cmake-ide</code> a build directory by setting <code>cmake-ide-build-dir</code>
@@ -613,10 +593,33 @@ Starting to play around with <code>Clojure</code>. The canonical <code>Clojure</
 </div>
 </div>
 </div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6">Company</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Next we turn on <code>company</code>. The package that will do autocompletion for us (it standards for COMPlete ANYthing)
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">company</span>
+  <span style="color: #b218b2;">:config</span>
+  (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
+  (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion))
+  <span style="color: #b2b2b2; font-style: italic;">;</span><span style="color: #b2b2b2; font-style: italic;">(push 'company-rtags company-backends) TODO: FIX this RTags related stuff!</span>
+  <span style="color: #b2b2b2; font-style: italic;">;</span><span style="color: #b2b2b2; font-style: italic;">(global-company-mode)</span>
+  <span style="color: #b2b2b2; font-style: italic;">;</span><span style="color: #b2b2b2; font-style: italic;">(define-key c-mode-base-map (kbd "&lt;C-tab&gt;") (function company-complete)))</span>
+</pre>
+</div>
+<p>
+looking at the documentation we see that <code>push</code> will take the 1st argument and add it to the beginning of the list provided in the 2nd argument. <code>company-backends</code> is "a list of active backends (completion engines)". <code>company-rtags</code> is a backend provided by the <code>rtags</code> guys. See the documentation for more info :)
+</p>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: George Kontsevich</p>
-<p class="date">Created: 2018-04-26 Thu 23:48</p>
+<p class="date">Created: 2018-07-30 Mon 19:06</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.2.2 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

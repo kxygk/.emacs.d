@@ -70,14 +70,17 @@
   (setq rtags-completions-enabled t)
   (rtags-start-process-unless-running))
 
-(use-package company
-  :config
-  (push 'company-rtags company-backends)
-  (global-company-mode)
-  (define-key c-mode-base-map (kbd "<C-tab>") (function company-complete)))
-
 (use-package cmake-ide
   :config
   (cmake-ide-setup))
 
-(use-package cider)
+(use-package cider
+  :ensure t)
+
+(use-package company
+  :config
+  (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
+  (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion))
+  ;(push 'company-rtags company-backends) TODO: FIX this RTags related stuff!
+  ;(global-company-mode)
+  ;(define-key c-mode-base-map (kbd "<C-tab>") (function company-complete)))

@@ -180,16 +180,6 @@ There are c++ code base parsers like ~ctags~ ~ggtags~ etc. which are much easier
 #+BEGIN_QUOTE
 Even if you're not building with ~clang~ (say you're targetting embedded and are using something like gcc), ~rtags~ should be able to index your project. So don't feel like it ties you to ~clang~
 #+END_QUOTE
-** Company
-Next we turn on ~company~. The package that will do autocompletion for us (it standards for COMPlete ANYthing)
-#+BEGIN_SRC emacs-lisp :tangle init.el
-  (use-package company
-    :config
-    (push 'company-rtags company-backends)
-    (global-company-mode)
-    (define-key c-mode-base-map (kbd "<C-tab>") (function company-complete)))
-#+END_SRC
-looking at the documentation we see that ~push~ will take the 1st argument and add it to the beginning of the list provided in the 2nd argument. ~company-backends~ is "a list of active backends (completion engines)". ~company-rtags~ is a backend provided by the ~rtags~ guys. See the documentation for more info :)
 ** CMake-IDE
 The last part is adding ~cmake-ide~
 #+BEGIN_SRC emacs-lisp :tangle init.el
@@ -232,5 +222,19 @@ Once opened in Emacs:\\
 (WIP)
 Starting to play around with ~Clojure~. The canonical ~Clojure~ development environment is ~CIDER~
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (use-package cider)
+  (use-package cider
+    :ensure t)
 #+END_SRC
+
+* Company
+Next we turn on ~company~. The package that will do autocompletion for us (it standards for COMPlete ANYthing)
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package company
+    :config
+    (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
+    (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion))
+    ;(push 'company-rtags company-backends) TODO: FIX this RTags related stuff!
+    ;(global-company-mode)
+    ;(define-key c-mode-base-map (kbd "<C-tab>") (function company-complete)))
+#+END_SRC
+looking at the documentation we see that ~push~ will take the 1st argument and add it to the beginning of the list provided in the 2nd argument. ~company-backends~ is "a list of active backends (completion engines)". ~company-rtags~ is a backend provided by the ~rtags~ guys. See the documentation for more info :)
