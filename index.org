@@ -155,69 +155,21 @@ For one of my ongoing "project" I want my ELisp code to be able to output plots.
 #+END_SRC
 * C++ 
 Here we'll setup a development environment as feature rich as an IDE \\
-I based it on [[http://syamajala.github.io/c-ide.html][this guide]] - but I've really pared it down. I still seem to get all the same autocomplete/navigation and error squigglies that the author gets just by using this subset of packages, so I don't really know what I'm missing here
-** RTags
-The backbone of most modern C++ dev environments leverage ~libclang~ to parse the C++ codebase. In Emacs we do the same using a independent system called ~rtags~ which runs as a deamon parsing your codebase in the background. Emacs has a ~rtags~ package for launching and communicating with the deamon which will then feed all the information available to the compiler front-end. So to get started you need to go to the [[https://github.com/Andersbakken/rtags][rtags github]] and install rtags. The rtags documentation is extensive, but for our purposes we just need to have rtags in the system path. The rest will be handles by Emacs. Once you're done installing, if you want to sanity check you can run ~rdm~ from the command line and see some process boot up (you can kill it - Emacs will be launching ~rdm~ itself by the end of this configuration)
-
-Once you have it installed somewhere in your path we need to do the following: \\
-1 - enable rtags \\
-2 - enable standard key binding \\
-2 - enable diagnostics (needed for code completion!) \\
-3 - enable code completion \\
-4 - launch the rtags deamon
+We're going to use the new language server protocol way (instead of rtags as before). I'm just following [[https://github.com/cquery-project/cquery/wiki/Emacs][the official guide]]
+** lsp-mode
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (use-package rtags
-    :config
-    (rtags-enable-standard-keybindings)
-    (setq rtags-autostart-diagnostics t)
-    (rtags-diagnostics)
-    (setq rtags-completions-enabled t)
-    (rtags-start-process-unless-running))
+  (use-package lsp-mode
+    :ensure t)
 #+END_SRC
-#+BEGIN_QUOTE
-There are c++ code base parsers like ~ctags~ ~ggtags~ etc. which are much easier to set up but they  will not ultimately give you the same level of robustness and information b/c only ~rtags~ leverages a compiler front
-#+END_QUOTE
-#+BEGIN_QUOTE
-Even if you're not building with ~clang~ (say you're targetting embedded and are using something like gcc), ~rtags~ should be able to index your project. So don't feel like it ties you to ~clang~
-#+END_QUOTE
-** CMake-IDE
-The last part is adding ~cmake-ide~
+** emacs-cquery
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (use-package cmake-ide
-    :config
-    (cmake-ide-setup))
+  (use-package emacs-cquery
+    :commands lsp-cquery-enable
+    :init (setq cquery-executable "~/Programs/cquery/bin/cquery")
+    (add-hook 'c-mode-hook #'cquery//enable)
+    (add-hook 'c++-mode-hook #'cquery//enable)
+    :ensure t)
 #+END_SRC
-This is the glue that will point ~rtags~  to the right location and make everything work. When you are in a buffer for a c++ file it will look for it's corresponding CMakeLists.txt and run cmake and hook ~rtags~ up.
-** Using the environment
-Now that everything is set up there are a couple of small caveats before you can use it all: \\
-1 - You need to give ~cmake-ide~ a build directory by setting ~cmake-ide-build-dir~
-#+BEGIN_SRC emacs-lisp
-  (setq cmake-ide-build-dir '"/some/build/directory/")
-#+END_SRC
-2 - You need to run cmake [[https://github.com/atilaneves/cmake-ide/issues/75#issuecomment-268973147][at least once]] manually in that directory with all the flags you want
-#+BEGIN_EXAMPLE 
- cd /path/to/build/directory
- cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -D[your flags/options.. like build release/debug] /path/to/source/directory
-#+END_EXAMPLE
-The first flag makes ~cmake~ export a ~.json~ file describing the build. ~rtags~ uses this file to understand which source files to feed into ~libclang~ (so this is happening independent of your actual build toochain whether it be ~gcc~ or something else)
-
-These last two steps are a bit clunky but only have to be done once. After that rtags will run in the background reindexing the project when appropriate. You can now jump to definitions with ~C-c r .~, things will autcomplete with ~C-TAB~, errors will get underlined (when your cursor rests over the error it'll print in the minibuffer), and things will compile when you run ~M-x cmake-ide-compile~. ~rtags~ in particular has a ton of different features - so look at their github for more info
-
-#+BEGIN_QUOTE
-Note that things sometimes get a little wonky when rtags is not finished indexing in the background. So sometimes you just need to give it a little time to reindex! This is especially true after the first time you build the project. So give it a minute to settle down before you frantically try to debug things
-#+END_QUOTE
-#+BEGIN_QUOTE
-*Wishlist/TODOs*
-- Make the last clunky part into an elisp function that prompts for a build directory
-- Find a way to inspect the Rtags backend's state so that you can have something in the mode-line that tells you if it's still busy
-#+END_QUOTE
-#+BEGIN_QUOTE
-This webpage is generated from an org-document (at ~./index.org~) that also generates all the files described. 
-
-Once opened in Emacs:\\
-- ~C-c C-e h h~ generates the webpage  \\
-- ~C-c C-v C-t~ exports the code blocks into the appropriate files\\
-#+END_QUOTE
 * Clojure
 (WIP)
 Starting to play around with ~Clojure~. The canonical ~Clojure~ development environment is ~CIDER~
@@ -226,15 +178,15 @@ Starting to play around with ~Clojure~. The canonical ~Clojure~ development envi
     :ensure t)
 #+END_SRC
 
-* Company
-Next we turn on ~company~. The package that will do autocompletion for us (it standards for COMPlete ANYthing)
-#+BEGIN_SRC emacs-lisp :tangle init.el
-  (use-package company
-    :config
-    (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
-    (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion))
-    ;(push 'company-rtags company-backends) TODO: FIX this RTags related stuff!
-    ;(global-company-mode)
-    ;(define-key c-mode-base-map (kbd "<C-tab>") (function company-complete)))
-#+END_SRC
-looking at the documentation we see that ~push~ will take the 1st argument and add it to the beginning of the list provided in the 2nd argument. ~company-backends~ is "a list of active backends (completion engines)". ~company-rtags~ is a backend provided by the ~rtags~ guys. See the documentation for more info :)
+# * Company
+# Next we turn on ~company~. The package that will do autocompletion for us (it standards for COMPlete ANYthing)
+# #+BEGIN_SRC emacs-lisp :tangle init.el
+#   (use-package company
+#     :config
+#     (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
+#     (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion))
+#     ;(push 'company-rtags company-backends) TODO: FIX this RTags related stuff!
+#     ;(global-company-mode)
+#     ;(define-key c-mode-base-map (kbd "<C-tab>") (function company-complete)))
+# #+END_SRC
+# looking at the documentation we see that ~push~ will take the 1st argument and add it to the beginning of the list provided in the 2nd argument. ~company-backends~ is "a list of active backends (completion engines)". ~company-rtags~ is a backend provided by the ~rtags~ guys. See the documentation for more info :)

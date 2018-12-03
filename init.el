@@ -62,25 +62,15 @@
 
 (gnuplot-inline-display-mode)
 
-(use-package rtags
-  :config
-  (rtags-enable-standard-keybindings)
-  (setq rtags-autostart-diagnostics t)
-  (rtags-diagnostics)
-  (setq rtags-completions-enabled t)
-  (rtags-start-process-unless-running))
+(use-package lsp-mode
+  :ensure t)
 
-(use-package cmake-ide
-  :config
-  (cmake-ide-setup))
+(use-package emacs-cquery
+  :commands lsp-cquery-enable
+  :init (setq cquery-executable "~/Programs/cquery/bin/cquery")
+  (add-hook 'c-mode-hook #'cquery//enable)
+  (add-hook 'c++-mode-hook #'cquery//enable)
+  :ensure t)
 
 (use-package cider
   :ensure t)
-
-(use-package company
-  :config
-  (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
-  (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion))
-  ;(push 'company-rtags company-backends) TODO: FIX this RTags related stuff!
-  ;(global-company-mode)
-  ;(define-key c-mode-base-map (kbd "<C-tab>") (function company-complete)))
