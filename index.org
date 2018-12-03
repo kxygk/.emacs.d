@@ -53,7 +53,16 @@ Once we have it in our directory we just need to add it to the ~load-path~ and l
 # (package-initialize)
 # at the end..
 
-
+** Import shell variables
+Especially when we launch emacs in daemon mode, the environmental variables won't be set up. So for example it won't find executables in the PATH b/c the PATH won't be set up the way you have it in your =.bashrc= file. So there is a special package to fix that
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package exec-path-from-shell
+    :ensure t
+    :config
+    (setq exec-path-from-shell-variables '("PATH" "GOPATH"))
+    (when (memq window-system '(mac ns x))
+      (exec-path-from-shell-initialize)))
+#+END_SRC
 ** Indentation - Change the default indentation from 2 spaces to 4
 Indentation is generally govered by two variables\\ 
 ~default-tab-width~ - this is the variable for any text document when you normally type in a TAB\\

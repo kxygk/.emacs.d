@@ -14,12 +14,19 @@
   load-path))
 (require 'use-package)
 
-(setq c-basic-offset 4)
-
-(use-package indent-guide
+(use-package exec-path-from-shell
   :ensure t
   :config
-  (indent-guide-global-mode))
+  (setq exec-path-from-shell-variables '("PATH" "GOPATH"))
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+
+(setq c-basic-offset 4)
+
+# (use-package indent-guide
+#    :ensure t
+#    :config
+#   (indent-guide-global-mode))
 
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
