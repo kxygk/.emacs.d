@@ -17,8 +17,7 @@
 (use-package exec-path-from-shell
   :ensure t
   :config
-  (setq exec-path-from-shell-variables '("PATH" "GOPATH"))
-  (when (memq window-system '(mac ns x))
+  (unless (memq system-type '(ms-dos windos-nt cygwin))
     (exec-path-from-shell-initialize)))
 
 (setq c-basic-offset 4)
