@@ -68,15 +68,15 @@
 
 (gnuplot-inline-display-mode)
 
-(use-package lsp-mode
-  :ensure t)
+;; (use-package lsp-mode
+;;   :ensure t)
 
-(use-package emacs-cquery
-  :commands lsp-cquery-enable
-  :init (setq cquery-executable "~/Programs/cquery/bin/cquery")
-  (add-hook 'c-mode-hook #'cquery//enable)
-  (add-hook 'c++-mode-hook #'cquery//enable)
-  :ensure t)
+;; (use-package emacs-cquery
+;;   :commands lsp-cquery-enable
+;;   :init (setq cquery-executable "~/Programs/cquery/bin/cquery")
+;;   (add-hook 'c-mode-hook #'cquery//enable)
+;;   (add-hook 'c++-mode-hook #'cquery//enable)
+;;   :ensure t)
 
 (use-package cider
   :ensure t)

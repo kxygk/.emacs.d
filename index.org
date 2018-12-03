@@ -166,17 +166,17 @@ Here we'll setup a development environment as feature rich as an IDE \\
 We're going to use the new language server protocol way (instead of rtags as before). I'm just following [[https://github.com/cquery-project/cquery/wiki/Emacs][the official guide]]
 ** lsp-mode
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (use-package lsp-mode
-    :ensure t)
+  ;; (use-package lsp-mode
+  ;;   :ensure t)
 #+END_SRC
 ** emacs-cquery
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (use-package emacs-cquery
-    :commands lsp-cquery-enable
-    :init (setq cquery-executable "~/Programs/cquery/bin/cquery")
-    (add-hook 'c-mode-hook #'cquery//enable)
-    (add-hook 'c++-mode-hook #'cquery//enable)
-    :ensure t)
+  ;; (use-package emacs-cquery
+  ;;   :commands lsp-cquery-enable
+  ;;   :init (setq cquery-executable "~/Programs/cquery/bin/cquery")
+  ;;   (add-hook 'c-mode-hook #'cquery//enable)
+  ;;   (add-hook 'c++-mode-hook #'cquery//enable)
+  ;;   :ensure t)
 #+END_SRC
 * Clojure
 (WIP)

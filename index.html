@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Emacs configuration for C++/CMake/git</title>
-<!-- 2018-12-04 Tue 00:05 -->
+<!-- 2018-12-04 Tue 00:56 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="George Kontsevich" />
@@ -204,7 +204,7 @@ To begin extending Emacs we will want to be able to add external packages. Emacs
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">package</span>)
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">require</span> '<span style="color: #1f5bff;">package</span>)
 (package-initialize)
 </pre>
 </div>
@@ -224,7 +224,7 @@ So type <code>C-h v package-archives RET</code> to see what it's for
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'package-archives
-             '(<span style="color: #8b2252;">"melpa"</span> . <span style="color: #8b2252;">"https://melpa.org/packages/"</span>))
+             '(<span style="color: #ff1f8b;">"melpa"</span> . <span style="color: #ff1f8b;">"https://melpa.org/packages/"</span>))
 </pre>
 </div>
 <p>
@@ -240,14 +240,14 @@ Once we have it in our directory we just need to add it to the <code>load-path</
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">setq</span>
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">setq</span>
  load-path
  (cons
   (concat
    (file-name-directory load-file-name)
-  <span style="color: #8b2252;">"use-package"</span>)
+  <span style="color: #ff1f8b;">"use-package"</span>)
   load-path))
-(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">use-package</span>)
+(<span style="color: #00af00;">require</span> '<span style="color: #1f5bff;">use-package</span>)
 </pre>
 </div>
 <p>
@@ -264,11 +264,10 @@ Especially when we launch emacs in daemon mode, the environmental variables won'
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> <span style="color: #008b8b;">exec-path-from-shell</span>
-  <span style="color: #483d8b;">:ensure</span> t
-  <span style="color: #483d8b;">:config</span>
-  (<span style="color: #a020f0;">setq</span> exec-path-from-shell-variables '(<span style="color: #8b2252;">"PATH"</span> <span style="color: #8b2252;">"GOPATH"</span>))
-  (<span style="color: #a020f0;">when</span> (memq window-system '(mac ns x))
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">exec-path-from-shell</span>
+  <span style="color: #b218b2;">:ensure</span> t
+  <span style="color: #b218b2;">:config</span>
+  (<span style="color: #00af00;">unless</span> (memq system-type '(ms-dos windos-nt cygwin))
     (exec-path-from-shell-initialize)))
 </pre>
 </div>
@@ -285,7 +284,7 @@ More info: <a href="https://kb.iu.edu/d/abde">https://kb.iu.edu/d/abde</a> <br  
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">setq</span> c-basic-offset 4)
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">setq</span> c-basic-offset 4)
 </pre>
 </div>
 
@@ -294,10 +293,10 @@ in ELisp it's also a bit hard to see the indentation level, so I like to add thi
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp"><span style="color: #b22222;">;; </span><span style="color: #b22222;">(use-package indent-guide</span>
-<span style="color: #b22222;">;;    </span><span style="color: #b22222;">:ensure t</span>
-<span style="color: #b22222;">;;    </span><span style="color: #b22222;">:config</span>
-<span style="color: #b22222;">;;   </span><span style="color: #b22222;">(indent-guide-global-mode))</span>
+<pre class="src src-emacs-lisp"><span style="color: #b2b2b2; font-style: italic;">;; </span><span style="color: #b2b2b2; font-style: italic;">(use-package indent-guide</span>
+<span style="color: #b2b2b2; font-style: italic;">;;    </span><span style="color: #b2b2b2; font-style: italic;">:ensure t</span>
+<span style="color: #b2b2b2; font-style: italic;">;;    </span><span style="color: #b2b2b2; font-style: italic;">:config</span>
+<span style="color: #b2b2b2; font-style: italic;">;;   </span><span style="color: #b2b2b2; font-style: italic;">(indent-guide-global-mode))</span>
 </pre>
 </div>
 </div>
@@ -311,7 +310,7 @@ Next we need to enable line-wrap in org mode. By default, as you keep typing the
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-hook 'org-mode-hook (<span style="color: #a020f0;">lambda</span> () (<span style="color: #a020f0;">setq</span> truncate-lines nil)))
+<pre class="src src-emacs-lisp">(add-hook 'org-mode-hook (<span style="color: #00af00;">lambda</span> () (<span style="color: #00af00;">setq</span> truncate-lines nil)))
 </pre>
 </div>
 <p>
@@ -327,11 +326,11 @@ This is the only decent light theme I could find. The advantage over the default
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> <span style="color: #008b8b;">moe-theme</span>
-  <span style="color: #483d8b;">:ensure</span> t
-  <span style="color: #483d8b;">:config</span>
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">moe-theme</span>
+  <span style="color: #b218b2;">:ensure</span> t
+  <span style="color: #b218b2;">:config</span>
   (moe-light)
-  (set-face-attribute 'default nil <span style="color: #483d8b;">:background</span> <span style="color: #8b2252;">"#ffffff"</span> <span style="color: #483d8b;">:foreground</span> <span style="color: #8b2252;">"#5f5f5f"</span>))
+  (set-face-attribute 'default nil <span style="color: #b218b2;">:background</span> <span style="color: #ff1f8b;">"#ffffff"</span> <span style="color: #b218b2;">:foreground</span> <span style="color: #ff1f8b;">"#5f5f5f"</span>))
 </pre>
 </div>
 <p>
@@ -354,8 +353,8 @@ This is the tool for inspecting and updating out git repository. It's a little c
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> <span style="color: #008b8b;">magit</span>
-  <span style="color: #483d8b;">:ensure</span> t)
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">magit</span>
+  <span style="color: #b218b2;">:ensure</span> t)
 </pre>
 </div>
 </div>
@@ -368,9 +367,9 @@ This will manage our workspaces. Each workspace will be tied to a git repository
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> <span style="color: #008b8b;">projectile</span>
-  <span style="color: #483d8b;">:ensure</span> t
-  <span style="color: #483d8b;">:config</span>
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">projectile</span>
+  <span style="color: #b218b2;">:ensure</span> t
+  <span style="color: #b218b2;">:config</span>
   (projectile-mode))
 </pre>
 </div>
@@ -389,7 +388,7 @@ When you open a GIF, make it loop forever (instead of playing through once and s
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">setq</span> image-animate-loop t)
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">setq</span> image-animate-loop t)
 </pre>
 </div>
 <p>
@@ -405,9 +404,9 @@ A tiny in-bar system monitor is convenient (and doesn't need to be part of my de
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> <span style="color: #008b8b;">symon</span>
-  <span style="color: #483d8b;">:ensure</span> t
-  <span style="color: #483d8b;">:config</span>
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">symon</span>
+  <span style="color: #b218b2;">:ensure</span> t
+  <span style="color: #b218b2;">:config</span>
   (add-to-list 'symon-monitors 'symon-linux-battery-monitor)
   (symon-mode))
 </pre>
@@ -427,13 +426,13 @@ see <a href="http://howardism.org/Technical/Emacs/literate-programming-tutorial.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">setq</span> org-confirm-babel-evaluate nil <span style="color: #b22222;">;; </span><span style="color: #b22222;">don't prompt for confirmation about executing a block</span>
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">setq</span> org-confirm-babel-evaluate nil <span style="color: #b2b2b2; font-style: italic;">;; </span><span style="color: #b2b2b2; font-style: italic;">don't prompt for confirmation about executing a block</span>
       org-src-tab-acts-natively t
       org-use-sub-superscripts '{}
       org-src-fontify-natively t
       org-cycle-emulate-tab 'white)
-(<span style="color: #a020f0;">use-package</span> <span style="color: #008b8b;">htmlize</span>
-  <span style="color: #483d8b;">:ensure</span> t)
+(<span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">htmlize</span>
+  <span style="color: #b218b2;">:ensure</span> t)
 </pre>
 </div>
 <p>
@@ -456,8 +455,8 @@ For one of my ongoing "project" I want my ELisp code to be able to output plots.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> <span style="color: #008b8b;">gnuplot</span>
-    <span style="color: #483d8b;">:ensure</span> t)
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">gnuplot</span>
+    <span style="color: #b218b2;">:ensure</span> t)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -482,8 +481,8 @@ We're going to use the new language server protocol way (instead of rtags as bef
 <div class="outline-text-3" id="text-4-1">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> <span style="color: #008b8b;">lsp-mode</span>
-  <span style="color: #483d8b;">:ensure</span> t)
+<pre class="src src-emacs-lisp"><span style="color: #b2b2b2; font-style: italic;">;; </span><span style="color: #b2b2b2; font-style: italic;">(use-package lsp-mode</span>
+<span style="color: #b2b2b2; font-style: italic;">;;   </span><span style="color: #b2b2b2; font-style: italic;">:ensure t)</span>
 </pre>
 </div>
 </div>
@@ -493,12 +492,12 @@ We're going to use the new language server protocol way (instead of rtags as bef
 <div class="outline-text-3" id="text-4-2">
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> <span style="color: #008b8b;">emacs-cquery</span>
-  <span style="color: #483d8b;">:commands</span> lsp-cquery-enable
-  <span style="color: #483d8b;">:init</span> (<span style="color: #a020f0;">setq</span> cquery-executable <span style="color: #8b2252;">"~/Programs/cquery/bin/cquery"</span>)
-  (add-hook 'c-mode-hook #'cquery//enable)
-  (add-hook 'c++-mode-hook #'cquery//enable)
-  <span style="color: #483d8b;">:ensure</span> t)
+<pre class="src src-emacs-lisp"><span style="color: #b2b2b2; font-style: italic;">;; </span><span style="color: #b2b2b2; font-style: italic;">(use-package emacs-cquery</span>
+<span style="color: #b2b2b2; font-style: italic;">;;   </span><span style="color: #b2b2b2; font-style: italic;">:commands lsp-cquery-enable</span>
+<span style="color: #b2b2b2; font-style: italic;">;;   </span><span style="color: #b2b2b2; font-style: italic;">:init (setq cquery-executable "~/Programs/cquery/bin/cquery")</span>
+<span style="color: #b2b2b2; font-style: italic;">;;   </span><span style="color: #b2b2b2; font-style: italic;">(add-hook 'c-mode-hook #'cquery//enable)</span>
+<span style="color: #b2b2b2; font-style: italic;">;;   </span><span style="color: #b2b2b2; font-style: italic;">(add-hook 'c++-mode-hook #'cquery//enable)</span>
+<span style="color: #b2b2b2; font-style: italic;">;;   </span><span style="color: #b2b2b2; font-style: italic;">:ensure t)</span>
 </pre>
 </div>
 </div>
@@ -513,8 +512,8 @@ Starting to play around with <code>Clojure</code>. The canonical <code>Clojure</
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> <span style="color: #008b8b;">cider</span>
-  <span style="color: #483d8b;">:ensure</span> t)
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">cider</span>
+  <span style="color: #b218b2;">:ensure</span> t)
 </pre>
 </div>
 </div>
@@ -522,7 +521,7 @@ Starting to play around with <code>Clojure</code>. The canonical <code>Clojure</
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: George Kontsevich</p>
-<p class="date">Created: 2018-12-04 Tue 00:05</p>
+<p class="date">Created: 2018-12-04 Tue 00:56</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.2.2 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
