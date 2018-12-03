@@ -63,12 +63,12 @@ More info: https://kb.iu.edu/d/abde \\
   (setq c-basic-offset 4)
 #+END_SRC
 
-in ELisp it's also a bit hard to see the indentation level, so I like to add this guide (but might remove eventually)
+in ELisp it's also a bit hard to see the indentation level, so I like to add this guide  (*REMOVED*)
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (use-package indent-guide
-    :ensure t
-    :config
-    (indent-guide-global-mode))
+ # (use-package indent-guide
+ #    :ensure t
+ #    :config
+ #   (indent-guide-global-mode))
 #+END_SRC
 
 ** Line wrap
