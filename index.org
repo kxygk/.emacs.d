@@ -68,7 +68,7 @@ Indentation is generally govered by two variables\\
 ~c-basic-offset~ - when working with source code the indentation is done automatically and based on this offset value  (a lot of modes derive from ~c-mode~, hence the name) \\ 
 More info: https://kb.iu.edu/d/abde \\ 
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (setq c-basic-offset 4)
+;  (setq c-basic-offset 4)
 #+END_SRC
 
 in ELisp it's also a bit hard to see the indentation level, so I like to add this guide  (*REMOVED*)
@@ -79,6 +79,28 @@ in ELisp it's also a bit hard to see the indentation level, so I like to add thi
 ;;   (indent-guide-global-mode))
 #+END_SRC
 
+Trying out the very weird Parinfer mode (this code is straight copied from [[https://github.com/DogLooksGood/parinfer-mode][their github]]
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package parinfer
+    :ensure t
+    :bind
+    (("C-," . parinfer-toggle-mode))
+    :init
+    (progn
+      (setq parinfer-extensions
+            '(defaults       ; should be included.
+               pretty-parens  ; different paren styles for different modes.
+               evil           ; If you use Evil.
+               lispy          ; If you use Lispy. With this extension, you should install Lispy and do not enable lispy-mode directly.
+               paredit        ; Introduce some paredit commands.
+               smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
+               smart-yank))   ; Yank behavior depend on mode.
+      (add-hook 'clojure-mode-hook #'parinfer-mode)
+      (add-hook 'emacs-lisp-mode-hook #'parinfer-mode)
+      (add-hook 'common-lisp-mode-hook #'parinfer-mode)
+      (add-hook 'scheme-mode-hook #'parinfer-mode)
+      (add-hook 'lisp-mode-hook #'parinfer-mode)))
+#+END_SRC
 ** Line wrap
 Next we need to enable line-wrap in org mode. By default, as you keep typing the page scrolls to the right. So a whole paragraph will appear as one line making it difficult to navigate
 #+BEGIN_SRC emacs-lisp :tangle init.el
