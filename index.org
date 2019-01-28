@@ -28,7 +28,7 @@ To look up a variable, use ~C-h v [variable] RET~
 So type ~C-h v package-archives RET~ to see what it's for
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/"))
+               '("melpa" . "https://elpa.emacs-china.org/melpa/"))
 #+END_SRC
 This ~C-h [something] [something]~ pattern repeats for a lot of features. To see the complete list just enter ~C-h C-h~. These key-bindings will be your way of exploring configurations you find online.
 

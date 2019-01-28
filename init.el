@@ -3,7 +3,7 @@
 (package-initialize)
 
 (add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/"))
+             '("melpa" . "https://elpa.emacs-china.org/melpa/"))
 
 (setq
  load-path
