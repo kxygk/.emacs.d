@@ -2,8 +2,8 @@
 (require 'package)
 (package-initialize)
 
-(add-to-list 'package-archives
-             '("melpa" . "https://elpa.emacs-china.org/melpa/"))
+(setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+                         ("melpa" . "http://elpa.emacs-china.org/melpa/")))
 
 (setq
  load-path
@@ -98,5 +98,13 @@
 ;;   (add-hook 'c++-mode-hook #'cquery//enable)
 ;;   :ensure t)
 
+;; (use-package ob-clojure-literate
+;;   :ensure t
+;;   :after org
+;;   :init
+;;   (setq ob-clojure-literate-auto-jackin-p t)
+;;   (add-hook 'org-mode-hook #'ob-clojure-literate-mode))
+
 (use-package cider
-  :ensure t)
+  :ensure t
+  :init (setq org-babel-clojure-backend 'cider))

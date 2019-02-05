@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Emacs configuration for C++/CMake/git</title>
-<!-- 2019-01-28 一 22:10 -->
+<!-- 2019-02-06 三 01:48 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="George Kontsevich" />
@@ -223,8 +223,8 @@ So type <code>C-h v package-archives RET</code> to see what it's for
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-to-list 'package-archives
-             '(<span style="color: #ff1f8b;">"melpa"</span> . <span style="color: #ff1f8b;">"https://elpa.emacs-china.org/melpa/"</span><span style="color: #999999;">))</span>
+<pre class="src src-emacs-lisp">(<span style="color: #00af00;">setq</span> package-archives '((<span style="color: #ff1f8b;">"gnu"</span>   . <span style="color: #ff1f8b;">"http://elpa.emacs-china.org/gnu/"</span><span style="color: #999999;">)</span>
+                         (<span style="color: #ff1f8b;">"melpa"</span> . <span style="color: #ff1f8b;">"http://elpa.emacs-china.org/melpa/"</span><span style="color: #999999;">)))</span>
 </pre>
 </div>
 <p>
@@ -534,12 +534,28 @@ We're going to use the new language server protocol way (instead of rtags as bef
 <div class="outline-text-2" id="text-5">
 <p>
 (WIP)
+Add support in Org-Mode. From <a href="https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure-literate.html">https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure-literate.html</a>
+Seems broken for the time being for some reason&#x2026;
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #b2b2b2; font-style: italic;">;; </span><span style="color: #b2b2b2; font-style: italic;">(use-package ob-clojure-literate</span>
+<span style="color: #b2b2b2; font-style: italic;">;;   </span><span style="color: #b2b2b2; font-style: italic;">:ensure t</span>
+<span style="color: #b2b2b2; font-style: italic;">;;   </span><span style="color: #b2b2b2; font-style: italic;">:after org</span>
+<span style="color: #b2b2b2; font-style: italic;">;;   </span><span style="color: #b2b2b2; font-style: italic;">:init</span>
+<span style="color: #b2b2b2; font-style: italic;">;;   </span><span style="color: #b2b2b2; font-style: italic;">(setq ob-clojure-literate-auto-jackin-p t)</span>
+<span style="color: #b2b2b2; font-style: italic;">;;   </span><span style="color: #b2b2b2; font-style: italic;">(add-hook 'org-mode-hook #'ob-clojure-literate-mode))</span>
+</pre>
+</div>
+
+<p>
 Starting to play around with <code>Clojure</code>. The canonical <code>Clojure</code> development environment is <code>CIDER</code>
 </p>
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(<span style="color: #00af00;">use-package</span> <span style="color: #1f5bff;">cider</span>
-  <span style="color: #b218b2;">:ensure</span> t<span style="color: #999999;">)</span>
+  <span style="color: #b218b2;">:ensure</span> t
+  <span style="color: #b218b2;">:init</span> (<span style="color: #00af00;">setq</span> org-babel-clojure-backend 'cider<span style="color: #999999;">))</span>
 </pre>
 </div>
 </div>
@@ -547,7 +563,7 @@ Starting to play around with <code>Clojure</code>. The canonical <code>Clojure</
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: George Kontsevich</p>
-<p class="date">Created: 2019-01-28 一 22:10</p>
+<p class="date">Created: 2019-02-06 三 01:48</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.2.2 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

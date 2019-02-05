@@ -27,8 +27,8 @@ Next we need to tell the package manager where to look for new packages. There i
 To look up a variable, use ~C-h v [variable] RET~
 So type ~C-h v package-archives RET~ to see what it's for
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (add-to-list 'package-archives
-               '("melpa" . "https://elpa.emacs-china.org/melpa/"))
+  (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+                           ("melpa" . "http://elpa.emacs-china.org/melpa/")))
 #+END_SRC
 This ~C-h [something] [something]~ pattern repeats for a lot of features. To see the complete list just enter ~C-h C-h~. These key-bindings will be your way of exploring configurations you find online.
 
@@ -202,12 +202,23 @@ We're going to use the new language server protocol way (instead of rtags as bef
 #+END_SRC
 * Clojure
 (WIP)
+Add support in Org-Mode. From https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure-literate.html
+Seems broken for the time being for some reason...
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  ;; (use-package ob-clojure-literate
+  ;;   :ensure t
+  ;;   :after org
+  ;;   :init
+  ;;   (setq ob-clojure-literate-auto-jackin-p t)
+  ;;   (add-hook 'org-mode-hook #'ob-clojure-literate-mode))
+#+END_SRC
+
 Starting to play around with ~Clojure~. The canonical ~Clojure~ development environment is ~CIDER~
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (use-package cider
-    :ensure t)
+    :ensure t
+    :init (setq org-babel-clojure-backend 'cider))
 #+END_SRC
-
 # * Company
 # Next we turn on ~company~. The package that will do autocompletion for us (it standards for COMPlete ANYthing)
 # #+BEGIN_SRC emacs-lisp :tangle init.el
