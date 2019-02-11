@@ -151,6 +151,12 @@ A tiny in-bar system monitor is convenient (and doesn't need to be part of my de
     (symon-mode))
 #+END_SRC
 
+** which-key
+This is gunna give us tips for different modes so we can learn new key-combos
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package which-key
+    :ensure t)
+#+END_SRC
 * Orgmode
 ** Some adjustments to org-mode
 see [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][here]] for reference \\
