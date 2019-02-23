@@ -1,4 +1,8 @@
 #+TITLE: Emacs configuration for C++/CMake/git
+#+HTML_DOCTYPE: html5
+#+DESCRIPTION: Some linear algebra in Clojure - source at https://github.com/geokon-gh/linearsystems-part2
+#+OPTIONS: html-style:nil
+
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../static/worg.css" />
 #+options: num:nil
 # This will export a README.org file for Github, so that people that land in my repo know where to find the relevant webpage
@@ -52,7 +56,16 @@ Once we have it in our directory we just need to add it to the ~load-path~ and l
 # at the top of their init file and then a
 # (package-initialize)
 # at the end..
-
+** Auto-update
+This will make the packages update to the latest version every few days
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  ;; (use-package auto-package-update
+  ;;    :ensure t
+  ;;    :config
+  ;;    (setq auto-package-update-delete-old-versions t
+  ;;          auto-package-update-interval 4)
+  ;;    (auto-package-update-maybe))
+#+END_SRC
 ** Import shell variables
 Especially when we launch emacs in daemon mode, the environmental variables won't be set up. So for example it won't find executables in the PATH b/c the PATH won't be set up the way you have it in your =.bashrc= file. So there is a special package to fix that
 #+BEGIN_SRC emacs-lisp :tangle init.el
@@ -162,10 +175,11 @@ This is gunna give us tips for different modes so we can learn new key-combos
 see [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][here]] for reference \\
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (setq org-confirm-babel-evaluate nil ;; don't prompt for confirmation about executing a block
-        org-src-tab-acts-natively t
-        org-use-sub-superscripts '{}
-        org-src-fontify-natively t
-        org-cycle-emulate-tab 'white)
+	org-src-tab-acts-natively t
+	org-use-sub-superscripts '{}
+	org-src-fontify-natively t
+        org-clock-into-drawer nil
+	org-cycle-emulate-tab 'white)
   (use-package htmlize
     :ensure t)
 #+END_SRC
@@ -174,8 +188,9 @@ see [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][h
 3 - Makes it so underscores aren't interpreted as subscripts unless used with braces \\
 (I often need underscores for file/variable names) \\
 4 - Make source code gets colored based on the language \\
-5 - Make collapsing and expanding sections with the TAB button work everywhere (except where it makes sense to insert an actual /tab/)
-6 - ~htmlize~ will colorize orgmode code-blocks code in the exported HTML
+5 - Newer version of Orgmode stick clocks into logbooks which aren't useful for me
+6 - Make collapsing and expanding sections with the TAB button work everywhere (except where it makes sense to insert an actual /tab/)
+7 - ~htmlize~ will colorize orgmode code-blocks code in the exported HTML
 For more info on any of these variables, again, use ~C-h v [variable] RET~
 ** Plotting
 For one of my ongoing "project" I want my ELisp code to be able to output plots. For that we need to add ~gnuplot~ and then [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-gnuplot.html#org66dbe2c][enable execution]] of ~gnuplot~ blocks in ~orgmode~. The last line lets me make plots interactively in the ~gnuplot~ buffer

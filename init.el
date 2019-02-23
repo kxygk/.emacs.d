@@ -1,4 +1,3 @@
-
 (require 'package)
 (package-initialize)
 
@@ -13,6 +12,13 @@
   "use-package")
   load-path))
 (require 'use-package)
+
+;; (use-package auto-package-update
+;;    :ensure t
+;;    :config
+;;    (setq auto-package-update-delete-old-versions t
+;;          auto-package-update-interval 4)
+;;    (auto-package-update-maybe))
 
 (use-package exec-path-from-shell
   :ensure t
@@ -78,6 +84,7 @@
       org-src-tab-acts-natively t
       org-use-sub-superscripts '{}
       org-src-fontify-natively t
+      org-clock-into-drawer nil
       org-cycle-emulate-tab 'white)
 (use-package htmlize
   :ensure t)
