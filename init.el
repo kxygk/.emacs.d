@@ -85,6 +85,7 @@
       org-use-sub-superscripts '{}
       org-src-fontify-natively t
       org-clock-into-drawer nil
+      org-export-backends (quote (ascii html latex md odt))
       org-cycle-emulate-tab 'white)
 (use-package htmlize
   :ensure t)

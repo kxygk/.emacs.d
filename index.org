@@ -179,18 +179,20 @@ see [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][h
 	org-use-sub-superscripts '{}
 	org-src-fontify-natively t
         org-clock-into-drawer nil
+        org-export-backends (quote (ascii html latex md odt))
 	org-cycle-emulate-tab 'white)
   (use-package htmlize
     :ensure t)
 #+END_SRC
-1 - Turns off the annoying "are you sure?" prompts on tangle export \\
-2 - Makes tabs work in the source code blocks the same as it would in a buffer with that source code \\
-3 - Makes it so underscores aren't interpreted as subscripts unless used with braces \\
+ - Turns off the annoying "are you sure?" prompts on tangle export \\
+ - Makes tabs work in the source code blocks the same as it would in a buffer with that source code \\
+ - Makes it so underscores aren't interpreted as subscripts unless used with braces \\
 (I often need underscores for file/variable names) \\
-4 - Make source code gets colored based on the language \\
-5 - Newer version of Orgmode stick clocks into logbooks which aren't useful for me
-6 - Make collapsing and expanding sections with the TAB button work everywhere (except where it makes sense to insert an actual /tab/)
-7 - ~htmlize~ will colorize orgmode code-blocks code in the exported HTML
+ - Make source code gets colored based on the language \\
+ - Newer version of Orgmode stick clocks into logbooks which aren't useful for me \\
+ - Enable exporting to Markdown (for a full set of options run ~customize-option~ then enter ~org-export-backends~ (editing this will modify your =init.el=)
+ - Make collapsing and expanding sections with the TAB button work everywhere (except where it makes sense to insert an actual /tab/)
+ - ~htmlize~ will colorize orgmode code-blocks code in the exported HTML
 For more info on any of these variables, again, use ~C-h v [variable] RET~
 ** Plotting
 For one of my ongoing "project" I want my ELisp code to be able to output plots. For that we need to add ~gnuplot~ and then [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-gnuplot.html#org66dbe2c][enable execution]] of ~gnuplot~ blocks in ~orgmode~. The last line lets me make plots interactively in the ~gnuplot~ buffer
