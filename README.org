@@ -1,1 +1,0 @@
-see description [[http://geokon-gh.github.io/.emacs.d/index.html][here]]
