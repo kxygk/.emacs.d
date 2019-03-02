@@ -10,10 +10,6 @@
 #+OPTIONS: html-style:nil
 #+OPTIONS: num:nil
 
-#+BEGIN_SRC org :tangle README.org :exports none
-  see description [[http://geokon-gh.github.io/.emacs.d/index.html][here]]
-#+END_SRC
-
 * Intro
 I hope this emacs configuration file will help explain a little elisp and how to write your own. 
 
