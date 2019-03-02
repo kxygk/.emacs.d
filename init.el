@@ -1,3 +1,5 @@
+(if (getenv "APPDIR") (setenv "LD_LIBRARY_PATH" nil))
+
 (require 'package)
 (package-initialize)
 
