@@ -137,6 +137,20 @@ This is the only decent light theme I could find. The advantage over the default
 The last line makes the background white (instead of yellow)
 ** Git
 For using git we want to have a couple of tools
+** Autosave/Backup files
+By default Emacs will save copies of files with a ~~~ appended. This ends up cluttering directories and makes any directory touched by Emacs a bit of a mess. Instead we can have Emacs save files to a central directory.
+
+See: https://www.emacswiki.org/emacs/BackupDirectory and https://stackoverflow.com/questions/151945/how-do-i-control-how-emacs-makes-backup-files
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+(setq
+   backup-by-copying t      ; don't clobber symlinks
+   backup-directory-alist
+    '(("." . "~/.saves/"))    ; don't litter my fs tree
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2)
+#+END_SRC
 *** Magit
 This is the tool for inspecting and updating out git repository. It's a little complicated to use, so look up documentation for it. It is a must for development in emacs if you use ~git~ - so make the investment and learn to use it.
 #+BEGIN_SRC emacs-lisp :tangle init.el
