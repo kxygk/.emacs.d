@@ -81,11 +81,11 @@
 
 (setq image-animate-loop t)
 
-(use-package symon
-  :ensure t
-  :config
-  (add-to-list 'symon-monitors 'symon-linux-battery-monitor)
-  (symon-mode))
+;; (use-package symon
+;;   :ensure t
+;;   :config
+;;   (add-to-list 'symon-monitors 'symon-linux-battery-monitor)
+;;   (symon-mode))
 
 (use-package which-key
   :ensure t)

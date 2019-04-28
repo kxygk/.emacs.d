@@ -176,11 +176,11 @@ Hit ~RET~ to have it start playing
 ** system-monitor
 A tiny in-bar system monitor is convenient (and doesn't need to be part of my desktop).
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (use-package symon
-    :ensure t
-    :config
-    (add-to-list 'symon-monitors 'symon-linux-battery-monitor)
-    (symon-mode))
+  ;; (use-package symon
+  ;;   :ensure t
+  ;;   :config
+  ;;   (add-to-list 'symon-monitors 'symon-linux-battery-monitor)
+  ;;   (symon-mode))
 #+END_SRC
 
 ** which-key
