@@ -189,6 +189,18 @@ This is gunna give us tips for different modes so we can learn new key-combos
   (use-package which-key
     :ensure t)
 #+END_SRC
+* Standardizing (WIP)
+These are some changes that bring Emacs more in line with how modern applications work. Most people don't do this.. I'm giving it a try
+** Overwrite selection
+This will make it so that if you start typing after selecting some text it will actually overwrite what you selected instead of ignoring the selection and appending to the end. See: https://www.gnu.org/software/emacs/manual/html_node/efaq/Replacing-highlighted-text.html
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (delete-selection-mode 1)
+#+END_SRC
+** CUA Mode
+This is the standard copy-cut-paste shortcuts that are different in Emacs by default. By restoring them to the standard =Ctrl C/X/V= it will interfere with some existing shortcuts in Emacs. So now whenever you see a =Ctrl C= You need to hit =Ctrl C C=. Off the top of my head I know this affects =CIDER= (Clojure code) and =orgmode=.
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (cua-mode t)
+#+END_SRC
 * Orgmode
 ** Some adjustments to org-mode
 see [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][here]] for reference \\
