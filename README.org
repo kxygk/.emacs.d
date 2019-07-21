@@ -22,6 +22,13 @@ There is [[https://github.com/probonopd/Emacs.AppImage/issues/8][some issue]] wi
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (if (getenv "APPDIR") (setenv "LD_LIBRARY_PATH" nil))
 #+END_SRC
+** Hide menu bars
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+#+END_SRC
+
 ** Package managment
 To begin extending Emacs we will want to be able to add external packages. Emacs comes with a built in package manager called ~package~ which we will use to get external package. We load it by using ~require~  and then we initialize it.
 #+BEGIN_SRC emacs-lisp :tangle init.el
