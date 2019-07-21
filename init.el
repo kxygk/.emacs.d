@@ -96,7 +96,7 @@
 
 (delete-selection-mode 1)
 
-(cua-mode t)
+;  (cua-mode t)
 
 (setq org-confirm-babel-evaluate nil ;; don't prompt for confirmation about executing a block
       org-src-tab-acts-natively t

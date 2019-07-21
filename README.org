@@ -206,7 +206,7 @@ This will make it so that if you start typing after selecting some text it will 
 ** CUA Mode
 This is the standard copy-cut-paste shortcuts that are different in Emacs by default. By restoring them to the standard =Ctrl C/X/V= it will interfere with some existing shortcuts in Emacs. So now whenever you see a =Ctrl C= You need to hit =Ctrl C C=. Off the top of my head I know this affects =CIDER= (Clojure code) and =orgmode=.
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (cua-mode t)
+;  (cua-mode t)
 #+END_SRC
 * Orgmode
 ** Some adjustments to org-mode
