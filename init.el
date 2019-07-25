@@ -61,11 +61,13 @@
 
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
-(use-package moe-theme
-  :ensure t
-  :config
-  (moe-light)
-  (set-face-attribute 'default nil :background "#ffffff" :foreground "#5f5f5f"))
+;; (use-package moe-theme
+;;   :ensure t
+;;   :config
+;;   (moe-light)
+;;   (set-face-attribute 'default nil :background "#ffffff" :foreground "#5f5f5f"))
+(use-package leuven-theme
+  :ensure t)
 
 (setq
    backup-by-copying t      ; don't clobber symlinks
