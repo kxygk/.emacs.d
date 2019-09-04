@@ -67,6 +67,8 @@
 ;;   (moe-light)
 ;;   (set-face-attribute 'default nil :background "#ffffff" :foreground "#5f5f5f"))
 (use-package leuven-theme
+  :init (setq leuven-scale-outline-headlines nil)
+	(setq leuven-scale-org-agenda-structure nil)
   :ensure t)
 
 (setq

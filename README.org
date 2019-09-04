@@ -144,6 +144,8 @@ This is the only decent light theme I could find. The advantage over the default
   ;;   (moe-light)
   ;;   (set-face-attribute 'default nil :background "#ffffff" :foreground "#5f5f5f"))
   (use-package leuven-theme
+    :init (setq leuven-scale-outline-headlines nil)
+	  (setq leuven-scale-org-agenda-structure nil)
     :ensure t)
 
 #+END_SRC
