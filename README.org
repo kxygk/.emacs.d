@@ -271,15 +271,13 @@ We're going to use the new language server protocol way (instead of rtags as bef
 #+END_SRC
 * Clojure
 (WIP)
-Add support in Org-Mode. From https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure-literate.html
-Seems broken for the time being for some reason...
+Getting Clojure to play friendly with Orgmode is a bit weird. But you can sorta get it to work like ELisp, where you execute blocks within the document itself useing =C-c C-c=. You just need to open the corresponding tangled =.clj= file once, launch the REPL using =C-c M-J= and then make sure it's all loaded with =C-c C-k=. After this you don't need to really touch the tangled file anymore. You just need to change to the correct namespace in your REPL with the usual ~(in-ns 'something.somethingelse)~ and then you can just stick to running code blocks in the org document. The last step is crucial b/c when you run blocks in your org document they will be effectively running in whatever state your REPL is in (though the output will go to RESULTS blocks in the org document and not the REPL output/buffer). So it's a bit goofy.. b/c the org document runs are tied to the current REPL state.
+
+If there is no REPL running then the thing seems to just not run at all. The =auto-jack-in= option here doesn't seem to really work unfortunately. This might make exporting with no running REPL a bit broken. We'll see how the setup works..
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  ;; (use-package ob-clojure-literate
-  ;;   :ensure t
-  ;;   :after org
-  ;;   :init
-  ;;   (setq ob-clojure-literate-auto-jackin-p t)
-  ;;   (add-hook 'org-mode-hook #'ob-clojure-literate-mode))
+  (require 'ob-clojure)
+  (setq org-babel-clojure-backend 'cider)
+  (setq ob-clojure-literate-auto-jackin-p t)
 #+END_SRC
 
 Starting to play around with ~Clojure~. The canonical ~Clojure~ development environment is ~CIDER~

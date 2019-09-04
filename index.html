@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-09-04 Wed 18:34 -->
+<!-- 2019-09-04 Wed 20:35 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Emacs configuration for C++/CMake/git</title>
@@ -23,55 +23,55 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org042d76e">Intro</a></li>
-<li><a href="#orgc25e3ac">General Settings</a>
+<li><a href="#orgede8f92">Intro</a></li>
+<li><a href="#orge8de38b">General Settings</a>
 <ul>
-<li><a href="#org3d19780">Hack for AppImage</a></li>
-<li><a href="#org7086b99">Hide menu bars</a></li>
-<li><a href="#orge287388">Package managment</a></li>
-<li><a href="#org3af7513">Auto-update</a></li>
-<li><a href="#orgc04f50f">Import shell variables</a></li>
-<li><a href="#org0245e21">Indentation - Change the default indentation from 2 spaces to 4</a></li>
-<li><a href="#org865ca49">Line wrap</a></li>
-<li><a href="#orga598438">Theme</a></li>
-<li><a href="#org75e2536">Git</a></li>
-<li><a href="#org7288a06">Autosave/Backup files</a>
+<li><a href="#org7862950">Hack for AppImage</a></li>
+<li><a href="#org6b77484">Hide menu bars</a></li>
+<li><a href="#orgb04ce44">Package managment</a></li>
+<li><a href="#org2a8c2cc">Auto-update</a></li>
+<li><a href="#org2d9d8c6">Import shell variables</a></li>
+<li><a href="#orgd2ec653">Indentation - Change the default indentation from 2 spaces to 4</a></li>
+<li><a href="#orgc2ebe0f">Line wrap</a></li>
+<li><a href="#orgb03d826">Theme</a></li>
+<li><a href="#org74e52d2">Git</a></li>
+<li><a href="#orga8a013c">Autosave/Backup files</a>
 <ul>
-<li><a href="#orgd7647d4">Magit</a></li>
-<li><a href="#orgbb8ca25">Projectile</a></li>
+<li><a href="#org7e1e89d">Magit</a></li>
+<li><a href="#orga15b732">Projectile</a></li>
 </ul>
 </li>
-<li><a href="#org1a5a656">images</a></li>
-<li><a href="#orgf6c04f6">system-monitor</a></li>
-<li><a href="#org1e00cd2">which-key</a></li>
+<li><a href="#orga2d82b7">images</a></li>
+<li><a href="#org9cd9a6e">system-monitor</a></li>
+<li><a href="#org7f6befc">which-key</a></li>
 </ul>
 </li>
-<li><a href="#org05c4f7a">Standardizing (WIP)</a>
+<li><a href="#org708da5a">Standardizing (WIP)</a>
 <ul>
-<li><a href="#org6ae16cc">Overwrite selection</a></li>
-<li><a href="#org09314ce">CUA Mode</a></li>
+<li><a href="#org33f90ca">Overwrite selection</a></li>
+<li><a href="#org49fb7ae">CUA Mode</a></li>
 </ul>
 </li>
-<li><a href="#orgb9d5cb3">Orgmode</a>
+<li><a href="#org0bacce7">Orgmode</a>
 <ul>
-<li><a href="#orge366052">Some adjustments to org-mode</a></li>
-<li><a href="#org998aa7d">Plotting</a></li>
+<li><a href="#orga12c677">Some adjustments to org-mode</a></li>
+<li><a href="#org07c736c">Plotting</a></li>
 </ul>
 </li>
-<li><a href="#orgd2a204e">C++</a>
+<li><a href="#org3240c04">C++</a>
 <ul>
-<li><a href="#orgca828ca">lsp-mode</a></li>
-<li><a href="#org971d0d0">emacs-cquery</a></li>
+<li><a href="#org40eedd0">lsp-mode</a></li>
+<li><a href="#org4c5213e">emacs-cquery</a></li>
 </ul>
 </li>
-<li><a href="#orgc54b047">Clojure</a></li>
+<li><a href="#orgaba866e">Clojure</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org042d76e" class="outline-2">
-<h2 id="org042d76e">Intro</h2>
-<div class="outline-text-2" id="text-org042d76e">
+<div id="outline-container-orgede8f92" class="outline-2">
+<h2 id="orgede8f92">Intro</h2>
+<div class="outline-text-2" id="text-orgede8f92">
 <p>
 I hope this emacs configuration file will help explain a little elisp and how to write your own. 
 </p>
@@ -85,13 +85,13 @@ Note that I wrote this knowing no lisp at all - so if there are mistakes or you 
 </p>
 </div>
 </div>
-<div id="outline-container-orgc25e3ac" class="outline-2">
-<h2 id="orgc25e3ac">General Settings</h2>
-<div class="outline-text-2" id="text-orgc25e3ac">
+<div id="outline-container-orge8de38b" class="outline-2">
+<h2 id="orge8de38b">General Settings</h2>
+<div class="outline-text-2" id="text-orge8de38b">
 </div>
-<div id="outline-container-org3d19780" class="outline-3">
-<h3 id="org3d19780">Hack for AppImage</h3>
-<div class="outline-text-3" id="text-org3d19780">
+<div id="outline-container-org7862950" class="outline-3">
+<h3 id="org7862950">Hack for AppImage</h3>
+<div class="outline-text-3" id="text-org7862950">
 <p>
 There is <a href="https://github.com/probonopd/Emacs.AppImage/issues/8">some issue</a> with the way the <a href="https://github.com/probonopd/Emacs.AppImage/">Emacs AppImage</a> is setup so it interferes with <code>git</code>
 </p>
@@ -101,9 +101,9 @@ There is <a href="https://github.com/probonopd/Emacs.AppImage/issues/8">some iss
 </div>
 </div>
 </div>
-<div id="outline-container-org7086b99" class="outline-3">
-<h3 id="org7086b99">Hide menu bars</h3>
-<div class="outline-text-3" id="text-org7086b99">
+<div id="outline-container-org6b77484" class="outline-3">
+<h3 id="org6b77484">Hide menu bars</h3>
+<div class="outline-text-3" id="text-org6b77484">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(menu-bar-mode -1<span style="color: #999999;">)</span>
 (tool-bar-mode -1<span style="color: #999999;">)</span>
@@ -113,9 +113,9 @@ There is <a href="https://github.com/probonopd/Emacs.AppImage/issues/8">some iss
 </div>
 </div>
 
-<div id="outline-container-orge287388" class="outline-3">
-<h3 id="orge287388">Package managment</h3>
-<div class="outline-text-3" id="text-orge287388">
+<div id="outline-container-orgb04ce44" class="outline-3">
+<h3 id="orgb04ce44">Package managment</h3>
+<div class="outline-text-3" id="text-orgb04ce44">
 <p>
 To begin extending Emacs we will want to be able to add external packages. Emacs comes with a built in package manager called <code>package</code> which we will use to get external package. We load it by using <code>require</code>  and then we initialize it.
 </p>
@@ -170,9 +170,9 @@ Once we have it in our directory we just need to add it to the <code>load-path</
 </p>
 </div>
 </div>
-<div id="outline-container-org3af7513" class="outline-3">
-<h3 id="org3af7513">Auto-update</h3>
-<div class="outline-text-3" id="text-org3af7513">
+<div id="outline-container-org2a8c2cc" class="outline-3">
+<h3 id="org2a8c2cc">Auto-update</h3>
+<div class="outline-text-3" id="text-org2a8c2cc">
 <p>
 This will make the packages update to the latest version every few days
 </p>
@@ -187,9 +187,9 @@ This will make the packages update to the latest version every few days
 </div>
 </div>
 </div>
-<div id="outline-container-orgc04f50f" class="outline-3">
-<h3 id="orgc04f50f">Import shell variables</h3>
-<div class="outline-text-3" id="text-orgc04f50f">
+<div id="outline-container-org2d9d8c6" class="outline-3">
+<h3 id="org2d9d8c6">Import shell variables</h3>
+<div class="outline-text-3" id="text-org2d9d8c6">
 <p>
 Especially when we launch emacs in daemon mode, the environmental variables won't be set up. So for example it won't find executables in the PATH b/c the PATH won't be set up the way you have it in your <code>.bashrc</code> file. So there is a special package to fix that
 </p>
@@ -203,9 +203,9 @@ Especially when we launch emacs in daemon mode, the environmental variables won'
 </div>
 </div>
 </div>
-<div id="outline-container-org0245e21" class="outline-3">
-<h3 id="org0245e21">Indentation - Change the default indentation from 2 spaces to 4</h3>
-<div class="outline-text-3" id="text-org0245e21">
+<div id="outline-container-orgd2ec653" class="outline-3">
+<h3 id="orgd2ec653">Indentation - Change the default indentation from 2 spaces to 4</h3>
+<div class="outline-text-3" id="text-orgd2ec653">
 <p>
 Indentation is generally govered by two variables<br>
 <code>default-tab-width</code> - this is the variable for any text document when you normally type in a TAB<br>
@@ -255,9 +255,9 @@ Trying out the very weird Parinfer mode (this code is straight copied from <a hr
 </div>
 </div>
 </div>
-<div id="outline-container-org865ca49" class="outline-3">
-<h3 id="org865ca49">Line wrap</h3>
-<div class="outline-text-3" id="text-org865ca49">
+<div id="outline-container-orgc2ebe0f" class="outline-3">
+<h3 id="orgc2ebe0f">Line wrap</h3>
+<div class="outline-text-3" id="text-orgc2ebe0f">
 <p>
 Next we need to enable line-wrap in org mode. By default, as you keep typing the page scrolls to the right. So a whole paragraph will appear as one line making it difficult to navigate
 </p>
@@ -270,9 +270,9 @@ again, don't hesitate to look up all the variables and function. Hooks are in ge
 </p>
 </div>
 </div>
-<div id="outline-container-orga598438" class="outline-3">
-<h3 id="orga598438">Theme</h3>
-<div class="outline-text-3" id="text-orga598438">
+<div id="outline-container-orgb03d826" class="outline-3">
+<h3 id="orgb03d826">Theme</h3>
+<div class="outline-text-3" id="text-orgb03d826">
 <p>
 This is the only decent light theme I could find. The advantage over the default theme is that it will color a more things in more modes. The most important to me me is that it will color code blocks in org-mode
 </p>
@@ -294,17 +294,17 @@ The last line makes the background white (instead of yellow)
 </p>
 </div>
 </div>
-<div id="outline-container-org75e2536" class="outline-3">
-<h3 id="org75e2536">Git</h3>
-<div class="outline-text-3" id="text-org75e2536">
+<div id="outline-container-org74e52d2" class="outline-3">
+<h3 id="org74e52d2">Git</h3>
+<div class="outline-text-3" id="text-org74e52d2">
 <p>
 For using git we want to have a couple of tools
 </p>
 </div>
 </div>
-<div id="outline-container-org7288a06" class="outline-3">
-<h3 id="org7288a06">Autosave/Backup files</h3>
-<div class="outline-text-3" id="text-org7288a06">
+<div id="outline-container-orga8a013c" class="outline-3">
+<h3 id="orga8a013c">Autosave/Backup files</h3>
+<div class="outline-text-3" id="text-orga8a013c">
 <p>
 By default Emacs will save copies of files with a <code>~</code> appended. This ends up cluttering directories and makes any directory touched by Emacs a bit of a mess. Instead we can have Emacs save files to a central directory.
 </p>
@@ -324,9 +324,9 @@ See: <a href="https://www.emacswiki.org/emacs/BackupDirectory">https://www.emacs
 </pre>
 </div>
 </div>
-<div id="outline-container-orgd7647d4" class="outline-4">
-<h4 id="orgd7647d4">Magit</h4>
-<div class="outline-text-4" id="text-orgd7647d4">
+<div id="outline-container-org7e1e89d" class="outline-4">
+<h4 id="org7e1e89d">Magit</h4>
+<div class="outline-text-4" id="text-org7e1e89d">
 <p>
 This is the tool for inspecting and updating out git repository. It's a little complicated to use, so look up documentation for it. It is a must for development in emacs if you use <code>git</code> - so make the investment and learn to use it.
 </p>
@@ -337,9 +337,9 @@ This is the tool for inspecting and updating out git repository. It's a little c
 </div>
 </div>
 </div>
-<div id="outline-container-orgbb8ca25" class="outline-4">
-<h4 id="orgbb8ca25">Projectile</h4>
-<div class="outline-text-4" id="text-orgbb8ca25">
+<div id="outline-container-orga15b732" class="outline-4">
+<h4 id="orga15b732">Projectile</h4>
+<div class="outline-text-4" id="text-orga15b732">
 <p>
 This will manage our workspaces. Each workspace will be tied to a git repository. This makes it so that our buffer list doesn't get really crowded when we are working on multiple projects
 </p>
@@ -357,9 +357,9 @@ I sometimes use this - and other times I just run separate emacs sessions for di
 </div>
 </div>
 
-<div id="outline-container-org1a5a656" class="outline-3">
-<h3 id="org1a5a656">images</h3>
-<div class="outline-text-3" id="text-org1a5a656">
+<div id="outline-container-orga2d82b7" class="outline-3">
+<h3 id="orga2d82b7">images</h3>
+<div class="outline-text-3" id="text-orga2d82b7">
 <p>
 When you open a GIF, make it loop forever (instead of playing through once and stopping
 </p>
@@ -372,9 +372,9 @@ Hit <code>RET</code> to have it start playing
 </p>
 </div>
 </div>
-<div id="outline-container-orgf6c04f6" class="outline-3">
-<h3 id="orgf6c04f6">system-monitor</h3>
-<div class="outline-text-3" id="text-orgf6c04f6">
+<div id="outline-container-org9cd9a6e" class="outline-3">
+<h3 id="org9cd9a6e">system-monitor</h3>
+<div class="outline-text-3" id="text-org9cd9a6e">
 <p>
 A tiny in-bar system monitor is convenient (and doesn't need to be part of my desktop).
 </p>
@@ -389,9 +389,9 @@ A tiny in-bar system monitor is convenient (and doesn't need to be part of my de
 </div>
 </div>
 
-<div id="outline-container-org1e00cd2" class="outline-3">
-<h3 id="org1e00cd2">which-key</h3>
-<div class="outline-text-3" id="text-org1e00cd2">
+<div id="outline-container-org7f6befc" class="outline-3">
+<h3 id="org7f6befc">which-key</h3>
+<div class="outline-text-3" id="text-org7f6befc">
 <p>
 This is gunna give us tips for different modes so we can learn new key-combos
 </p>
@@ -403,16 +403,16 @@ This is gunna give us tips for different modes so we can learn new key-combos
 </div>
 </div>
 </div>
-<div id="outline-container-org05c4f7a" class="outline-2">
-<h2 id="org05c4f7a">Standardizing (WIP)</h2>
-<div class="outline-text-2" id="text-org05c4f7a">
+<div id="outline-container-org708da5a" class="outline-2">
+<h2 id="org708da5a">Standardizing (WIP)</h2>
+<div class="outline-text-2" id="text-org708da5a">
 <p>
 These are some changes that bring Emacs more in line with how modern applications work. Most people don't do this.. I'm giving it a try
 </p>
 </div>
-<div id="outline-container-org6ae16cc" class="outline-3">
-<h3 id="org6ae16cc">Overwrite selection</h3>
-<div class="outline-text-3" id="text-org6ae16cc">
+<div id="outline-container-org33f90ca" class="outline-3">
+<h3 id="org33f90ca">Overwrite selection</h3>
+<div class="outline-text-3" id="text-org33f90ca">
 <p>
 This will make it so that if you start typing after selecting some text it will actually overwrite what you selected instead of ignoring the selection and appending to the end. See: <a href="https://www.gnu.org/software/emacs/manual/html_node/efaq/Replacing-highlighted-text.html">https://www.gnu.org/software/emacs/manual/html_node/efaq/Replacing-highlighted-text.html</a>
 </p>
@@ -422,9 +422,9 @@ This will make it so that if you start typing after selecting some text it will 
 </div>
 </div>
 </div>
-<div id="outline-container-org09314ce" class="outline-3">
-<h3 id="org09314ce">CUA Mode</h3>
-<div class="outline-text-3" id="text-org09314ce">
+<div id="outline-container-org49fb7ae" class="outline-3">
+<h3 id="org49fb7ae">CUA Mode</h3>
+<div class="outline-text-3" id="text-org49fb7ae">
 <p>
 This is the standard copy-cut-paste shortcuts that are different in Emacs by default. By restoring them to the standard <code>Ctrl C/X/V</code> it will interfere with some existing shortcuts in Emacs. So now whenever you see a <code>Ctrl C</code> You need to hit <code>Ctrl C C</code>. Off the top of my head I know this affects <code>CIDER</code> (Clojure code) and <code>orgmode</code>.
 </p>
@@ -435,13 +435,13 @@ This is the standard copy-cut-paste shortcuts that are different in Emacs by def
 </div>
 </div>
 </div>
-<div id="outline-container-orgb9d5cb3" class="outline-2">
-<h2 id="orgb9d5cb3">Orgmode</h2>
-<div class="outline-text-2" id="text-orgb9d5cb3">
+<div id="outline-container-org0bacce7" class="outline-2">
+<h2 id="org0bacce7">Orgmode</h2>
+<div class="outline-text-2" id="text-org0bacce7">
 </div>
-<div id="outline-container-orge366052" class="outline-3">
-<h3 id="orge366052">Some adjustments to org-mode</h3>
-<div class="outline-text-3" id="text-orge366052">
+<div id="outline-container-orga12c677" class="outline-3">
+<h3 id="orga12c677">Some adjustments to org-mode</h3>
+<div class="outline-text-3" id="text-orga12c677">
 <p>
 see <a href="http://howardism.org/Technical/Emacs/literate-programming-tutorial.html">here</a> for reference <br>
 </p>
@@ -477,9 +477,9 @@ For more info on any of these variables, again, use <code>C-h v [variable] RET</
 </p>
 </div>
 </div>
-<div id="outline-container-org998aa7d" class="outline-3">
-<h3 id="org998aa7d">Plotting</h3>
-<div class="outline-text-3" id="text-org998aa7d">
+<div id="outline-container-org07c736c" class="outline-3">
+<h3 id="org07c736c">Plotting</h3>
+<div class="outline-text-3" id="text-org07c736c">
 <p>
 For one of my ongoing "project" I want my ELisp code to be able to output plots. For that we need to add <code>gnuplot</code> and then <a href="https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-gnuplot.html#org66dbe2c">enable execution</a> of <code>gnuplot</code> blocks in <code>orgmode</code>. The last line lets me make plots interactively in the <code>gnuplot</code> buffer
 </p>
@@ -497,17 +497,17 @@ For one of my ongoing "project" I want my ELisp code to be able to output plots.
 </div>
 </div>
 </div>
-<div id="outline-container-orgd2a204e" class="outline-2">
-<h2 id="orgd2a204e">C++</h2>
-<div class="outline-text-2" id="text-orgd2a204e">
+<div id="outline-container-org3240c04" class="outline-2">
+<h2 id="org3240c04">C++</h2>
+<div class="outline-text-2" id="text-org3240c04">
 <p>
 Here we'll setup a development environment as feature rich as an IDE <br>
 We're going to use the new language server protocol way (instead of rtags as before). I'm just following <a href="https://github.com/cquery-project/cquery/wiki/Emacs">the official guide</a>
 </p>
 </div>
-<div id="outline-container-orgca828ca" class="outline-3">
-<h3 id="orgca828ca">lsp-mode</h3>
-<div class="outline-text-3" id="text-orgca828ca">
+<div id="outline-container-org40eedd0" class="outline-3">
+<h3 id="org40eedd0">lsp-mode</h3>
+<div class="outline-text-3" id="text-org40eedd0">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #8D8D84;">;; </span><span style="color: #8D8D84; font-style: italic;">(use-package lsp-mode</span>
 <span style="color: #8D8D84;">;;   </span><span style="color: #8D8D84; font-style: italic;">:ensure t)</span>
@@ -515,9 +515,9 @@ We're going to use the new language server protocol way (instead of rtags as bef
 </div>
 </div>
 </div>
-<div id="outline-container-org971d0d0" class="outline-3">
-<h3 id="org971d0d0">emacs-cquery</h3>
-<div class="outline-text-3" id="text-org971d0d0">
+<div id="outline-container-org4c5213e" class="outline-3">
+<h3 id="org4c5213e">emacs-cquery</h3>
+<div class="outline-text-3" id="text-org4c5213e">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #8D8D84;">;; </span><span style="color: #8D8D84; font-style: italic;">(use-package emacs-cquery</span>
 <span style="color: #8D8D84;">;;   </span><span style="color: #8D8D84; font-style: italic;">:commands lsp-cquery-enable</span>
@@ -530,21 +530,21 @@ We're going to use the new language server protocol way (instead of rtags as bef
 </div>
 </div>
 </div>
-<div id="outline-container-orgc54b047" class="outline-2">
-<h2 id="orgc54b047">Clojure</h2>
-<div class="outline-text-2" id="text-orgc54b047">
+<div id="outline-container-orgaba866e" class="outline-2">
+<h2 id="orgaba866e">Clojure</h2>
+<div class="outline-text-2" id="text-orgaba866e">
 <p>
 (WIP)
-Add support in Org-Mode. From <a href="https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure-literate.html">https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure-literate.html</a>
-Seems broken for the time being for some reason&#x2026;
+Getting Clojure to play friendly with Orgmode is a bit weird. But you can sorta get it to work like ELisp, where you execute blocks within the document itself useing <code>C-c C-c</code>. You just need to open the corresponding tangled <code>.clj</code> file once, launch the REPL using <code>C-c M-J</code> and then make sure it's all loaded with <code>C-c C-k</code>. After this you don't need to really touch the tangled file anymore. You just need to change to the correct namespace in your REPL with the usual <code>(in-ns 'something.somethingelse)</code> and then you can just stick to running code blocks in the org document. The last step is crucial b/c when you run blocks in your org document they will be effectively running in whatever state your REPL is in (though the output will go to RESULTS blocks in the org document and not the REPL output/buffer). So it's a bit goofy.. b/c the org document runs are tied to the current REPL state.
+</p>
+
+<p>
+If there is no REPL running then the thing seems to just not run at all. The <code>auto-jack-in</code> option here doesn't seem to really work unfortunately. This might make exporting with no running REPL a bit broken. We'll see how the setup works..
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #8D8D84;">;; </span><span style="color: #8D8D84; font-style: italic;">(use-package ob-clojure-literate</span>
-<span style="color: #8D8D84;">;;   </span><span style="color: #8D8D84; font-style: italic;">:ensure t</span>
-<span style="color: #8D8D84;">;;   </span><span style="color: #8D8D84; font-style: italic;">:after org</span>
-<span style="color: #8D8D84;">;;   </span><span style="color: #8D8D84; font-style: italic;">:init</span>
-<span style="color: #8D8D84;">;;   </span><span style="color: #8D8D84; font-style: italic;">(setq ob-clojure-literate-auto-jackin-p t)</span>
-<span style="color: #8D8D84;">;;   </span><span style="color: #8D8D84; font-style: italic;">(add-hook 'org-mode-hook #'ob-clojure-literate-mode))</span>
+<pre class="src src-emacs-lisp">(<span style="color: #0000FF;">require</span> '<span style="color: #D0372D;">ob-clojure</span><span style="color: #999999;">)</span>
+(<span style="color: #0000FF;">setq</span> org-babel-clojure-backend 'cider<span style="color: #999999;">)</span>
+(<span style="color: #0000FF;">setq</span> ob-clojure-literate-auto-jackin-p t<span style="color: #999999;">)</span>
 </pre>
 </div>
 

@@ -131,12 +131,9 @@
 ;;   (add-hook 'c++-mode-hook #'cquery//enable)
 ;;   :ensure t)
 
-;; (use-package ob-clojure-literate
-;;   :ensure t
-;;   :after org
-;;   :init
-;;   (setq ob-clojure-literate-auto-jackin-p t)
-;;   (add-hook 'org-mode-hook #'ob-clojure-literate-mode))
+(require 'ob-clojure)
+(setq org-babel-clojure-backend 'cider)
+(setq ob-clojure-literate-auto-jackin-p t)
 
 (use-package cider
   :ensure t
