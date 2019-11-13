@@ -325,3 +325,114 @@ Example of how to set a font from within Emacs
   ;; (set-face-attribute 'default nil :font "tewi:pixelsize=11:foundry=lucy:weight=normal:slant=normal:width=normal:spacing=110:scalable=false")
   ;; (set-frame-font "tewi:pixelsize=11:foundry=lucy:weight=normal:slant=normal:width=normal:spacing=110:scalable=false" nil t)
 #+END_SRC
+* Bookmarks
+Live in =~/.emacs.d/bookmarks= \\
+Set bookmarks with =
+- ~C-x r m RET~
+- ~C-x r m /bookmark/ RET~
+Jump to bookmark
+- ~C-x r b /bookmark/ RET~
+List bookmarks
+- ~C-x r l~
+
+* Other notes
+- ~C-l~ recenter around point
+- ~show-trailing-whitespace~ - to display.. whitespace
+- ~delete-trailing-whitespace~
+- ~display-time~
+- ~display-battery-mode~
+"Save As"
+- ~C-x C-w~
+Autoreload files (like logs.. ones that change "under you")
+- ~revert-buffer~
+- ~auto-revert-mode~ (reverts every 5 seconds)
+- ~auto-revert-tail-mode~
+
+- ~C-<~ top
+- ~C->~ bottom of buffer
+
+- ~C-x ESC ESC~ rerun last minibuffer command
+
+- ~C-/~ undo
+- ~C-u C-/~ undo undo
+
+* Help
+- ~C-h C-h~ general help menu
+- ~C-h a /topic/ RET~ appropos
+- ~C-h i d m emacs RET i /topic/ RET~ index
+- ~C-h i d m emacs RET s /topic/ RET~ manual text
+- ~C-h C-f~ FAQ
+- ~[prefix] C-h~ completion options
+- ~C-h b~ all active bindings (minor/major modes)
+- ~C-h m~ major/minor modes
+- ~C-h d /topic/ RET~ apropos
+- ~C-h e~ *Messages* buffer
+- ~C-h h~ HELLO file + character set
+- ~C-h i~ Info + Manual
+- ~C-h k /key/~ describe key
+- ~C-h o /symbol/~ info on symbol
+
+* Dired
+- ~C-x C-d~ directory listing
+- ~C-u C-x C-d~ vebose directory listing
+- ~make-directory~
+- ~delete-directory~
+- ~q~ bury Dired buffer
+- ~SPC/n~ navigate dired up/down
+- ~j~ go to file
+- ~e/f RET~ extract file into buffer *tar mode*
+- ~d~ delete
+- ~m~ mark as file (with a *)
+- ~**~ mark all executable files
+- ~u~ unmark
+- ~x~ execute pending operations
+
+- ~C /new/ RET~ like *cp* with /new/ being the arg
+- ~D~ like *rm* removed marked files
+- ~R /new RET~ rename
+- ~H /new RET~ hard link
+- ~S /new RET~ soft link
+- ~M /new RET~ change mode
+- ~G /new RET~ new group
+- ~O /new RET~ new owner
+- ~T /new RET~ touch
+- ~Z~ compress (each into it's own archive)
+- ~c~ compress into one archive
+- ~:d~ decompress
+- ~:v~ verify signature
+- ~:s~ sign
+- ~:e~ encrypt
+- ~!~ run shell command
+- ~&~ same but async
+- ~I~ insert file (empty)
+
+- =~= go "up" a directory (like ~..~)
+- ~/host:filename~
+- ~/user@host:filename~
+- ~/user@host#port:filename~
+- ~method:user@host#port:filename~
+
+* GDB / GUD
+- ~M-x gdb~ runs the GDB graphical interface
+- ~M-x gud-gdb~ run GUD and GDB as a subprocess
+- ~C-x C-a C-b~ set breakpoint at current source line
+- ~C-c C-l~ display the last source line in another window
+- ~C-c C-s~ run next line ENTER function
+- ~C-c C-n~ STEPOVER
+- ~C-c C-i~ execute a simple machine instruction
+- ~C-c C-p~ evaluate expression at point - can mark a region
+- ~C-c C-r~ CONTINUE
+- ~C-c C-d~ delete breakpoint
+- ~C-c C-t~ temp breakpoint
+- ~C-c >/<~ up/down stack
+- ~C-c C-u~ CONTINUE to current line
+- ~C-c C-f~ run till stack frame is done
+- ~C-x C-a C-j~ jump to point
+- ~C-x k~ kill the GUD session and all associated buffers
+
+* Compiling
+- ~compile~ runs the compile command (default ~make -k~) in the current buffer's directory
+- ~recompile~ reruns compile in the previous directory
+- ~C-x `~ go to next error message
+- ~M-;~ go to next error
+
