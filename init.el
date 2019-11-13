@@ -1,3 +1,4 @@
+
 (if (getenv "APPDIR") (setenv "LD_LIBRARY_PATH" nil))
 
 (menu-bar-mode -1)
@@ -68,7 +69,7 @@
 ;;   (set-face-attribute 'default nil :background "#ffffff" :foreground "#5f5f5f"))
 (use-package leuven-theme
   :init (setq leuven-scale-outline-headlines nil)
-	(setq leuven-scale-org-agenda-structure nil)
+        (setq leuven-scale-org-agenda-structure nil)
   :ensure t)
 
 (setq
@@ -80,7 +81,9 @@
    kept-old-versions 2)
 
 (use-package magit
-  :ensure t)
+  :ensure t
+  :init
+  (setq magit-display-buffer-function #'magit-display-buffer-fullcolumn-most-v1))
 
 (use-package projectile
   :ensure t
@@ -98,6 +101,13 @@
 (use-package which-key
   :ensure t)
 
+;(setq mouse-wheel-scroll-amount '(0.07))
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) 
+(setq mouse-wheel-progressive-speed nil)
+(setq scroll-step 1)
+
+;(setq browse-url-browser-function 'eww-browse-url)
+
 (delete-selection-mode 1)
 
 ;  (cua-mode t)
@@ -111,15 +121,20 @@
       org-cycle-emulate-tab 'white)
 (use-package htmlize
   :ensure t)
+;; (setq org-babel-default-header-args:octave '((:results . "org")
+;;                                        (:eval . "never-export")
+;;                                        (:exports . "both")))
 
 (use-package gnuplot
-    :ensure t)
+  :ensure t)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((gnuplot . t)))
+ '((gnuplot . t)
+   (octave . t)
+   (clojure . t)))
 
-(gnuplot-inline-display-mode)
+ (gnuplot-inline-display-mode)
 
 ;; (use-package lsp-mode
 ;;   :ensure t)
@@ -138,3 +153,20 @@
 (use-package cider
   :ensure t
   :init (setq org-babel-clojure-backend 'cider))
+
+;; (set-face-attribute 'default nil :font "tewi:pixelsize=11:foundry=lucy:weight=normal:slant=normal:width=normal:spacing=110:scalable=false")
+;; (set-frame-font "tewi:pixelsize=11:foundry=lucy:weight=normal:slant=normal:width=normal:spacing=110:scalable=false" nil t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (cider which-key projectile parinfer magit leuven-theme htmlize gnuplot exec-path-from-shell))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

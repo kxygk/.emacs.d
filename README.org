@@ -170,7 +170,9 @@ See: https://www.emacswiki.org/emacs/BackupDirectory and https://stackoverflow.c
 This is the tool for inspecting and updating out git repository. It's a little complicated to use, so look up documentation for it. It is a must for development in emacs if you use ~git~ - so make the investment and learn to use it.
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (use-package magit
-    :ensure t)
+    :ensure t
+    :init
+    (setq magit-display-buffer-function #'magit-display-buffer-fullcolumn-most-v1))
 #+END_SRC
 *** Projectile
 This will manage our workspaces. Each workspace will be tied to a git repository. This makes it so that our buffer list doesn't get really crowded when we are working on multiple projects
@@ -204,6 +206,19 @@ This is gunna give us tips for different modes so we can learn new key-combos
   (use-package which-key
     :ensure t)
 #+END_SRC
+** mousewheel
+make scrolling in Emacs more sane
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  ;(setq mouse-wheel-scroll-amount '(0.07))
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) 
+  (setq mouse-wheel-progressive-speed nil)
+  (setq scroll-step 1)
+#+END_SRC
+** eww
+Set links to open in the Emacs browser (then press & if you need to open them in Firefox)
+#+BEGIN_SRC emacs-lisp :tangle init.el
+;(setq browse-url-browser-function 'eww-browse-url)
+#+END_SRC
 * Standardizing (WIP)
 These are some changes that bring Emacs more in line with how modern applications work. Most people don't do this.. I'm giving it a try
 ** Overwrite selection
@@ -221,14 +236,17 @@ This is the standard copy-cut-paste shortcuts that are different in Emacs by def
 see [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][here]] for reference \\
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (setq org-confirm-babel-evaluate nil ;; don't prompt for confirmation about executing a block
-	org-src-tab-acts-natively t
-	org-use-sub-superscripts '{}
-	org-src-fontify-natively t
+        org-src-tab-acts-natively t
+        org-use-sub-superscripts '{}
+        org-src-fontify-natively t
         org-clock-into-drawer nil
         org-export-backends (quote (ascii html latex md odt))
-	org-cycle-emulate-tab 'white)
+        org-cycle-emulate-tab 'white)
   (use-package htmlize
     :ensure t)
+  ;; (setq org-babel-default-header-args:octave '((:results . "org")
+  ;;                                        (:eval . "never-export")
+  ;;                                        (:exports . "both")))
 #+END_SRC
  - Turns off the annoying "are you sure?" prompts on tangle export \\
  - Makes tabs work in the source code blocks the same as it would in a buffer with that source code \\
@@ -239,18 +257,21 @@ see [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][h
  - Enable exporting to Markdown (for a full set of options run ~customize-option~ then enter ~org-export-backends~ (editing this will modify your =init.el=)
  - Make collapsing and expanding sections with the TAB button work everywhere (except where it makes sense to insert an actual /tab/)
  - ~htmlize~ will colorize orgmode code-blocks code in the exported HTML
+ - ~org-babel-default-header-args~ are default ways I like to display run results in orgmode (subject to change)
 For more info on any of these variables, again, use ~C-h v [variable] RET~
 ** Plotting
 For one of my ongoing "project" I want my ELisp code to be able to output plots. For that we need to add ~gnuplot~ and then [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-gnuplot.html#org66dbe2c][enable execution]] of ~gnuplot~ blocks in ~orgmode~. The last line lets me make plots interactively in the ~gnuplot~ buffer
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (use-package gnuplot
-      :ensure t)
+    :ensure t)
 
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((gnuplot . t)))
+   '((gnuplot . t)
+     (octave . t)
+     (clojure . t)))
 
-  (gnuplot-inline-display-mode)
+   (gnuplot-inline-display-mode)
 #+END_SRC
 * C++ 
 Here we'll setup a development environment as feature rich as an IDE \\
@@ -298,3 +319,9 @@ Starting to play around with ~Clojure~. The canonical ~Clojure~ development envi
 #     ;(define-key c-mode-base-map (kbd "<C-tab>") (function company-complete)))
 # #+END_SRC
 # looking at the documentation we see that ~push~ will take the 1st argument and add it to the beginning of the list provided in the 2nd argument. ~company-backends~ is "a list of active backends (completion engines)". ~company-rtags~ is a backend provided by the ~rtags~ guys. See the documentation for more info :)
+* Fonts
+Example of how to set a font from within Emacs
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  ;; (set-face-attribute 'default nil :font "tewi:pixelsize=11:foundry=lucy:weight=normal:slant=normal:width=normal:spacing=110:scalable=false")
+  ;; (set-frame-font "tewi:pixelsize=11:foundry=lucy:weight=normal:slant=normal:width=normal:spacing=110:scalable=false" nil t)
+#+END_SRC
