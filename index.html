@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-11-14 四 00:38 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Emacs configuration for C++/CMake/git</title>
@@ -23,64 +22,65 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org7d10cfa">Intro</a></li>
-<li><a href="#orgb0dd38b">General Settings</a>
+<li><a href="#org7b6edac">Intro</a></li>
+<li><a href="#org3660dc1">General Settings</a>
 <ul>
-<li><a href="#org90be33f">Hack for AppImage</a></li>
-<li><a href="#orgdd80564">Hide menu bars</a></li>
-<li><a href="#org5f87d1a">Package managment</a></li>
-<li><a href="#orgfd796ae">Auto-update</a></li>
-<li><a href="#orgaeff048">Import shell variables</a></li>
-<li><a href="#org5f03b32">Indentation - Change the default indentation from 2 spaces to 4</a></li>
-<li><a href="#org019760c">Line wrap</a></li>
-<li><a href="#org1c311c8">Theme</a></li>
-<li><a href="#org91699a1">Git</a></li>
-<li><a href="#orgbc838a2">Autosave/Backup files</a>
+<li><a href="#org30e617a">Hack for AppImage</a></li>
+<li><a href="#orge415b10">Hide menu bars</a></li>
+<li><a href="#org4244a1f">Package managment</a></li>
+<li><a href="#org37ef6ba">Auto-update</a></li>
+<li><a href="#org4c4c0f0">Import shell variables</a></li>
+<li><a href="#orgcbdc2ad">Indentation - Change the default indentation from 2 spaces to 4</a></li>
+<li><a href="#org6d0c6db">Line wrap</a></li>
+<li><a href="#org7451e8e">Theme</a></li>
+<li><a href="#orgbc70e76">Git</a></li>
+<li><a href="#orgd360e96">Autosave/Backup files</a>
 <ul>
-<li><a href="#org73785c5">Magit</a></li>
-<li><a href="#org3390e9e">Projectile</a></li>
+<li><a href="#org17079c8">Magit</a></li>
+<li><a href="#orgb603f94">Projectile</a></li>
 </ul>
 </li>
-<li><a href="#org32a1e9b">images</a></li>
-<li><a href="#orgc6dd24f">system-monitor</a></li>
-<li><a href="#org0470275">which-key</a></li>
-<li><a href="#org8c8804b">mousewheel</a></li>
-<li><a href="#orgab58f9f">eww</a></li>
+<li><a href="#org363cda6">images</a></li>
+<li><a href="#org8dd1cb3">system-monitor</a></li>
+<li><a href="#orgd75c0ea">which-key</a></li>
+<li><a href="#orga02b721">mousewheel</a></li>
+<li><a href="#org055067c">eww</a></li>
 </ul>
 </li>
-<li><a href="#org8796b1c">Standardizing (WIP)</a>
+<li><a href="#orga44c191">Standardizing (WIP)</a>
 <ul>
-<li><a href="#org764432d">Overwrite selection</a></li>
-<li><a href="#org9f1e110">CUA Mode</a></li>
+<li><a href="#orgf59d385">Overwrite selection</a></li>
+<li><a href="#orgb021b32">CUA Mode</a></li>
+<li><a href="#orgf99e361">F-Key shortcuts</a></li>
 </ul>
 </li>
-<li><a href="#org26c3c62">Orgmode</a>
+<li><a href="#org8a4e019">Orgmode</a>
 <ul>
-<li><a href="#org141ba90">Some adjustments to org-mode</a></li>
-<li><a href="#orgff0205a">Plotting</a></li>
+<li><a href="#org31438a1">Some adjustments to org-mode</a></li>
+<li><a href="#org6004329">Plotting</a></li>
 </ul>
 </li>
-<li><a href="#orgae31b12">C++</a>
+<li><a href="#org5ba235e">C++</a>
 <ul>
-<li><a href="#org0174224">lsp-mode</a></li>
-<li><a href="#orgded65d3">emacs-cquery</a></li>
+<li><a href="#org0b78e3c">lsp-mode</a></li>
+<li><a href="#org46eaaaf">emacs-cquery</a></li>
 </ul>
 </li>
-<li><a href="#orgb1988d6">Clojure</a></li>
-<li><a href="#org22536e6">Fonts</a></li>
-<li><a href="#org2cda1b6">Bookmarks</a></li>
-<li><a href="#orgf037143">Other notes</a></li>
-<li><a href="#org8bfbb6b">Help</a></li>
-<li><a href="#orgc1c63b7">Dired</a></li>
-<li><a href="#orgfc06d14">GDB / GUD</a></li>
-<li><a href="#orgc03e2cd">Compiling</a></li>
+<li><a href="#orgd6d978c">Clojure</a></li>
+<li><a href="#orgf332f0f">Fonts</a></li>
+<li><a href="#org67eff74">Bookmarks</a></li>
+<li><a href="#orgd11371e">Other notes</a></li>
+<li><a href="#org3ff9a4e">Help</a></li>
+<li><a href="#orgaa8174f">Dired</a></li>
+<li><a href="#orgd9e951f">GDB / GUD</a></li>
+<li><a href="#org9afe9cf">Compiling</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org7d10cfa" class="outline-2">
-<h2 id="org7d10cfa">Intro</h2>
-<div class="outline-text-2" id="text-org7d10cfa">
+<div id="outline-container-org7b6edac" class="outline-2">
+<h2 id="org7b6edac">Intro</h2>
+<div class="outline-text-2" id="text-org7b6edac">
 <p>
 I hope this emacs configuration file will help explain a little elisp and how to write your own. 
 </p>
@@ -94,13 +94,13 @@ Note that I wrote this knowing no lisp at all - so if there are mistakes or you 
 </p>
 </div>
 </div>
-<div id="outline-container-orgb0dd38b" class="outline-2">
-<h2 id="orgb0dd38b">General Settings</h2>
-<div class="outline-text-2" id="text-orgb0dd38b">
+<div id="outline-container-org3660dc1" class="outline-2">
+<h2 id="org3660dc1">General Settings</h2>
+<div class="outline-text-2" id="text-org3660dc1">
 </div>
-<div id="outline-container-org90be33f" class="outline-3">
-<h3 id="org90be33f">Hack for AppImage</h3>
-<div class="outline-text-3" id="text-org90be33f">
+<div id="outline-container-org30e617a" class="outline-3">
+<h3 id="org30e617a">Hack for AppImage</h3>
+<div class="outline-text-3" id="text-org30e617a">
 <p>
 There is <a href="https://github.com/probonopd/Emacs.AppImage/issues/8">some issue</a> with the way the <a href="https://github.com/probonopd/Emacs.AppImage/">Emacs AppImage</a> is setup so it interferes with <code>git</code>
 </p>
@@ -110,9 +110,9 @@ There is <a href="https://github.com/probonopd/Emacs.AppImage/issues/8">some iss
 </div>
 </div>
 </div>
-<div id="outline-container-orgdd80564" class="outline-3">
-<h3 id="orgdd80564">Hide menu bars</h3>
-<div class="outline-text-3" id="text-orgdd80564">
+<div id="outline-container-orge415b10" class="outline-3">
+<h3 id="orge415b10">Hide menu bars</h3>
+<div class="outline-text-3" id="text-orge415b10">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(menu-bar-mode -1<span style="color: #999999;">)</span>
 (tool-bar-mode -1<span style="color: #999999;">)</span>
@@ -122,9 +122,9 @@ There is <a href="https://github.com/probonopd/Emacs.AppImage/issues/8">some iss
 </div>
 </div>
 
-<div id="outline-container-org5f87d1a" class="outline-3">
-<h3 id="org5f87d1a">Package managment</h3>
-<div class="outline-text-3" id="text-org5f87d1a">
+<div id="outline-container-org4244a1f" class="outline-3">
+<h3 id="org4244a1f">Package managment</h3>
+<div class="outline-text-3" id="text-org4244a1f">
 <p>
 To begin extending Emacs we will want to be able to add external packages. Emacs comes with a built in package manager called <code>package</code> which we will use to get external package. We load it by using <code>require</code>  and then we initialize it.
 </p>
@@ -179,9 +179,9 @@ Once we have it in our directory we just need to add it to the <code>load-path</
 </p>
 </div>
 </div>
-<div id="outline-container-orgfd796ae" class="outline-3">
-<h3 id="orgfd796ae">Auto-update</h3>
-<div class="outline-text-3" id="text-orgfd796ae">
+<div id="outline-container-org37ef6ba" class="outline-3">
+<h3 id="org37ef6ba">Auto-update</h3>
+<div class="outline-text-3" id="text-org37ef6ba">
 <p>
 This will make the packages update to the latest version every few days
 </p>
@@ -196,9 +196,9 @@ This will make the packages update to the latest version every few days
 </div>
 </div>
 </div>
-<div id="outline-container-orgaeff048" class="outline-3">
-<h3 id="orgaeff048">Import shell variables</h3>
-<div class="outline-text-3" id="text-orgaeff048">
+<div id="outline-container-org4c4c0f0" class="outline-3">
+<h3 id="org4c4c0f0">Import shell variables</h3>
+<div class="outline-text-3" id="text-org4c4c0f0">
 <p>
 Especially when we launch emacs in daemon mode, the environmental variables won't be set up. So for example it won't find executables in the PATH b/c the PATH won't be set up the way you have it in your <code>.bashrc</code> file. So there is a special package to fix that
 </p>
@@ -212,9 +212,9 @@ Especially when we launch emacs in daemon mode, the environmental variables won'
 </div>
 </div>
 </div>
-<div id="outline-container-org5f03b32" class="outline-3">
-<h3 id="org5f03b32">Indentation - Change the default indentation from 2 spaces to 4</h3>
-<div class="outline-text-3" id="text-org5f03b32">
+<div id="outline-container-orgcbdc2ad" class="outline-3">
+<h3 id="orgcbdc2ad">Indentation - Change the default indentation from 2 spaces to 4</h3>
+<div class="outline-text-3" id="text-orgcbdc2ad">
 <p>
 Indentation is generally govered by two variables<br>
 <code>default-tab-width</code> - this is the variable for any text document when you normally type in a TAB<br>
@@ -264,9 +264,9 @@ Trying out the very weird Parinfer mode (this code is straight copied from <a hr
 </div>
 </div>
 </div>
-<div id="outline-container-org019760c" class="outline-3">
-<h3 id="org019760c">Line wrap</h3>
-<div class="outline-text-3" id="text-org019760c">
+<div id="outline-container-org6d0c6db" class="outline-3">
+<h3 id="org6d0c6db">Line wrap</h3>
+<div class="outline-text-3" id="text-org6d0c6db">
 <p>
 Next we need to enable line-wrap in org mode. By default, as you keep typing the page scrolls to the right. So a whole paragraph will appear as one line making it difficult to navigate
 </p>
@@ -279,23 +279,31 @@ again, don't hesitate to look up all the variables and function. Hooks are in ge
 </p>
 </div>
 </div>
-<div id="outline-container-org1c311c8" class="outline-3">
-<h3 id="org1c311c8">Theme</h3>
-<div class="outline-text-3" id="text-org1c311c8">
+<div id="outline-container-org7451e8e" class="outline-3">
+<h3 id="org7451e8e">Theme</h3>
+<div class="outline-text-3" id="text-org7451e8e">
 <p>
 This is the only decent light theme I could find. The advantage over the default theme is that it will color a more things in more modes. The most important to me me is that it will color code blocks in org-mode
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span style="color: #b22222;">;; </span><span style="color: #b22222;">(use-package moe-theme</span>
-<span style="color: #b22222;">;;   </span><span style="color: #b22222;">:ensure t</span>
-<span style="color: #b22222;">;;   </span><span style="color: #b22222;">:config</span>
-<span style="color: #b22222;">;;   </span><span style="color: #b22222;">(moe-light)</span>
-<span style="color: #b22222;">;;   </span><span style="color: #b22222;">(set-face-attribute 'default nil :background "#ffffff" :foreground "#5f5f5f"))</span>
-(<span style="color: #a020f0;">use-package</span> <span style="color: #008b8b;">leuven-theme</span>
-  <span style="color: #483d8b;">:init</span> (<span style="color: #a020f0;">setq</span> leuven-scale-outline-headlines nil<span style="color: #999999;">)</span>
-        (<span style="color: #a020f0;">setq</span> leuven-scale-org-agenda-structure nil<span style="color: #999999;">)</span>
-  <span style="color: #483d8b;">:ensure</span> t<span style="color: #999999;">)</span>
+<pre class="src src-emacs-lisp">  <span style="color: #b22222;">;; </span><span style="color: #b22222;">(use-package moe-theme</span>
+  <span style="color: #b22222;">;;   </span><span style="color: #b22222;">:ensure t</span>
+  <span style="color: #b22222;">;;   </span><span style="color: #b22222;">:config</span>
+  <span style="color: #b22222;">;;   </span><span style="color: #b22222;">(moe-light)</span>
+  <span style="color: #b22222;">;;   </span><span style="color: #b22222;">(set-face-attribute 'default nil :background "#ffffff" :foreground "#5f5f5f"))</span>
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">(use-package leuven-theme</span>
+  <span style="color: #b22222;">;;   </span><span style="color: #b22222;">:init (setq leuven-scale-outline-headlines nil)</span>
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">   (setq leuven-scale-org-agenda-structure nil)</span>
+  <span style="color: #b22222;">;;   </span><span style="color: #b22222;">:ensure t)</span>
+(custom-theme-set-faces
+ 'user
+ '(variable-pitch ((t (<span style="color: #483d8b;">:family</span> <span style="color: #8b2252;">"ZPix"</span> <span style="color: #483d8b;">:height</span> 180 <span style="color: #483d8b;">:weight</span> light<span style="color: #999999;">))))</span>
+ '(fixed-pitch ((t ( <span style="color: #483d8b;">:family</span> <span style="color: #8b2252;">"Terminus"</span> <span style="color: #483d8b;">:slant</span> normal <span style="color: #483d8b;">:weight</span> normal <span style="color: #483d8b;">:height</span> 110<span style="color: #999999;">))))</span>
+ '(org-block ((t (<span style="color: #483d8b;">:inherit</span> fixed-pitch <span style="color: #483d8b;">:background</span> <span style="color: #8b2252;">"#FFFFEA"</span>))))) 
 
+(set-fontset-font t 'han <span style="color: #8b2252;">"Zpix"</span><span style="color: #999999;">)</span>
+(add-hook 'org-mode-hook 'variable-pitch-mode<span style="color: #999999;">)</span>
+(add-hook 'org-mode-hook 'visual-line-mode<span style="color: #999999;">)</span>
 </pre>
 </div>
 <p>
@@ -303,17 +311,17 @@ The last line makes the background white (instead of yellow)
 </p>
 </div>
 </div>
-<div id="outline-container-org91699a1" class="outline-3">
-<h3 id="org91699a1">Git</h3>
-<div class="outline-text-3" id="text-org91699a1">
+<div id="outline-container-orgbc70e76" class="outline-3">
+<h3 id="orgbc70e76">Git</h3>
+<div class="outline-text-3" id="text-orgbc70e76">
 <p>
 For using git we want to have a couple of tools
 </p>
 </div>
 </div>
-<div id="outline-container-orgbc838a2" class="outline-3">
-<h3 id="orgbc838a2">Autosave/Backup files</h3>
-<div class="outline-text-3" id="text-orgbc838a2">
+<div id="outline-container-orgd360e96" class="outline-3">
+<h3 id="orgd360e96">Autosave/Backup files</h3>
+<div class="outline-text-3" id="text-orgd360e96">
 <p>
 By default Emacs will save copies of files with a <code>~</code> appended. This ends up cluttering directories and makes any directory touched by Emacs a bit of a mess. Instead we can have Emacs save files to a central directory.
 </p>
@@ -333,9 +341,9 @@ See: <a href="https://www.emacswiki.org/emacs/BackupDirectory">https://www.emacs
 </pre>
 </div>
 </div>
-<div id="outline-container-org73785c5" class="outline-4">
-<h4 id="org73785c5">Magit</h4>
-<div class="outline-text-4" id="text-org73785c5">
+<div id="outline-container-org17079c8" class="outline-4">
+<h4 id="org17079c8">Magit</h4>
+<div class="outline-text-4" id="text-org17079c8">
 <p>
 This is the tool for inspecting and updating out git repository. It's a little complicated to use, so look up documentation for it. It is a must for development in emacs if you use <code>git</code> - so make the investment and learn to use it.
 </p>
@@ -348,9 +356,9 @@ This is the tool for inspecting and updating out git repository. It's a little c
 </div>
 </div>
 </div>
-<div id="outline-container-org3390e9e" class="outline-4">
-<h4 id="org3390e9e">Projectile</h4>
-<div class="outline-text-4" id="text-org3390e9e">
+<div id="outline-container-orgb603f94" class="outline-4">
+<h4 id="orgb603f94">Projectile</h4>
+<div class="outline-text-4" id="text-orgb603f94">
 <p>
 This will manage our workspaces. Each workspace will be tied to a git repository. This makes it so that our buffer list doesn't get really crowded when we are working on multiple projects
 </p>
@@ -368,9 +376,9 @@ I sometimes use this - and other times I just run separate emacs sessions for di
 </div>
 </div>
 
-<div id="outline-container-org32a1e9b" class="outline-3">
-<h3 id="org32a1e9b">images</h3>
-<div class="outline-text-3" id="text-org32a1e9b">
+<div id="outline-container-org363cda6" class="outline-3">
+<h3 id="org363cda6">images</h3>
+<div class="outline-text-3" id="text-org363cda6">
 <p>
 When you open a GIF, make it loop forever (instead of playing through once and stopping
 </p>
@@ -383,9 +391,9 @@ Hit <code>RET</code> to have it start playing
 </p>
 </div>
 </div>
-<div id="outline-container-orgc6dd24f" class="outline-3">
-<h3 id="orgc6dd24f">system-monitor</h3>
-<div class="outline-text-3" id="text-orgc6dd24f">
+<div id="outline-container-org8dd1cb3" class="outline-3">
+<h3 id="org8dd1cb3">system-monitor</h3>
+<div class="outline-text-3" id="text-org8dd1cb3">
 <p>
 A tiny in-bar system monitor is convenient (and doesn't need to be part of my desktop).
 </p>
@@ -400,9 +408,9 @@ A tiny in-bar system monitor is convenient (and doesn't need to be part of my de
 </div>
 </div>
 
-<div id="outline-container-org0470275" class="outline-3">
-<h3 id="org0470275">which-key</h3>
-<div class="outline-text-3" id="text-org0470275">
+<div id="outline-container-orgd75c0ea" class="outline-3">
+<h3 id="orgd75c0ea">which-key</h3>
+<div class="outline-text-3" id="text-orgd75c0ea">
 <p>
 This is gunna give us tips for different modes so we can learn new key-combos
 </p>
@@ -413,9 +421,9 @@ This is gunna give us tips for different modes so we can learn new key-combos
 </div>
 </div>
 </div>
-<div id="outline-container-org8c8804b" class="outline-3">
-<h3 id="org8c8804b">mousewheel</h3>
-<div class="outline-text-3" id="text-org8c8804b">
+<div id="outline-container-orga02b721" class="outline-3">
+<h3 id="orga02b721">mousewheel</h3>
+<div class="outline-text-3" id="text-orga02b721">
 <p>
 make scrolling in Emacs more sane
 </p>
@@ -428,9 +436,9 @@ make scrolling in Emacs more sane
 </div>
 </div>
 </div>
-<div id="outline-container-orgab58f9f" class="outline-3">
-<h3 id="orgab58f9f">eww</h3>
-<div class="outline-text-3" id="text-orgab58f9f">
+<div id="outline-container-org055067c" class="outline-3">
+<h3 id="org055067c">eww</h3>
+<div class="outline-text-3" id="text-org055067c">
 <p>
 Set links to open in the Emacs browser (then press &amp; if you need to open them in Firefox)
 </p>
@@ -441,16 +449,16 @@ Set links to open in the Emacs browser (then press &amp; if you need to open the
 </div>
 </div>
 </div>
-<div id="outline-container-org8796b1c" class="outline-2">
-<h2 id="org8796b1c">Standardizing (WIP)</h2>
-<div class="outline-text-2" id="text-org8796b1c">
+<div id="outline-container-orga44c191" class="outline-2">
+<h2 id="orga44c191">Standardizing (WIP)</h2>
+<div class="outline-text-2" id="text-orga44c191">
 <p>
 These are some changes that bring Emacs more in line with how modern applications work. Most people don't do this.. I'm giving it a try
 </p>
 </div>
-<div id="outline-container-org764432d" class="outline-3">
-<h3 id="org764432d">Overwrite selection</h3>
-<div class="outline-text-3" id="text-org764432d">
+<div id="outline-container-orgf59d385" class="outline-3">
+<h3 id="orgf59d385">Overwrite selection</h3>
+<div class="outline-text-3" id="text-orgf59d385">
 <p>
 This will make it so that if you start typing after selecting some text it will actually overwrite what you selected instead of ignoring the selection and appending to the end. See: <a href="https://www.gnu.org/software/emacs/manual/html_node/efaq/Replacing-highlighted-text.html">https://www.gnu.org/software/emacs/manual/html_node/efaq/Replacing-highlighted-text.html</a>
 </p>
@@ -460,26 +468,70 @@ This will make it so that if you start typing after selecting some text it will 
 </div>
 </div>
 </div>
-<div id="outline-container-org9f1e110" class="outline-3">
-<h3 id="org9f1e110">CUA Mode</h3>
-<div class="outline-text-3" id="text-org9f1e110">
+<div id="outline-container-orgb021b32" class="outline-3">
+<h3 id="orgb021b32">CUA Mode</h3>
+<div class="outline-text-3" id="text-orgb021b32">
 <p>
 This is the standard copy-cut-paste shortcuts that are different in Emacs by default. By restoring them to the standard <code>Ctrl C/X/V</code> it will interfere with some existing shortcuts in Emacs. So now whenever you see a <code>Ctrl C</code> You need to hit <code>Ctrl C C</code>. Off the top of my head I know this affects <code>CIDER</code> (Clojure code) and <code>orgmode</code>.
 </p>
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #b22222;">;  </span><span style="color: #b22222;">(cua-mode t)</span>
+(<span style="color: #a020f0;">use-package</span> <span style="color: #008b8b;">ergoemacs-mode</span>
+  <span style="color: #483d8b;">:ensure</span> t
+  <span style="color: #483d8b;">:config</span>
+  (<span style="color: #a020f0;">setq</span> ergoemacs-theme nil<span style="color: #999999;">)</span>
+  (<span style="color: #a020f0;">setq</span> ergoemacs-keyboard-layout <span style="color: #8b2252;">"us"</span><span style="color: #999999;">)</span>
+  (ergoemacs-mode 1<span style="color: #999999;">))</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf99e361" class="outline-3">
+<h3 id="orgf99e361">F-Key shortcuts</h3>
+<div class="outline-text-3" id="text-orgf99e361">
+<ul class="org-ul">
+<li>magit status</li>
+<li>git gutter</li>
+<li>export to html</li>
+<li>tangle file</li>
+<li>refresh/revert file</li>
+<li>launch REPL</li>
+<li id="F12">Go to Definition (VS)</li>
+<li id="F11">Step Into</li>
+<li id="F12">Step Out</li>
+<li id="F10">Step Over</li>
+<li id="F9">Toggle Breakpoint (VS)</li>
+<li id="F8">Build Selection</li>
+<li id="F7"></li>
+
+<li id="F5">Debug Start</li>
+<li id="F3">Split Window (Dolphin)</li>
+<li id="F4">Shell (Dolphin)</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(global-set-key (kbd <span style="color: #8b2252;">"&lt;f2&gt;"</span>) 'magit-status<span style="color: #999999;">)</span>
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;f3&gt;"</span>) 'magit-status<span style="color: #999999;">)</span>
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;f4&gt;"</span>) 'eshell<span style="color: #999999;">)</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">(global-set-key (kbd "&lt;f5&gt;") .....) ;; Preset to refresh the file</span>
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;f6&gt;"</span>) 'org-babel-tangle<span style="color: #999999;">)</span>
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;f7&gt;"</span>) 'org-html-export-to-html<span style="color: #999999;">)</span>
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;f8&gt;"</span>) 'eshell<span style="color: #999999;">)</span>
+<span style="color: #b22222;">;;</span><span style="color: #b22222;">(global-set-key (kbd "&lt;f9&gt;") magit-status)</span>
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;f10&gt;"</span>) 'magit-status<span style="color: #999999;">)</span>
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;f11&gt;"</span>) 'magit-status<span style="color: #999999;">)</span>
+(global-set-key (kbd <span style="color: #8b2252;">"&lt;f12&gt;"</span>) 'magit-status<span style="color: #999999;">)</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-org26c3c62" class="outline-2">
-<h2 id="org26c3c62">Orgmode</h2>
-<div class="outline-text-2" id="text-org26c3c62">
+<div id="outline-container-org8a4e019" class="outline-2">
+<h2 id="org8a4e019">Orgmode</h2>
+<div class="outline-text-2" id="text-org8a4e019">
 </div>
-<div id="outline-container-org141ba90" class="outline-3">
-<h3 id="org141ba90">Some adjustments to org-mode</h3>
-<div class="outline-text-3" id="text-org141ba90">
+<div id="outline-container-org31438a1" class="outline-3">
+<h3 id="org31438a1">Some adjustments to org-mode</h3>
+<div class="outline-text-3" id="text-org31438a1">
 <p>
 see <a href="http://howardism.org/Technical/Emacs/literate-programming-tutorial.html">here</a> for reference <br>
 </p>
@@ -490,12 +542,13 @@ see <a href="http://howardism.org/Technical/Emacs/literate-programming-tutorial.
       org-src-fontify-natively t
       org-clock-into-drawer nil
       org-export-backends (<span style="color: #a020f0;">quote</span> (ascii html latex md odt<span style="color: #999999;">))</span>
-      org-cycle-emulate-tab 'white<span style="color: #999999;">)</span>
-(<span style="color: #a020f0;">use-package</span> <span style="color: #008b8b;">htmlize</span>
-  <span style="color: #483d8b;">:ensure</span> t<span style="color: #999999;">)</span>
-<span style="color: #b22222;">;; </span><span style="color: #b22222;">(setq org-babel-default-header-args:octave '((:results . "org")</span>
-<span style="color: #b22222;">;;                                        </span><span style="color: #b22222;">(:eval . "never-export")</span>
-<span style="color: #b22222;">;;                                        </span><span style="color: #b22222;">(:exports . "both")))</span>
+      org-cycle-emulate-tab 'white
+      org-export-with-timestamps nil<span style="color: #999999;">)</span>
+  (<span style="color: #a020f0;">use-package</span> <span style="color: #008b8b;">htmlize</span>
+    <span style="color: #483d8b;">:ensure</span> t<span style="color: #999999;">)</span>
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">(setq org-babel-default-header-args:octave '((:results . "org")</span>
+  <span style="color: #b22222;">;;                                        </span><span style="color: #b22222;">(:eval . "never-export")</span>
+  <span style="color: #b22222;">;;                                        </span><span style="color: #b22222;">(:exports . "both")))</span>
 </pre>
 </div>
 <ul class="org-ul">
@@ -519,9 +572,9 @@ For more info on any of these variables, again, use <code>C-h v [variable] RET</
 </p>
 </div>
 </div>
-<div id="outline-container-orgff0205a" class="outline-3">
-<h3 id="orgff0205a">Plotting</h3>
-<div class="outline-text-3" id="text-orgff0205a">
+<div id="outline-container-org6004329" class="outline-3">
+<h3 id="org6004329">Plotting</h3>
+<div class="outline-text-3" id="text-org6004329">
 <p>
 For one of my ongoing "project" I want my ELisp code to be able to output plots. For that we need to add <code>gnuplot</code> and then <a href="https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-gnuplot.html#org66dbe2c">enable execution</a> of <code>gnuplot</code> blocks in <code>orgmode</code>. The last line lets me make plots interactively in the <code>gnuplot</code> buffer
 </p>
@@ -541,17 +594,17 @@ For one of my ongoing "project" I want my ELisp code to be able to output plots.
 </div>
 </div>
 </div>
-<div id="outline-container-orgae31b12" class="outline-2">
-<h2 id="orgae31b12">C++</h2>
-<div class="outline-text-2" id="text-orgae31b12">
+<div id="outline-container-org5ba235e" class="outline-2">
+<h2 id="org5ba235e">C++</h2>
+<div class="outline-text-2" id="text-org5ba235e">
 <p>
 Here we'll setup a development environment as feature rich as an IDE <br>
 We're going to use the new language server protocol way (instead of rtags as before). I'm just following <a href="https://github.com/cquery-project/cquery/wiki/Emacs">the official guide</a>
 </p>
 </div>
-<div id="outline-container-org0174224" class="outline-3">
-<h3 id="org0174224">lsp-mode</h3>
-<div class="outline-text-3" id="text-org0174224">
+<div id="outline-container-org0b78e3c" class="outline-3">
+<h3 id="org0b78e3c">lsp-mode</h3>
+<div class="outline-text-3" id="text-org0b78e3c">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #b22222;">;; </span><span style="color: #b22222;">(use-package lsp-mode</span>
 <span style="color: #b22222;">;;   </span><span style="color: #b22222;">:ensure t)</span>
@@ -559,9 +612,9 @@ We're going to use the new language server protocol way (instead of rtags as bef
 </div>
 </div>
 </div>
-<div id="outline-container-orgded65d3" class="outline-3">
-<h3 id="orgded65d3">emacs-cquery</h3>
-<div class="outline-text-3" id="text-orgded65d3">
+<div id="outline-container-org46eaaaf" class="outline-3">
+<h3 id="org46eaaaf">emacs-cquery</h3>
+<div class="outline-text-3" id="text-org46eaaaf">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #b22222;">;; </span><span style="color: #b22222;">(use-package emacs-cquery</span>
 <span style="color: #b22222;">;;   </span><span style="color: #b22222;">:commands lsp-cquery-enable</span>
@@ -574,9 +627,9 @@ We're going to use the new language server protocol way (instead of rtags as bef
 </div>
 </div>
 </div>
-<div id="outline-container-orgb1988d6" class="outline-2">
-<h2 id="orgb1988d6">Clojure</h2>
-<div class="outline-text-2" id="text-orgb1988d6">
+<div id="outline-container-orgd6d978c" class="outline-2">
+<h2 id="orgd6d978c">Clojure</h2>
+<div class="outline-text-2" id="text-orgd6d978c">
 <p>
 (WIP)
 Getting Clojure to play friendly with Orgmode is a bit weird. But you can sorta get it to work like ELisp, where you execute blocks within the document itself useing <code>C-c C-c</code>. You just need to open the corresponding tangled <code>.clj</code> file once, launch the REPL using <code>C-c M-J</code> and then make sure it's all loaded with <code>C-c C-k</code>. After this you don't need to really touch the tangled file anymore. You just need to change to the correct namespace in your REPL with the usual <code>(in-ns 'something.somethingelse)</code> and then you can just stick to running code blocks in the org document. The last step is crucial b/c when you run blocks in your org document they will be effectively running in whatever state your REPL is in (though the output will go to RESULTS blocks in the org document and not the REPL output/buffer). So it's a bit goofy.. b/c the org document runs are tied to the current REPL state.
@@ -603,9 +656,9 @@ Starting to play around with <code>Clojure</code>. The canonical <code>Clojure</
 </div>
 </div>
 </div>
-<div id="outline-container-org22536e6" class="outline-2">
-<h2 id="org22536e6">Fonts</h2>
-<div class="outline-text-2" id="text-org22536e6">
+<div id="outline-container-orgf332f0f" class="outline-2">
+<h2 id="orgf332f0f">Fonts</h2>
+<div class="outline-text-2" id="text-orgf332f0f">
 <p>
 Example of how to set a font from within Emacs
 </p>
@@ -616,9 +669,9 @@ Example of how to set a font from within Emacs
 </div>
 </div>
 </div>
-<div id="outline-container-org2cda1b6" class="outline-2">
-<h2 id="org2cda1b6">Bookmarks</h2>
-<div class="outline-text-2" id="text-org2cda1b6">
+<div id="outline-container-org67eff74" class="outline-2">
+<h2 id="org67eff74">Bookmarks</h2>
+<div class="outline-text-2" id="text-org67eff74">
 <p>
 Live in <code>~/.emacs.d/bookmarks</code> <br>
 Set bookmarks with =
@@ -642,9 +695,9 @@ List bookmarks
 </div>
 </div>
 
-<div id="outline-container-orgf037143" class="outline-2">
-<h2 id="orgf037143">Other notes</h2>
-<div class="outline-text-2" id="text-orgf037143">
+<div id="outline-container-orgd11371e" class="outline-2">
+<h2 id="orgd11371e">Other notes</h2>
+<div class="outline-text-2" id="text-orgd11371e">
 <ul class="org-ul">
 <li><code>C-l</code> recenter around point</li>
 <li><code>show-trailing-whitespace</code> - to display.. whitespace</li>
@@ -677,9 +730,9 @@ Autoreload files (like logs.. ones that change "under you")
 </div>
 </div>
 
-<div id="outline-container-org8bfbb6b" class="outline-2">
-<h2 id="org8bfbb6b">Help</h2>
-<div class="outline-text-2" id="text-org8bfbb6b">
+<div id="outline-container-org3ff9a4e" class="outline-2">
+<h2 id="org3ff9a4e">Help</h2>
+<div class="outline-text-2" id="text-org3ff9a4e">
 <ul class="org-ul">
 <li><code>C-h C-h</code> general help menu</li>
 <li><code>C-h a /topic/ RET</code> appropos</li>
@@ -699,9 +752,9 @@ Autoreload files (like logs.. ones that change "under you")
 </div>
 </div>
 
-<div id="outline-container-orgc1c63b7" class="outline-2">
-<h2 id="orgc1c63b7">Dired</h2>
-<div class="outline-text-2" id="text-orgc1c63b7">
+<div id="outline-container-orgaa8174f" class="outline-2">
+<h2 id="orgaa8174f">Dired</h2>
+<div class="outline-text-2" id="text-orgaa8174f">
 <ul class="org-ul">
 <li><code>C-x C-d</code> directory listing</li>
 <li><code>C-u C-x C-d</code> vebose directory listing</li>
@@ -745,9 +798,9 @@ Autoreload files (like logs.. ones that change "under you")
 </div>
 </div>
 
-<div id="outline-container-orgfc06d14" class="outline-2">
-<h2 id="orgfc06d14">GDB / GUD</h2>
-<div class="outline-text-2" id="text-orgfc06d14">
+<div id="outline-container-orgd9e951f" class="outline-2">
+<h2 id="orgd9e951f">GDB / GUD</h2>
+<div class="outline-text-2" id="text-orgd9e951f">
 <ul class="org-ul">
 <li><code>M-x gdb</code> runs the GDB graphical interface</li>
 <li><code>M-x gud-gdb</code> run GUD and GDB as a subprocess</li>
@@ -769,9 +822,9 @@ Autoreload files (like logs.. ones that change "under you")
 </div>
 </div>
 
-<div id="outline-container-orgc03e2cd" class="outline-2">
-<h2 id="orgc03e2cd">Compiling</h2>
-<div class="outline-text-2" id="text-orgc03e2cd">
+<div id="outline-container-org9afe9cf" class="outline-2">
+<h2 id="org9afe9cf">Compiling</h2>
+<div class="outline-text-2" id="text-org9afe9cf">
 <ul class="org-ul">
 <li><code>compile</code> runs the compile command (default <code>make -k</code>) in the current buffer's directory</li>
 <li><code>recompile</code> reruns compile in the previous directory</li>

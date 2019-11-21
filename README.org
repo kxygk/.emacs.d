@@ -12,6 +12,7 @@
 #+OPTIONS: num:nil
 #+OPTIONS: html-postamble:nil
 #+OPTIONS: html-scripts:nil
+#+OPTIONS: timestamp:nil
 
 * Intro
 I hope this emacs configuration file will help explain a little elisp and how to write your own. 
@@ -138,16 +139,24 @@ again, don't hesitate to look up all the variables and function. Hooks are in ge
 ** Theme
 This is the only decent light theme I could find. The advantage over the default theme is that it will color a more things in more modes. The most important to me me is that it will color code blocks in org-mode
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  ;; (use-package moe-theme
-  ;;   :ensure t
-  ;;   :config
-  ;;   (moe-light)
-  ;;   (set-face-attribute 'default nil :background "#ffffff" :foreground "#5f5f5f"))
-  (use-package leuven-theme
-    :init (setq leuven-scale-outline-headlines nil)
-	  (setq leuven-scale-org-agenda-structure nil)
-    :ensure t)
+    ;; (use-package moe-theme
+    ;;   :ensure t
+    ;;   :config
+    ;;   (moe-light)
+    ;;   (set-face-attribute 'default nil :background "#ffffff" :foreground "#5f5f5f"))
+    ;; (use-package leuven-theme
+    ;;   :init (setq leuven-scale-outline-headlines nil)
+    ;; 	(setq leuven-scale-org-agenda-structure nil)
+    ;;   :ensure t)
+  (custom-theme-set-faces
+   'user
+   '(variable-pitch ((t (:family "ZPix" :height 180 :weight light))))
+   '(fixed-pitch ((t ( :family "Terminus" :slant normal :weight normal :height 110))))
+   '(org-block ((t (:inherit fixed-pitch :background "#FFFFEA"))))) 
 
+  (set-fontset-font t 'han "Zpix")
+  (add-hook 'org-mode-hook 'variable-pitch-mode)
+  (add-hook 'org-mode-hook 'visual-line-mode)
 #+END_SRC
 The last line makes the background white (instead of yellow)
 ** Git
@@ -229,24 +238,61 @@ This will make it so that if you start typing after selecting some text it will 
 ** CUA Mode
 This is the standard copy-cut-paste shortcuts that are different in Emacs by default. By restoring them to the standard =Ctrl C/X/V= it will interfere with some existing shortcuts in Emacs. So now whenever you see a =Ctrl C= You need to hit =Ctrl C C=. Off the top of my head I know this affects =CIDER= (Clojure code) and =orgmode=.
 #+BEGIN_SRC emacs-lisp :tangle init.el
-;  (cua-mode t)
+  ;  (cua-mode t)
+  (use-package ergoemacs-mode
+    :ensure t
+    :config
+    (setq ergoemacs-theme nil)
+    (setq ergoemacs-keyboard-layout "us")
+    (ergoemacs-mode 1))
 #+END_SRC
+** F-Key shortcuts
+- magit status
+- git gutter
+- export to html
+- tangle file
+- refresh/revert file
+- launch REPL
+- F12 :: Go to Definition (VS)
+- F11 :: Step Into
+- F12 :: Step Out
+- F10 :: Step Over
+- F9 :: Toggle Breakpoint (VS)
+- F8 :: Build Selection
+- F7 ::
+- F5 :: Debug Start
+- F3 :: Split Window (Dolphin)
+- F4 :: Shell (Dolphin)
+#+BEGIN_SRC emacs-lisp :tangle init.el
+(global-set-key (kbd "<f2>") 'magit-status)
+(global-set-key (kbd "<f3>") 'magit-status)
+(global-set-key (kbd "<f4>") 'eshell)
+;; (global-set-key (kbd "<f5>") .....) ;; Preset to refresh the file
+(global-set-key (kbd "<f6>") 'org-babel-tangle)
+(global-set-key (kbd "<f7>") 'org-html-export-to-html)
+(global-set-key (kbd "<f8>") 'eshell)
+;;(global-set-key (kbd "<f9>") magit-status)
+(global-set-key (kbd "<f10>") 'magit-status)
+(global-set-key (kbd "<f11>") 'magit-status)
+(global-set-key (kbd "<f12>") 'magit-status)
+ #+END_SRC
 * Orgmode
 ** Some adjustments to org-mode
 see [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][here]] for reference \\
 #+BEGIN_SRC emacs-lisp :tangle init.el
   (setq org-confirm-babel-evaluate nil ;; don't prompt for confirmation about executing a block
-        org-src-tab-acts-natively t
-        org-use-sub-superscripts '{}
-        org-src-fontify-natively t
-        org-clock-into-drawer nil
-        org-export-backends (quote (ascii html latex md odt))
-        org-cycle-emulate-tab 'white)
-  (use-package htmlize
-    :ensure t)
-  ;; (setq org-babel-default-header-args:octave '((:results . "org")
-  ;;                                        (:eval . "never-export")
-  ;;                                        (:exports . "both")))
+	org-src-tab-acts-natively t
+	org-use-sub-superscripts '{}
+	org-src-fontify-natively t
+	org-clock-into-drawer nil
+	org-export-backends (quote (ascii html latex md odt))
+	org-cycle-emulate-tab 'white
+	org-export-with-timestamps nil)
+    (use-package htmlize
+      :ensure t)
+    ;; (setq org-babel-default-header-args:octave '((:results . "org")
+    ;;                                        (:eval . "never-export")
+    ;;                                        (:exports . "both")))
 #+END_SRC
  - Turns off the annoying "are you sure?" prompts on tangle export \\
  - Makes tabs work in the source code blocks the same as it would in a buffer with that source code \\

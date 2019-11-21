@@ -1,4 +1,3 @@
-
 (if (getenv "APPDIR") (setenv "LD_LIBRARY_PATH" nil))
 
 (menu-bar-mode -1)
@@ -63,14 +62,23 @@
 (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
 ;; (use-package moe-theme
-;;   :ensure t
-;;   :config
-;;   (moe-light)
-;;   (set-face-attribute 'default nil :background "#ffffff" :foreground "#5f5f5f"))
-(use-package leuven-theme
-  :init (setq leuven-scale-outline-headlines nil)
-        (setq leuven-scale-org-agenda-structure nil)
-  :ensure t)
+  ;;   :ensure t
+  ;;   :config
+  ;;   (moe-light)
+  ;;   (set-face-attribute 'default nil :background "#ffffff" :foreground "#5f5f5f"))
+  ;; (use-package leuven-theme
+  ;;   :init (setq leuven-scale-outline-headlines nil)
+  ;; 	(setq leuven-scale-org-agenda-structure nil)
+  ;;   :ensure t)
+(custom-theme-set-faces
+ 'user
+ '(variable-pitch ((t (:family "ZPix" :height 180 :weight light))))
+ '(fixed-pitch ((t ( :family "Terminus" :slant normal :weight normal :height 110))))
+ '(org-block ((t (:inherit fixed-pitch :background "#FFFFEA"))))) 
+
+(set-fontset-font t 'han "Zpix")
+(add-hook 'org-mode-hook 'variable-pitch-mode)
+(add-hook 'org-mode-hook 'visual-line-mode)
 
 (setq
    backup-by-copying t      ; don't clobber symlinks
@@ -111,6 +119,24 @@
 (delete-selection-mode 1)
 
 ;  (cua-mode t)
+(use-package ergoemacs-mode
+  :ensure t
+  :config
+  (setq ergoemacs-theme nil)
+  (setq ergoemacs-keyboard-layout "us")
+  (ergoemacs-mode 1))
+
+(global-set-key (kbd "<f2>") 'magit-status)
+(global-set-key (kbd "<f3>") 'magit-status)
+(global-set-key (kbd "<f4>") 'eshell)
+;; (global-set-key (kbd "<f5>") .....) ;; Preset to refresh the file
+(global-set-key (kbd "<f6>") 'org-babel-tangle)
+(global-set-key (kbd "<f7>") 'org-html-export-to-html)
+(global-set-key (kbd "<f8>") 'eshell)
+;;(global-set-key (kbd "<f9>") magit-status)
+(global-set-key (kbd "<f10>") 'magit-status)
+(global-set-key (kbd "<f11>") 'magit-status)
+(global-set-key (kbd "<f12>") 'magit-status)
 
 (setq org-confirm-babel-evaluate nil ;; don't prompt for confirmation about executing a block
       org-src-tab-acts-natively t
@@ -118,12 +144,13 @@
       org-src-fontify-natively t
       org-clock-into-drawer nil
       org-export-backends (quote (ascii html latex md odt))
-      org-cycle-emulate-tab 'white)
-(use-package htmlize
-  :ensure t)
-;; (setq org-babel-default-header-args:octave '((:results . "org")
-;;                                        (:eval . "never-export")
-;;                                        (:exports . "both")))
+      org-cycle-emulate-tab 'white
+      org-export-with-timestamps nil)
+  (use-package htmlize
+    :ensure t)
+  ;; (setq org-babel-default-header-args:octave '((:results . "org")
+  ;;                                        (:eval . "never-export")
+  ;;                                        (:exports . "both")))
 
 (use-package gnuplot
   :ensure t)
@@ -156,17 +183,3 @@
 
 ;; (set-face-attribute 'default nil :font "tewi:pixelsize=11:foundry=lucy:weight=normal:slant=normal:width=normal:spacing=110:scalable=false")
 ;; (set-frame-font "tewi:pixelsize=11:foundry=lucy:weight=normal:slant=normal:width=normal:spacing=110:scalable=false" nil t)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (cider which-key projectile parinfer magit leuven-theme htmlize gnuplot exec-path-from-shell))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
