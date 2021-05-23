@@ -47,8 +47,12 @@ Next we need to tell the package manager where to look for new packages. There i
 To look up a variable, use ~C-h v [variable] RET~
 So type ~C-h v package-archives RET~ to see what it's for
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
-                           ("melpa" . "http://elpa.emacs-china.org/melpa/")))
+  ;; (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+  ;;                          ("melpa" . "http://elpa.emacs-china.org/melpa/")))
+
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (package-initialize)
+
 #+END_SRC
 This ~C-h [something] [something]~ pattern repeats for a lot of features. To see the complete list just enter ~C-h C-h~. These key-bindings will be your way of exploring configurations you find online.
 
@@ -110,25 +114,25 @@ in ELisp it's also a bit hard to see the indentation level, so I like to add thi
 
 Trying out the very weird Parinfer mode (this code is straight copied from [[https://github.com/DogLooksGood/parinfer-mode][their github]]
 #+BEGIN_SRC emacs-lisp :tangle init.el
-  (use-package parinfer
-    :ensure t
-    :bind
-    (("C-," . parinfer-toggle-mode))
-    :init
-    (progn
-      (setq parinfer-extensions
-            '(defaults       ; should be included.
-               pretty-parens  ; different paren styles for different modes.
-               evil           ; If you use Evil.
-               lispy          ; If you use Lispy. With this extension, you should install Lispy and do not enable lispy-mode directly.
-               paredit        ; Introduce some paredit commands.
-               smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
-               smart-yank))   ; Yank behavior depend on mode.
-      (add-hook 'clojure-mode-hook #'parinfer-mode)
-      (add-hook 'emacs-lisp-mode-hook #'parinfer-mode)
-      (add-hook 'common-lisp-mode-hook #'parinfer-mode)
-      (add-hook 'scheme-mode-hook #'parinfer-mode)
-      (add-hook 'lisp-mode-hook #'parinfer-mode)))
+  ;; (use-package parinfer
+  ;;   :ensure t
+  ;;   :bind
+  ;;   (("C-," . parinfer-toggle-mode))
+  ;;   :init
+  ;;   (progn
+  ;;     (setq parinfer-extensions
+  ;;           '(defaults       ; should be included.
+  ;;              pretty-parens  ; different paren styles for different modes.
+  ;;              evil           ; If you use Evil.
+  ;;              lispy          ; If you use Lispy. With this extension, you should install Lispy and do not enable lispy-mode directly.
+  ;;              paredit        ; Introduce some paredit commands.
+  ;;              smart-tab      ; C-b & C-f jump positions and smart shift with tab & S-tab.
+  ;;              smart-yank))   ; Yank behavior depend on mode.
+  ;;     (add-hook 'clojure-mode-hook #'parinfer-mode)
+  ;;     (add-hook 'emacs-lisp-mode-hook #'parinfer-mode)
+  ;;     (add-hook 'common-lisp-mode-hook #'parinfer-mode)
+  ;;     (add-hook 'scheme-mode-hook #'parinfer-mode)
+  ;;     (add-hook 'lisp-mode-hook #'parinfer-mode)))
 #+END_SRC
 ** Line wrap
 Next we need to enable line-wrap in org mode. By default, as you keep typing the page scrolls to the right. So a whole paragraph will appear as one line making it difficult to navigate
@@ -150,84 +154,28 @@ This is the only decent light theme I could find. The advantage over the default
     ;;   :ensure t)
   (custom-theme-set-faces
    'user
-   '(variable-pitch ((t (:family "ZPix" :height 180 :weight light))))
-   '(fixed-pitch ((t ( :family "Terminus" :slant normal :weight normal :height 110))))
+   '(variable-pitch ((t (:family "unifont"))))
+   '(fixed-pitch ((t ( :family "unifont"))))
    '(org-block ((t (:inherit fixed-pitch :background "#FFFFEA"))))) 
 
-  (set-fontset-font t 'han "Zpix")
-  (add-hook 'org-mode-hook 'variable-pitch-mode)
-  (add-hook 'org-mode-hook 'visual-line-mode)
+  ;; (set-fontset-font t 'han "Zpix")
+  ;; (add-hook 'org-mode-hook 'variable-pitch-mode)
+  ;; (add-hook 'org-mode-hook 'visual-line-mode)
 #+END_SRC
 The last line makes the background white (instead of yellow)
 ** Git
 For using git we want to have a couple of tools
-** Autosave/Backup files
-By default Emacs will save copies of files with a ~~~ appended. This ends up cluttering directories and makes any directory touched by Emacs a bit of a mess. Instead we can have Emacs save files to a central directory.
 
-See: https://www.emacswiki.org/emacs/BackupDirectory and https://stackoverflow.com/questions/151945/how-do-i-control-how-emacs-makes-backup-files
+** Autocomplete
+*** Ivy
+ #+BEGIN_SRC emacs-lisp :tangle init.el
+   (use-package ivy
+     :ensure t)
+   (ivy-mode 1)
+   (setq ivy-use-virtual-buffers t)
+   (setq ivy-count-format "(%d/%d) ")
+ #+END_SRC
 
-#+BEGIN_SRC emacs-lisp :tangle init.el
-(setq
-   backup-by-copying t      ; don't clobber symlinks
-   backup-directory-alist
-    '(("." . "~/.saves/"))    ; don't litter my fs tree
-   delete-old-versions t
-   kept-new-versions 6
-   kept-old-versions 2)
-#+END_SRC
-*** Magit
-This is the tool for inspecting and updating out git repository. It's a little complicated to use, so look up documentation for it. It is a must for development in emacs if you use ~git~ - so make the investment and learn to use it.
-#+BEGIN_SRC emacs-lisp :tangle init.el
-  (use-package magit
-    :ensure t
-    :init
-    (setq magit-display-buffer-function #'magit-display-buffer-fullcolumn-most-v1))
-#+END_SRC
-*** Projectile
-This will manage our workspaces. Each workspace will be tied to a git repository. This makes it so that our buffer list doesn't get really crowded when we are working on multiple projects
-#+BEGIN_SRC emacs-lisp :tangle init.el
-  (use-package projectile
-    :ensure t
-    :config
-    (projectile-mode))
-#+END_SRC
-I sometimes use this - and other times I just run separate emacs sessions for different projects.
-
-** images
-When you open a GIF, make it loop forever (instead of playing through once and stopping
-#+BEGIN_SRC emacs-lisp :tangle init.el
-  (setq image-animate-loop t)
-#+END_SRC
-Hit ~RET~ to have it start playing
-** system-monitor
-A tiny in-bar system monitor is convenient (and doesn't need to be part of my desktop).
-#+BEGIN_SRC emacs-lisp :tangle init.el
-  ;; (use-package symon
-  ;;   :ensure t
-  ;;   :config
-  ;;   (add-to-list 'symon-monitors 'symon-linux-battery-monitor)
-  ;;   (symon-mode))
-#+END_SRC
-
-** which-key
-This is gunna give us tips for different modes so we can learn new key-combos
-#+BEGIN_SRC emacs-lisp :tangle init.el
-  (use-package which-key
-    :ensure t)
-#+END_SRC
-** mousewheel
-make scrolling in Emacs more sane
-#+BEGIN_SRC emacs-lisp :tangle init.el
-  ;(setq mouse-wheel-scroll-amount '(0.07))
-  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) 
-  (setq mouse-wheel-progressive-speed nil)
-  (setq scroll-step 1)
-#+END_SRC
-** eww
-Set links to open in the Emacs browser (then press & if you need to open them in Firefox)
-#+BEGIN_SRC emacs-lisp :tangle init.el
-;(setq browse-url-browser-function 'eww-browse-url)
-#+END_SRC
 * Standardizing (WIP)
 These are some changes that bring Emacs more in line with how modern applications work. Most people don't do this.. I'm giving it a try
 ** Overwrite selection
@@ -239,43 +187,13 @@ This will make it so that if you start typing after selecting some text it will 
 This is the standard copy-cut-paste shortcuts that are different in Emacs by default. By restoring them to the standard =Ctrl C/X/V= it will interfere with some existing shortcuts in Emacs. So now whenever you see a =Ctrl C= You need to hit =Ctrl C C=. Off the top of my head I know this affects =CIDER= (Clojure code) and =orgmode=.
 #+BEGIN_SRC emacs-lisp :tangle init.el
   ;  (cua-mode t)
-  (use-package ergoemacs-mode
-    :ensure t
-    :config
-    (setq ergoemacs-theme nil)
-    (setq ergoemacs-keyboard-layout "us")
-    (ergoemacs-mode 1))
+  ;;(use-package ergoemacs-mode
+  ;;  :ensure t
+  ;;  :config
+  ;;  (setq ergoemacs-theme nil)
+  ;;  (setq ergoemacs-keyboard-layout "us")
+  ;;  (ergoemacs-mode 1))
 #+END_SRC
-** F-Key shortcuts
-- magit status
-- git gutter
-- export to html
-- tangle file
-- refresh/revert file
-- launch REPL
-- F12 :: Go to Definition (VS)
-- F11 :: Step Into
-- F12 :: Step Out
-- F10 :: Step Over
-- F9 :: Toggle Breakpoint (VS)
-- F8 :: Build Selection
-- F7 ::
-- F5 :: Debug Start
-- F3 :: Split Window (Dolphin)
-- F4 :: Shell (Dolphin)
-#+BEGIN_SRC emacs-lisp :tangle init.el
-(global-set-key (kbd "<f2>") 'magit-status)
-(global-set-key (kbd "<f3>") 'magit-status)
-(global-set-key (kbd "<f4>") 'eshell)
-;; (global-set-key (kbd "<f5>") .....) ;; Preset to refresh the file
-(global-set-key (kbd "<f6>") 'org-babel-tangle)
-(global-set-key (kbd "<f7>") 'org-html-export-to-html)
-(global-set-key (kbd "<f8>") 'eshell)
-;;(global-set-key (kbd "<f9>") magit-status)
-(global-set-key (kbd "<f10>") 'magit-status)
-(global-set-key (kbd "<f11>") 'magit-status)
-(global-set-key (kbd "<f12>") 'magit-status)
- #+END_SRC
 * Orgmode
 ** Some adjustments to org-mode
 see [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][here]] for reference \\
@@ -290,9 +208,12 @@ see [[http://howardism.org/Technical/Emacs/literate-programming-tutorial.html][h
 	org-export-with-timestamps nil)
     (use-package htmlize
       :ensure t)
-    ;; (setq org-babel-default-header-args:octave '((:results . "org")
-    ;;                                        (:eval . "never-export")
-    ;;                                        (:exports . "both")))
+  (setq org-babel-default-header-args:octave '((:results . "org")
+					       (:session . "*Inferior Octave*")
+					       (:eval . "never-export")
+					       (:exports . "both")))
+
+  (setq org-babel-default-header-args:org '((:eval . "never")))
 #+END_SRC
  - Turns off the annoying "are you sure?" prompts on tangle export \\
  - Makes tabs work in the source code blocks the same as it would in a buffer with that source code \\
@@ -353,24 +274,147 @@ Starting to play around with ~Clojure~. The canonical ~Clojure~ development envi
     :ensure t
     :init (setq org-babel-clojure-backend 'cider))
 #+END_SRC
-# * Company
-# Next we turn on ~company~. The package that will do autocompletion for us (it standards for COMPlete ANYthing)
-# #+BEGIN_SRC emacs-lisp :tangle init.el
-#   (use-package company
-#     :config
-#     (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
-#     (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion))
-#     ;(push 'company-rtags company-backends) TODO: FIX this RTags related stuff!
-#     ;(global-company-mode)
-#     ;(define-key c-mode-base-map (kbd "<C-tab>") (function company-complete)))
-# #+END_SRC
-# looking at the documentation we see that ~push~ will take the 1st argument and add it to the beginning of the list provided in the 2nd argument. ~company-backends~ is "a list of active backends (completion engines)". ~company-rtags~ is a backend provided by the ~rtags~ guys. See the documentation for more info :)
+Add a default CIDER alias
+#+BEGIN_SRC emacs-lisp :tangle init.el
+(setq cider-clojure-cli-global-options "-A:server:client:dev")
+#+END_SRC
+*** Company
+
+ Next we turn on ~company~. The package that will do autocompletion for us (it standards for COMPlete ANYthing)
+ #+BEGIN_SRC emacs-lisp :tangle init.el
+   (use-package company
+     :config
+     (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
+     (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
+     (global-set-key (kbd "TAB") #'company-indent-or-complete-common))
+
+     ;(push 'company-rtags company-backends) TODO: FIX this RTags related stuff!
+     ;;(global-company-mode)
+ #+END_SRC
+ looking at the documentation we see that ~push~ will take the 1st argument and add it to the beginning of the list provided in the 2nd argument. ~company-backends~ is "a list of active backends (completion engines)". ~company-rtags~ is a backend provided by the ~rtags~ guys. See the documentation for more info :)
+** Autosave/Backup files
+By default Emacs will save copies of files with a ~~~ appended. This ends up cluttering directories and makes any directory touched by Emacs a bit of a mess. Instead we can have Emacs save files to a central directory.
+
+See: https://www.emacswiki.org/emacs/BackupDirectory and https://stackoverflow.com/questions/151945/how-do-i-control-how-emacs-makes-backup-files
+
+#+BEGIN_SRC emacs-lisp :tangle init.el
+(setq
+   backup-by-copying t      ; don't clobber symlinks
+   backup-directory-alist
+    '(("." . "~/.saves/"))    ; don't litter my fs tree
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2)
+#+END_SRC
+** Magit
+This is the tool for inspecting and updating out git repository. It's a little complicated to use, so look up documentation for it. It is a must for development in emacs if you use ~git~ - so make the investment and learn to use it.
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package magit
+    :ensure t
+    :init)
+  ;;  (setq magit-display-buffer-function #'magit-display-buffer-fullcolumn-most-v1))
+#+END_SRC
+** Projectile
+This will manage our workspaces. Each workspace will be tied to a git repository. This makes it so that our buffer list doesn't get really crowded when we are working on multiple projects
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package projectile
+    :ensure t
+    :config
+    (projectile-mode +1))
+
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (setq projectile-completion-system 'ivy)
+  (setq projectile-use-git-grep t)
+
+  (setq projectile-use-native-indexing t)
+  ;;(setq projectile-enable-caching t)
+  (setq projectile-git-command "/usr/bin/git ls-files -zc")
+#+END_SRC
+
+#+RESULTS:
+: t
+
+I sometimes use this - and other times I just run separate emacs sessions for different projects.
+
+** images
+When you open a GIF, make it loop forever (instead of playing through once and stopping
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (setq image-animate-loop t)
+#+END_SRC
+Hit ~RET~ to have it start playing
+** system-monitor
+A tiny in-bar system monitor is convenient (and doesn't need to be part of my desktop).
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  ;; (use-package symon
+  ;;   :ensure t
+  ;;   :config
+  ;;   (add-to-list 'symon-monitors 'symon-linux-battery-monitor)
+  ;;   (symon-mode))
+#+END_SRC
+
+** which-key
+This is gunna give us tips for different modes so we can learn new key-combos
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  (use-package which-key
+    :ensure t)
+#+END_SRC
+** mousewheel
+make scrolling in Emacs more sane
+#+BEGIN_SRC emacs-lisp :tangle init.el
+  ;(setq mouse-wheel-scroll-amount '(0.07))
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+  (setq mouse-wheel-progressive-speed nil)
+  (setq scroll-step 1)
+#+END_SRC
+** eww
+Set links to open in the Emacs browser (then press & if you need to open them in Firefox)
+#+BEGIN_SRC emacs-lisp :tangle init.el
+;(setq browse-url-browser-function 'eww-browse-url)
+#+END_SRC
+
 * Fonts
 Example of how to set a font from within Emacs
 #+BEGIN_SRC emacs-lisp :tangle init.el
   ;; (set-face-attribute 'default nil :font "tewi:pixelsize=11:foundry=lucy:weight=normal:slant=normal:width=normal:spacing=110:scalable=false")
   ;; (set-frame-font "tewi:pixelsize=11:foundry=lucy:weight=normal:slant=normal:width=normal:spacing=110:scalable=false" nil t)
 #+END_SRC
+* KeyBindings
+** F-Key shortcuts
+- magit status
+- git gutter
+- export to html
+- tangle file
+- refresh/revert file
+- launch REPL
+- F12 :: Go to Definition (VS)
+- F11 :: Step Into
+- F12 :: Step Out
+- F10 :: Step Over
+- F9 :: Toggle Breakpoint (VS)
+- F8 :: Build Selection
+- F7 ::
+- F5 :: Debug Start
+- F3 :: Split Window (Dolphin)
+- F4 :: Shell (Dolphin)
+#+BEGIN_SRC emacs-lisp :tangle init.el
+(global-set-key (kbd "<f2>") 'magit-status)
+(global-set-key (kbd "<f3>") 'cider-browse-ns)
+(global-set-key (kbd "<f4>") 'eshell)
+(setq display-buffer-alist '(("\\`\\*e?shell" display-buffer-use-some-window)))
+(global-set-key (kbd "<f5>") 'calendar)
+(global-set-key (kbd "<f6>") 'org-babel-tangle)
+(global-set-key (kbd "<f7>") 'org-html-export-to-html)
+(global-set-key (kbd "<f8>") 'eshell)
+(global-set-key (kbd "<f9>") 'cider-jack-in)
+(global-set-key (kbd "<f10>") 'cider-xref-fn-refs)
+(global-set-key (kbd "<f11>") 'cider-browse-ns-all)
+(global-set-key (kbd "<f12>") ''cider-enlighten-mode)
+ #+END_SRC
+
+ #+RESULTS:
+ | quote | cider-enlighten-mode |
+
 * Bookmarks
 Live in =~/.emacs.d/bookmarks= \\
 Set bookmarks with =
@@ -390,18 +434,6 @@ List bookmarks
 "Save As"
 - ~C-x C-w~
 Autoreload files (like logs.. ones that change "under you")
-- ~revert-buffer~
-- ~auto-revert-mode~ (reverts every 5 seconds)
-- ~auto-revert-tail-mode~
-
-- ~C-<~ top
-- ~C->~ bottom of buffer
-
-- ~C-x ESC ESC~ rerun last minibuffer command
-
-- ~C-/~ undo
-- ~C-u C-/~ undo undo
-
 * Help
 - ~C-h C-h~ general help menu
 - ~C-h a /topic/ RET~ appropos
@@ -451,6 +483,7 @@ Autoreload files (like logs.. ones that change "under you")
 - ~!~ run shell command
 - ~&~ same but async
 - ~I~ insert file (empty)
+- ~)~ Hide details (we turn on by default)
 
 - =~= go "up" a directory (like ~..~)
 - ~/host:filename~
