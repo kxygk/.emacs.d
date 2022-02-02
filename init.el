@@ -145,7 +145,7 @@
 
 (setq org-fontify-whole-heading-line t)
 
-
+(set-face-attribute 'default nil :font "unifont 12" )
 (custom-theme-set-faces
  'user
  '(variable-pitch ((t (:family "unifont"))))
