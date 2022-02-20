@@ -227,6 +227,9 @@
   :ensure t
   :init (setq org-babel-clojure-backend 'cider))
 
+;; https://docs.cider.mx/cider/config/indentation.html
+(setq clojure-indent-style 'align-arguments)
+
 (setq cider-clojure-cli-global-options "-J--add-opens=java.base/jdk.internal.ref=ALL-UNNAMED -J--add-opens=java.base/sun.nio.ch=ALL-UNNAMED -A:server:client:dev -J-XX:-OmitStackTraceInFastThrow")
 
 ;; (use-package company
