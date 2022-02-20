@@ -189,6 +189,8 @@
                                              (:eval . "never-export")
                                              (:exports . "both")))
 
+(setq org-src-window-setup 'current-window)
+
 (setq org-babel-default-header-args:org '((:eval . "never")))
 
 (use-package gnuplot
