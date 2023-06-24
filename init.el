@@ -40,9 +40,17 @@
 ;  (setq c-basic-offset 4)
 
 ;; (use-package indent-guide
-;;    :ensure t
-;;    :config
-;;   (indent-guide-global-mode))
+;;     :ensure t
+;;     :config
+;;    (indent-guide-global-mode))
+
+;; https://github.com/DarthFennec/highlight-indent-guides
+(use-package highlight-indent-guides
+  :ensure t
+  :config
+  (setq highlight-indent-guides-method 'bitmap)
+  (add-hook 'clojure-mode-hook 'highlight-indent-guides-mode)
+  (highlight-indent-guides-mode))
 
 ;; ;; (use-package parinfer
 ;; ;;   :ensure t
