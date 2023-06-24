@@ -419,9 +419,9 @@
             ))
 ;; (global-set-key (kbd "<f12>") 'cider-enlighten-mode)
 
-(add-hook 'org-src-mode-hook
-          (lambda ()
-            (local-set-key (kbd "<f11>") 'org-edit-src-exit)))
+;;(add-hook 'org-src-mode-hook
+;;          (lambda ()
+;;            (local-set-key (kbd "<f11>") 'org-edit-src-exit)))
 
 
 
