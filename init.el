@@ -1,9 +1,9 @@
 (if (getenv "APPDIR") (setenv "LD_LIBRARY_PATH" nil))
 
-
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+(if 'x
+    (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1))
 
 (require 'package)
 ;;(package-initialize)
@@ -29,6 +29,7 @@
 ;;    (setq auto-package-update-delete-old-versions t
 ;;          auto-package-update-interval 4)
 ;;    (auto-package-update-maybe))
+
 
 (use-package exec-path-from-shell
   :ensure t
