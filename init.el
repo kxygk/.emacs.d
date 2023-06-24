@@ -232,15 +232,19 @@
 ;;(require 'ob-clj)
 (setq org-babel-clojure-backend 'cider)
 (setq ob-clojure-literate-auto-jackin-p t)
+(setq cider-save-file-on-load 't)
 
 (use-package cider
   :ensure t
   :init (setq org-babel-clojure-backend 'cider))
 
+(setq-default cider-show-error-buffer nil)
+
 ;; https://docs.cider.mx/cider/config/indentation.html
 (setq clojure-indent-style 'align-arguments)
+(setq clojure-align-forms-automatically t)
 
-(setq cider-clojure-cli-global-options "-J--add-opens=java.base/jdk.internal.ref=ALL-UNNAMED -J--add-opens=java.base/sun.nio.ch=ALL-UNNAMED -A:server:client:dev -J-XX:-OmitStackTraceInFastThrow")
+(setq cider-clojure-cli-global-options "-A:reveal -J--add-opens=java.base/jdk.internal.ref=ALL-UNNAMED -J--add-opens=java.base/sun.nio.ch=ALL-UNNAMED -A:server:client:dev -J-XX:-OmitStackTraceInFastThrow")
 
 ;; (use-package company
 ;;   :ensure t
@@ -349,8 +353,8 @@
 (global-set-key (kbd "<f7>") 'org-html-export-to-html)
 (global-set-key (kbd "<f8>") 'cider-inspect)
 (global-set-key (kbd "<f9>") 'cider-jack-in)
+(global-set-key (kbd "<f10>") 'cider-eval-buffer)
 ;;(global-set-key (kbd "<f10>") 'cider-xref-fn-refs)
-(global-set-key (kbd "<f10>") 'org-babel-execute-buffer)
 (global-set-key (kbd "<f11>") 'org-edit-special)
 ;;(define-key org-mode-map "<f11>" 'org-edit-special)
 
@@ -397,14 +401,18 @@
             (local-set-key (kbd "C-q") 'org-ctrl-c-ctrl-c)
             (local-set-key (kbd "C-e") 'org-ctrl-c-ctrl-c)
             (local-set-key (kbd "C-M-s") 'org-insert-structure-template)
+	    (local-set-key (kbd "<f10>") 'org-babel-execute-buffer)
             (local-set-key (kbd "<f11>") 'org-edit-special)
-            (local-set-key [end] 'end-of-line)
+;;            (local-set-key [end] 'end-of-line)
             ))
 
 (add-hook 'clojure-mode-hook
           (lambda ()
             (local-set-key (kbd "C-d") 'cider-doc)
             (local-set-key (kbd "C-e") 'cider-eval-defun-at-point)
+            (local-set-key
+	     (kbd "C-S-e") (kbd "C-u 1 C-c C-v C-f d"))
+	    ;;            (local-set-key (kbd "C-i") (kbd C-u C-c C-p))
             (local-set-key (kbd "C-q") 'cider-eval-defun-at-point)
             (local-set-key (kbd "<f10>") 'cider-eval-buffer)
             ;;(local-set-key (kbd "<f11>") 'org-edit-src-exit)
