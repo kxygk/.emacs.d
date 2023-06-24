@@ -113,13 +113,14 @@
 ;; .. but not as good ..
 
 (set-face-foreground 'font-lock-function-name-face "black")
+(set-face-background 'font-lock-function-name-face "whitesmoke")
 (set-face-foreground 'font-lock-variable-name-face "black")
 (set-face-foreground 'font-lock-keyword-face "black")
 (set-face-foreground 'font-lock-type-face "black")
-(set-face-foreground 'font-lock-constant-face "blue") ;;blue
+(set-face-foreground 'font-lock-constant-face "dimgray") ;;blue
 (set-face-foreground 'font-lock-builtin-face "black")
 (set-face-foreground 'font-lock-string-face "black")
-(setq my-red "red") ;;#ff6666
+(setq my-red "darkred") ;;#ff6666
 (set-face-foreground 'font-lock-comment-face my-red) ;; doesn't seem to work on the console
 (set-face-foreground 'font-lock-comment-delimiter-face my-red)
 (set-face-foreground 'font-lock-warning-face my-red)
