@@ -240,7 +240,7 @@
   :ensure t
   :init (setq org-babel-clojure-backend 'cider))
 
-(setq-default cider-show-error-buffer nil)
+(setq-default cider-show-error-buffer t)
 
 ;; https://docs.cider.mx/cider/config/indentation.html
 (setq clojure-indent-style 'align-arguments)
