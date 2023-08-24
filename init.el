@@ -126,6 +126,7 @@
 (set-face-foreground 'font-lock-warning-face my-red)
 (set-face-foreground 'font-lock-doc-face my-red)
 
+(set-background-color "#f5f5ff")
 (set-face-attribute 'region nil :background "gray")
 
 ;; (custom-set-faces
