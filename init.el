@@ -143,7 +143,8 @@
 ;;  '(org-level-3 ((t (:inherit header-line :height 1.0))))
 ;;  '(variable-pitch ((t (:family "unifont")))))
 
-
+;; make things not break the layout constantly
+(setq display-buffer-base-action '(display-buffer-same-window))
 
 ;; Original "golden ratio" colors:
 ;; '(0 0 0 0 1 1 2 3 5 9 14 23 37 60 97 97 158 158 195 218 232 241 246 250 252 253 254 254 255 255 255 255)
