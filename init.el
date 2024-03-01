@@ -115,7 +115,7 @@
 ;; .. but not as good ..
 
 (set-face-foreground 'font-lock-function-name-face "black")
-(set-face-background 'font-lock-function-name-face "whitesmoke")
+(set-face-background 'font-lock-function-name-face "white")
 (set-face-foreground 'font-lock-variable-name-face "black")
 (set-face-foreground 'font-lock-keyword-face "black")
 (set-face-foreground 'font-lock-type-face "black")
@@ -128,8 +128,12 @@
 (set-face-foreground 'font-lock-warning-face my-red)
 (set-face-foreground 'font-lock-doc-face my-red)
 
-(set-background-color "#f5f5ff")
-(set-face-attribute 'region nil :background "gray")
+(set-background-color "white")
+(set-background-color "white")
+
+;;(set-background-color "#f5f5ff")
+;;(set-background-color "#edf5e2")
+(set-face-attribute 'region nil :background "whitesmoke")
 
 ;; (custom-set-faces
 ;;  ;; custom-set-faces was added by Custom.
