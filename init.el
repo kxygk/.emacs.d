@@ -351,6 +351,17 @@
 
 ;;(setq ergoemacs-ignore-prev-global nil)
 
+;;(use-package adoc-mode
+;  :ensure t)
+
+(defun asciidoctor-on-current-buffers-file ()
+  "run a command on the current file and revert the buffer"
+  (interactive)
+  (shell-command
+   (format "asciidoctor %s"
+       (shell-quote-argument (buffer-file-name))))
+  (revert-buffer t t t))
+(global-set-key (kbd "<f6>") 'asciidoctor-on-current-buffers-file)
 
 (global-set-key (kbd "<f2>") 'magit-status)
 (global-set-key (kbd "<f3>") 'cider-browse-ns)
