@@ -8,10 +8,12 @@
 (require 'package)
 ;;(package-initialize)
 
-;; (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
-;;                           ("melpa" . "http://elpa.emacs-china.org/melpa/")))
+ ;; (setq package-archives '(("gnu"   . "http://1.15.88.122/gnu/")
+ ;;                          ("melpa" . "http://1.15.88.122/melpa/")))
 
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+
+;;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
 (setq
