@@ -173,6 +173,14 @@
                 font-lock-variable-name-face))
   (set-face-foreground face "black"))
 
+(dolist (face '(cider-repl-stdout-face
+                cider-repl-input-face
+                cider-result-overlay-face))
+  (set-face-attribute face nil :foreground "black"))
+;; Specifically for the error/stderr output if you want that black too
+;; (Default is usually red or bold)
+(set-face-attribute 'cider-repl-stderr-face nil :foreground "#E6005A")
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
