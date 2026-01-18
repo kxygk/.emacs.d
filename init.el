@@ -158,6 +158,11 @@
 (set-face-attribute 'default nil :background "white" :foreground "black" :font "Unifont 12")
 (set-face-attribute 'region nil :background "whitesmoke")
 
+;; If you want the specific Black and White Blobs
+(let ((font (font-spec :font "Unifont 12")))
+  (set-fontset-font t 'emoji font nil 'prepend)
+  (set-fontset-font t 'symbol font nil 'prepend))
+
 (let ((my-red "#E6005A"))
   (set-face-foreground 'font-lock-comment-face my-red)
   (set-face-foreground 'font-lock-comment-delimiter-face my-red)
