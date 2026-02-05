@@ -124,20 +124,49 @@
    'org-babel-load-languages '((gnuplot . t) (octave . t) (clojure . t))))
 
 ;; --- Clojure ---
+(defun my/deep-dive-doc ()
+  "Lookup detailed ClojureDocs or Offline Javadocs.
+Handles Java 9+ modules and JavaFX local paths."
+  (interactive)
+  (let ((sym (cider-symbol-at-point)))
+    (cond
+     ;; 1. Handle JavaFX
+     ((and sym (string-match-p "^javafx" sym))
+      (let* ((path (replace-regexp-in-string "\\." "/" sym))
+             (url (concat "file:///usr/share/doc/libopenjfx-java/api/" path ".html")))
+        (browse-url url)))
+     ;; 2. Handle Standard Java (with java.base module injection)
+     ((and sym (string-match-p "\\(?:^java\\|^javax\\|\\/\\)" sym))
+      (let* ((clean-sym (car (split-string sym "/")))
+             (path (replace-regexp-in-string "\\." "/" clean-sym))
+             ;; Most common classes reside in java.base.
+             ;; We prepend it to match the OpenJDK 21 directory structure.
+             (module (if (string-match-p "^java\\.\\(lang\\|io\\|util\\|net\\|nio\\|math\\|security\\|text\\|time\\)"
+                                         clean-sym)
+                         "java.base/"
+                       "")))
+        (browse-url (concat "file:///usr/share/doc/openjdk-21-doc/api/" module path ".html"))))
+     ;; 3. Fallback to ClojureDocs for everything else
+     (t (cider-clojuredocs)))))
+
 (use-package cider
   :init (setq org-babel-clojure-backend 'cider)
+  :bind (:map cider-mode-map
+              ("C-e" . cider-eval-defun-at-point)
+              ("C-S-e" . cider-eval-print-last-sexp) ; <--- YOUR NEW SHORTCUT
+              ("C-d" . cider-doc)
+              ("C-S-d" . my/deep-dive-doc)
+              ("<f10>" . cider-eval-buffer))
   :config
   (setq cider-save-file-on-load t
         cider-show-error-buffer t
         clojure-indent-style 'align-arguments
         clojure-align-forms-automatically t
-        ob-clojure-literate-auto-jackin-p t)
-  :hook (clojure-mode . (lambda ()
-                          (flycheck-mode 1)
-                          (local-set-key (kbd "C-d") 'cider-clojuredocs)
-                          (local-set-key (kbd "C-e") 'cider-eval-defun-at-point)
-                          (local-set-key (kbd "C-q") 'cider-eval-defun-at-point)
-                          (local-set-key (kbd "<f10>") 'cider-eval-buffer))))
+        ob-clojure-literate-auto-jackin-p t
+        cider-javadoc-handler #'browse-url
+        cider-jdk-javadoc-url "file:///usr/share/doc/openjdk-21-doc/api/"
+        cider-javadoc-map '(("javafx" . "file:///usr/share/doc/libopenjfx-java/api/")))
+  :hook (clojure-mode . flycheck-mode))
 
 ;; --- Global Keybindings ---
 (global-set-key (kbd "C-w") 'kill-current-buffer)
