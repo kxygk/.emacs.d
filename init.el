@@ -59,21 +59,37 @@
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode)
-  :config
-  ;; 1. Define the checker manually to ensure it maps to clojure-mode
-  (flycheck-define-checker clojure-kondo
-    "A Clojure syntax checker using clj-kondo."
-    :command ("clj-kondo" "--lint" source-inplace)
-    :error-patterns
-    ((warning line-start (file-name) ":" line ":" column ": warning: " (message) line-end)
-     (error line-start (file-name) ":" line ":" column ": error: " (message) line-end))
-    :modes (clojure-mode clojurescript-mode clojurec-mode))
+  :config (set-face-attribute 'flycheck-error nil :underline '(:style wave :color "#E6005A")))
 
-  ;; 2. Force it into the list of active checkers
-  (add-to-list 'flycheck-checkers 'clojure-kondo)
-  
-  ;; 3. Make the errors look right on your OLED
-  (set-face-attribute 'flycheck-error nil :underline '(:style wave :color "#E6005A")))
+(use-package flycheck-clj-kondo
+  :ensure t)
+
+(use-package clojure-mode
+  :ensure t
+  :config
+  ;; 1. Original Flycheck Integration
+  (require 'flycheck-clj-kondo))
+
+;;(use-package flycheck
+;  :ensure t
+;  :init (global-flycheck-mode)
+;  :config
+;  ;; 1. Define the checker with project-root awareness
+;  (flycheck-define-checker clojure-kondo
+;    "A Clojure syntax checker using clj-kondo."
+;    :command ("clj-kondo" "--lint" source)
+;    :error-patterns
+;    ((warning line-start (file-name) ":" line ":" column ": warning: " (message) line-end)
+;     (error line-start (file-name) ":" line ":" column ": error: " (message) line-end))
+;    :modes (clojure-mode clojurescript-mode clojurec-mode)
+;    ;; This line ensures clj-kondo is standing in the right place
+;    :working-directory (lambda (checker) (clojure-project-dir)))
+;
+;  ;; 2. Force it into the list of active checkers
+;  (add-to-list 'flycheck-checkers 'clojure-kondo)
+;  
+;  ;; 3. Make the errors look right on your OLED
+;;  (set-face-attribute 'flycheck-error nil :underline '(:style wave :color "#E6005A")))
 
 ;; --- Semantic Linefeed Logic ---
 ;; not yet working
@@ -156,27 +172,45 @@
 
 ;; --- Monochrome Syntax & OLED Red ---
 (set-face-attribute 'default nil :background "white" :foreground "black" :font "Unifont 12")
-(set-face-attribute 'region nil :background "whitesmoke")
+(set-face-attribute 'region nil :background "lightgray")
 
 ;; If you want the specific Black and White Blobs
-(let ((font (font-spec :font "Unifont 12")))
+(let ((font (font-spec :font "Noto Emoji")))
   (set-fontset-font t 'emoji font nil 'prepend)
   (set-fontset-font t 'symbol font nil 'prepend))
+(set-fontset-font t 'emoji (font-spec :family "Noto Emoji") nil 'prepend)
 
-(let ((my-red "#E6005A"))
-  (set-face-foreground 'font-lock-comment-face my-red)
-  (set-face-foreground 'font-lock-comment-delimiter-face my-red)
-  (set-face-foreground 'font-lock-string-face my-red)
-  (set-face-foreground 'font-lock-doc-face my-red)
+;; --- UI & Syntax Colors ---
+
+(let ((my-red "#E6005A")
+      (string-bg "#efefef"))
+
+  ;; 1. Normal Strings: Black text with a light grey background
+  (set-face-attribute 'font-lock-string-face nil 
+                      :foreground "black" 
+                      :background string-bg 
+                      :extend t)
+
+  ;; 2. Docstrings: Red text, NO background
+  ;; We set :inherit nil to ensure it doesn't pick up the string-bg
+  (set-face-attribute 'font-lock-doc-face nil 
+                      :foreground my-red 
+                      :background 'unspecified 
+                      :inherit nil)
+
+  ;; 3. Comments: Red text
+  (set-face-attribute 'font-lock-comment-face nil :foreground my-red :background 'unspecified)
+  (set-face-attribute 'font-lock-comment-delimiter-face nil :foreground my-red :background 'unspecified)
+
+  ;; 4. Reset other syntax to black
+  (dolist (face '(font-lock-builtin-face
+                  font-lock-constant-face
+                  font-lock-function-name-face
+                  font-lock-keyword-face
+                  font-lock-type-face
+                  font-lock-variable-name-face))
+    (set-face-foreground face "black"))
   (set-face-foreground 'font-lock-warning-face my-red))
-
-(dolist (face '(font-lock-builtin-face
-                font-lock-constant-face
-                font-lock-function-name-face
-                font-lock-keyword-face
-                font-lock-type-face
-                font-lock-variable-name-face))
-  (set-face-foreground face "black"))
 
 (dolist (face '(cider-repl-stdout-face
                 cider-repl-input-face
